@@ -14,7 +14,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button (click)="onSave()" [disabled]="saving || nameControl.invalid || nameControl.pending">
-    Save {{ nameControl.pending }}
+    Save
   </button>
   <button mat-button [mat-dialog-close]="null" [disabled]="saving">Close</button>
 </mat-dialog-actions>
