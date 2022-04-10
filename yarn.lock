@@ -1523,6 +1523,14 @@
   resolved "https://registry.yarnpkg.com/@socket.io/base64-arraybuffer/-/base64-arraybuffer-1.0.2.tgz#568d9beae00b0d835f4f8c53fd55714986492e61"
   integrity sha512-dOlCBKnDw4iShaIsH/bxujKTM18+2TOAsYz+KSc11Am38H4q5Xw8Bbz97ZYdrVNM+um3p7w86Bvvmcn9q+5+eQ==
 
+"@stlmpp/router@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@stlmpp/router/-/router-9.0.0.tgz#5caa08d5c2e7b4979f23f55d45a8a8c866032ad6"
+  integrity sha512-Jyi8CHUbFfbg+f6mgp8kXtejp6BUiPmJqpV6i+59sYtTbb5aRqXbZZ0AA98+toh8tV02L/izTUTwR7U1rYeYmw==
+  dependencies:
+    st-utils "~2.4.1"
+    tslib "~2.3.1"
+
 "@stlmpp/utils@^9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@stlmpp/utils/-/utils-9.0.0.tgz#67f78bad19571d28149f6b44d10a161ee9f1c7e8"

@@ -1,8 +1,16 @@
 <mat-toolbar>
   <span>Emp</span>
   <span class="spacer"></span>
-  <button mat-button>
-    User
-    <!--TODO-->
-  </button>
+  <a
+    mat-button
+    *ngLet="idUser$ | async as idUser"
+    routerLink="/"
+    (mouseover)="isMouseOver = true"
+    (mouseout)="isMouseOver = false"
+  >
+    <ng-container *ngIf="isMouseOver && idUser; else mouseNotOver"> Change user </ng-container>
+    <ng-template #mouseNotOver>
+      {{ idUser ?? 'Select a user' }}
+    </ng-template>
+  </a>
 </mat-toolbar>
