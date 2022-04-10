@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'variables' as var;
 
 html,
 body {
@@ -13,16 +14,19 @@ body {
 }
 
 @include mat.core();
+@include mat.all-component-themes(var.$theme);
 
-$primary: mat.define-palette(mat.$pink-palette);
-$accent: mat.define-palette(mat.$blue-gray-palette);
-$theme: mat.define-dark-theme(
-  (
-    color: (
-      primary: $primary,
-      accent: $accent,
-    ),
-  )
-);
+.mat-progress-bar.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
-@include mat.all-component-themes($theme);
+.mat-dialog-container {
+  position: relative;
+}
+
+.mat-form-field {
+  width: 100%;
+}

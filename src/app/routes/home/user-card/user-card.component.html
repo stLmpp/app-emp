@@ -1,0 +1,7 @@
+<a [routerLink]="['user', name]">
+  <mat-card mat-ripple>
+    <div class="name">{{ name }}</div>
+    <div class="total-to-receive">{{ totalToReceive | currency: 'R$' }}</div>
+    <div class="last-date-received">{{ lastReceivedDate | date }}</div>
+  </mat-card>
+</a>
