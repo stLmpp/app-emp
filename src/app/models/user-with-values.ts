@@ -3,5 +3,4 @@ export interface UserWithValues {
   totalToReceive: number;
   totalReceived: number;
   total: number;
-  lastDateReceived: Date;
 }

@@ -3,7 +3,6 @@
     *ngFor="let user of users; trackBy: trackByUser"
     [name]="user.id"
     [totalToReceive]="user.totalToReceive"
-    [lastReceivedDate]="user.lastDateReceived"
   ></app-user-card>
   <app-user-card-new (userCreated)="onUserCreated($event)"></app-user-card-new>
 </div>

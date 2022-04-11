@@ -9,5 +9,14 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class UserCardComponent {
   @Input() name!: string;
   @Input() totalToReceive!: number;
-  @Input() lastReceivedDate!: Date;
+
+  onEdit($event: MouseEvent): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
+
+  onDelete($event: MouseEvent): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+  }
 }

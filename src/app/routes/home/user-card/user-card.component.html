@@ -2,6 +2,13 @@
   <mat-card mat-ripple>
     <div class="name">{{ name }}</div>
     <div class="total-to-receive">{{ totalToReceive | currency: 'R$' }}</div>
-    <div class="last-date-received">{{ lastReceivedDate | date }}</div>
+    <div class="actions">
+      <button mat-icon-button (click)="onEdit($event)" (mousedown)="$event.stopPropagation()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onDelete($event)" (mousedown)="$event.stopPropagation()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </mat-card>
 </a>
