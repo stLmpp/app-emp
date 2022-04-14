@@ -32,8 +32,9 @@ export class NewUserModalComponent {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(30),
-      Validators.pattern(/^[a-zA-Z][-_a-zA-Z0-9]{1,28}[a-zA-Z0-9]$/),
+      Validators.pattern(/^[a-zA-Z][-_a-zA-Z\d]{1,28}[a-zA-Z\d]$/),
     ],
+    initialValueIsDefault: true,
   });
 
   saving = false;
