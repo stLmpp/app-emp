@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, NgModule, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog/dialog-ref';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { finalize, isObservable, Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { isFunction, isString } from 'st-utils';
@@ -23,7 +22,9 @@ export class ConfirmDialogComponent implements OnDestroy {
     @Inject(MAT_DIALOG_DATA) public readonly data: ConfirmDialogOptions,
     private readonly changeDetectorRef: ChangeDetectorRef
   ) {
-    this.buttons = (data.buttons ?? []).map(button => (isString(button) ? { title: button, action: false } : button));
+    this.buttons = (data.buttons ?? ['Close']).map(button =>
+      isString(button) ? { title: button, action: false } : button
+    );
     this._disableClose = this.matDialogRef.disableClose;
   }
 
@@ -50,7 +51,7 @@ export class ConfirmDialogComponent implements OnDestroy {
           this.changeDetectorRef.markForCheck();
         }),
         tap(() => {
-          this.matDialogRef.close();
+          this.matDialogRef.close(true);
         })
       )
       .subscribe();

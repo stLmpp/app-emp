@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgModule } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -26,30 +26,37 @@ export class NewUserModalComponent {
     private readonly uniqueUserIdValidatorFactory: UniqueUserIdValidatorFactory
   ) {}
 
-  readonly nameControl = new FormControl('', {
-    asyncValidators: [this.uniqueUserIdValidatorFactory.create(this.changeDetectorRef)],
-    validators: [
-      Validators.required,
-      Validators.minLength(3),
-      Validators.maxLength(30),
-      Validators.pattern(/^[a-zA-Z][-_a-zA-Z\d]{1,28}[a-zA-Z\d]$/),
-    ],
-    initialValueIsDefault: true,
+  readonly form = new FormGroup({
+    name: new FormControl('', {
+      asyncValidators: [this.uniqueUserIdValidatorFactory.create(this.changeDetectorRef)],
+      validators: [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30),
+        Validators.pattern(/^[a-zA-Z][-_a-zA-Z\d]{1,28}[a-zA-Z\d]$/),
+      ],
+      initialValueIsDefault: true,
+    }),
   });
+  readonly nameControl = this.form.controls.name;
 
   saving = false;
 
   onSave(): void {
+    if (this.form.invalid) {
+      return;
+    }
     this.matDialogRef.disableClose = true;
     this.saving = true;
-    this.nameControl.disable();
+    this.form.disable();
+    const formValue = this.form.getRawValue();
     this.userService
-      .create({ id: this.nameControl.value })
+      .create({ id: formValue.name })
       .pipe(
         finalize(() => {
           this.matDialogRef.disableClose = false;
           this.saving = false;
-          this.nameControl.enable();
+          this.form.enable();
           this.changeDetectorRef.markForCheck();
         })
       )

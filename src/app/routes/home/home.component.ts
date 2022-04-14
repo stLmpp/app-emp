@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { arrayUtil } from 'st-utils';
 
 import { RouteDataEnum } from '../../models/route-data.enum';
 import { User } from '../../models/user';
@@ -19,6 +20,12 @@ export class HomeComponent {
   users: readonly UserWithValues[] = this.activatedRoute.snapshot.data[RouteDataEnum.usersWithValues];
 
   onUserCreated($event: User): void {
-    this.users = [...this.users, { ...$event, total: 0, totalReceived: 0, totalToReceive: 0 }];
+    this.users = arrayUtil(this.users, 'id')
+      .append({ ...$event, total: 0, totalReceived: 0, totalToReceive: 0 })
+      .toArray();
+  }
+
+  onUserDeleted($event: User): void {
+    this.users = arrayUtil(this.users, 'id').remove($event.id).toArray();
   }
 }

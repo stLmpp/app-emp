@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog/dialog-ref';
 import { Observable } from 'rxjs';
 
 import { ModalService } from '../../services/modal.service';
 
-import { ConfirmDialogComponent } from './confirm-dialog.component';
+import type { ConfirmDialogComponent } from './confirm-dialog.component';
 
 export type ConfirmDialogRef = MatDialogRef<ConfirmDialogComponent, boolean>;
 
@@ -22,7 +22,7 @@ export interface ConfirmDialogOptions {
   buttons?: Array<ConfirmDialogButton | string>;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: MatDialogModule })
 export class ConfirmDialogService {
   constructor(private readonly modalService: ModalService) {}
 

@@ -3721,6 +3721,11 @@ fast-sort@~3.0.2:
   resolved "https://registry.yarnpkg.com/fast-sort/-/fast-sort-3.0.3.tgz#f3f61561ebf8625672f4b2c652816e92d6273158"
   integrity sha512-8O5/zuAd0caOZ8ray+uCBLP2FQiShC0whpsAKrn9JcluJRyV/XopSO+u2hYwGf1g0VvpYbnD3ZM/Jqp07AEIhQ==
 
+fast-sort@~3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/fast-sort/-/fast-sort-3.1.3.tgz#e4a57ec3b02d994b6bc00f8ba51eceea86c57246"
+  integrity sha512-DFD9n2nZVfJljjRaEN94SnIvUoSW2wpCdS2LC95iMNnzz8sja4yAYUVOXsXqvTiKUGMXiuhGZkrmtzUx8vopTg==
+
 fastq@^1.6.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.13.0.tgz#616760f88a7526bdfc596b7cab8c18938c36b98c"
@@ -6737,6 +6742,15 @@ st-utils@~2.4.1:
     fast-sort "~3.0.2"
     type-fest "~2.3.4"
 
+st-utils@~2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/st-utils/-/st-utils-2.5.0.tgz#633f22702cf01efbb01d1345268004ac4ad4f97d"
+  integrity sha512-E3WQqOCBkqwT7/Na6+6DeLOuu7dsu892sPhm5ECynK9XpX94GN5iIyLxkX4ZBbMOaNFe5zhccchoPq5e46zY5w==
+  dependencies:
+    array-move "~3.0.1"
+    fast-sort "~3.1.3"
+    type-fest "~2.12.2"
+
 statuses@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-2.0.1.tgz#55cb000ccf1d48728bd23c685a063998cf1a1b63"
@@ -7021,6 +7035,11 @@ type-fest@^0.21.3:
   version "0.21.3"
   resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
+
+type-fest@~2.12.2:
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.12.2.tgz#80a53614e6b9b475eb9077472fb7498dc7aa51d0"
+  integrity sha512-qt6ylCGpLjZ7AaODxbpyBZSs9fCI9SkL3Z9q2oxMBQhs/uyY+VD8jHA8ULCGmWQJlBgqvO3EJeAngOHD8zQCrQ==
 
 type-fest@~2.3.4:
   version "2.3.4"
