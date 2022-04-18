@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -22,14 +22,15 @@ export class UserService {
   }
 
   update(id: string, dto: UserUpdateDto): Observable<User> {
-    return this.httpClient.post<User>(`${this.path}/${id}`, dto);
+    return this.httpClient.patch<User>(`${this.path}/${id}`, dto);
   }
 
   delete(id: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.path}/${id}`);
   }
 
-  exists(id: string): Observable<boolean> {
-    return this.httpClient.get<boolean>(`${this.path}/${id}/exists`);
+  exists(id: string, exclude?: string[]): Observable<boolean> {
+    const params = new HttpParams({ fromObject: { exclude: exclude ?? [] } });
+    return this.httpClient.get<boolean>(`${this.path}/${id}/exists`, { params });
   }
 }

@@ -8,13 +8,13 @@ import { UserService } from '../../services/user.service';
 export class UniqueUserIdValidatorFactory {
   constructor(private readonly userService: UserService) {}
 
-  create(changeDetectorRef: ChangeDetectorRef): AsyncValidatorFn {
+  create(changeDetectorRef: ChangeDetectorRef, exclude?: string[]): AsyncValidatorFn {
     return control => {
       if (!control.value || control.pristine) {
         return of(null);
       }
       return timer(300).pipe(
-        switchMap(() => this.userService.exists(control.value)),
+        switchMap(() => this.userService.exists(control.value, exclude)),
         map(exists => (exists ? { uniqueUserId: true } : null)),
         finalize(() => {
           changeDetectorRef.markForCheck();

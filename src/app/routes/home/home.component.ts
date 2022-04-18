@@ -28,4 +28,8 @@ export class HomeComponent {
   onUserDeleted($event: User): void {
     this.users = arrayUtil(this.users, 'id').remove($event.id).toArray();
   }
+
+  onUserEdited(idUser: string, user: User): void {
+    this.users = arrayUtil(this.users, 'id').update(idUser, user).toArray();
+  }
 }

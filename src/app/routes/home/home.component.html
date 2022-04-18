@@ -4,6 +4,7 @@
     [name]="user.id"
     [totalToReceive]="user.totalToReceive"
     (deleted)="onUserDeleted(user)"
+    (edited)="onUserEdited(user.id, $event)"
   ></app-user-card>
   <app-user-card-new (userCreated)="onUserCreated($event)"></app-user-card-new>
 </div>

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { ConfirmDialogService } from '../../../components/confirm-dialog/confirm-dialog.service';
+import { User } from '../../../models/user';
+import { ModalService } from '../../../services/modal.service';
 import { UserService } from '../../../services/user.service';
 
 @Component({
@@ -13,19 +15,34 @@ export class UserCardComponent {
   constructor(
     private readonly confirmDialogService: ConfirmDialogService,
     private readonly userService: UserService,
-    private readonly changeDetectorRef: ChangeDetectorRef
+    private readonly changeDetectorRef: ChangeDetectorRef,
+    private readonly modalService: ModalService
   ) {}
 
   @Input() name!: string;
   @Input() totalToReceive!: number;
 
   @Output() readonly deleted = new EventEmitter<void>();
+  @Output() readonly edited = new EventEmitter<User>();
 
   loadingDeleteModal = false;
+  loadingEditModal = false;
 
-  onEdit($event: MouseEvent): void {
+  async onEdit($event: MouseEvent): Promise<void> {
+    this.loadingEditModal = true;
     $event.preventDefault();
     $event.stopPropagation();
+    const dialogRef = await this.modalService.openLazy(
+      () => import('../edit-user-modal/edit-user-modal.component').then(m => m.EditUserModalComponent),
+      { data: this.name }
+    );
+    dialogRef.afterClosed().subscribe(edited => {
+      if (edited) {
+        this.edited.emit(edited);
+      }
+    });
+    this.loadingEditModal = false;
+    this.changeDetectorRef.markForCheck();
   }
 
   async onDelete($event: MouseEvent): Promise<void> {
