@@ -5,5 +5,6 @@
     <div class="total">{{ transaction.total | currency: 'R$' }}</div>
     <div class="total-received">{{ transaction.totalReceived | currency: 'R$' }}</div>
     <div class="total-to-receive">{{ transaction.totalToReceive | currency: 'R$' }}</div>
+    <div class="date">{{ transaction.date | dateBr }}</div>
   </mat-card>
 </a>
