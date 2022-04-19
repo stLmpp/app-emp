@@ -1,5 +1,5 @@
-<a [routerLink]="['user', name]">
-  <mat-card mat-ripple>
+<a [routerLink]="['users', name, 'transactions']">
+  <mat-card mat-ripple class="card-selectable">
     <div class="name">{{ name }}</div>
     <div class="total-to-receive">{{ totalToReceive | currency: 'R$' }}</div>
     <div class="actions">

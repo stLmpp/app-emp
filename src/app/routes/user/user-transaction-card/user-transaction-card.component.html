@@ -1,0 +1,9 @@
+<a [routerLink]="[transaction.idTransaction]">
+  <mat-card class="card-selectable">
+    <div class="person">{{ transaction.personName }}</div>
+    <div class="description">{{ transaction.description }}</div>
+    <div class="total">{{ transaction.total | currency: 'R$' }}</div>
+    <div class="total-received">{{ transaction.totalReceived | currency: 'R$' }}</div>
+    <div class="total-to-receive">{{ transaction.totalToReceive | currency: 'R$' }}</div>
+  </mat-card>
+</a>

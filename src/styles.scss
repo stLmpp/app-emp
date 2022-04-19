@@ -30,3 +30,15 @@ body {
 .mat-form-field {
   width: 100%;
 }
+
+.mat-card.card-selectable {
+  height: 200px;
+  width: 125px;
+  display: grid;
+  place-items: center;
+  border: 2px solid transparent;
+  transition: border 200ms ease;
+  &:hover {
+    border-color: var.$primary-color;
+  }
+}

@@ -1,0 +1,6 @@
+<div class="cards">
+  <app-user-transaction-card
+    *ngFor="let transaction of transactions; trackBy: trackByTransaction"
+    [transaction]="transaction"
+  ></app-user-transaction-card>
+</div>

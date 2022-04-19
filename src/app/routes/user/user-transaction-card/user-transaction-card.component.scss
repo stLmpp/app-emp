@@ -1,0 +1,17 @@
+@use 'variables' as var;
+
+:host {
+  display: block;
+}
+
+a {
+  text-decoration: none;
+}
+
+.total-received {
+  color: var.$success-color;
+}
+
+.total-to-receive {
+  color: var.$warn-color;
+}

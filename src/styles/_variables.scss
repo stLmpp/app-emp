@@ -2,13 +2,18 @@
 
 $primary: mat.define-palette(mat.$pink-palette);
 $accent: mat.define-palette(mat.$blue-gray-palette);
+$warn: mat.define-palette(mat.$red-palette);
 $theme: mat.define-dark-theme(
   (
     color: (
       primary: $primary,
       accent: $accent,
+      warn: $warn,
     ),
   )
 );
+$success: mat.define-palette(mat.$green-palette);
 
 $primary-color: mat.get-color-from-palette($primary);
+$warn-color: mat.get-color-from-palette($warn);
+$success-color: mat.get-color-from-palette($success);

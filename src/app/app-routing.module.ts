@@ -9,11 +9,11 @@ const routes: Routes = [
     loadChildren: () => import('./routes/home/home.module').then(m => m.HomeModule),
   },
   {
-    path: `user/:${RouteParamEnum.idUser}`,
+    path: `users/:${RouteParamEnum.idUser}`,
     children: [
       {
-        path: '',
-        loadChildren: () => import('./routes/user/user.module').then(m => m.UserModule),
+        path: 'transactions',
+        loadChildren: () => import('./routes/user/user-transactions.module').then(m => m.UserTransactionsModule),
       },
     ],
   },

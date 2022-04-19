@@ -4,18 +4,6 @@
   display: block;
 }
 
-.mat-card {
-  height: 200px;
-  width: 125px;
-  display: grid;
-  place-items: center;
-  border: 2px solid transparent;
-  transition: border 200ms ease;
-  &:hover {
-    border-color: var.$primary-color;
-  }
-}
-
 .name {
   font-weight: bold;
   font-size: 1.25rem;
