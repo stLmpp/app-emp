@@ -10,6 +10,7 @@ import { TransactionCard } from '../../models/transaction-card';
   templateUrl: './user-transactions.component.html',
   styleUrls: ['./user-transactions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'cards-container' },
 })
 export class UserTransactionsComponent {
   constructor(private readonly activatedRoute: ActivatedRoute) {}

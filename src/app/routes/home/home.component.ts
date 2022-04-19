@@ -12,6 +12,7 @@ import { trackById } from '../../shared/utils/track-by';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { class: 'cards-container' },
 })
 export class HomeComponent {
   constructor(private readonly activatedRoute: ActivatedRoute) {}

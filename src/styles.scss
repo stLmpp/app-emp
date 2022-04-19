@@ -42,3 +42,14 @@ body {
     border-color: var.$primary-color;
   }
 }
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cards {
+  display: flex;
+  grid-gap: 1rem;
+  flex-wrap: wrap;
+}
