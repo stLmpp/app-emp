@@ -1,6 +1,7 @@
 export interface TransactionCard {
   idTransaction: string;
   date: Date;
+  name: string;
   personName: string;
   description: string;
   totalReceived: number;

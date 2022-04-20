@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
+import { MatRippleModule } from '@angular/material/core';
 
 import { DateBrPipeModule } from '../../pipes/date-br-pipe/date-br-pipe.module';
 
@@ -10,6 +11,6 @@ import { UserTransactionsComponent } from './user-transactions.component';
 
 @NgModule({
   declarations: [UserTransactionsComponent, UserTransactionCardComponent],
-  imports: [CommonModule, UserTransactionsRoutingModule, MatCardModule, DateBrPipeModule],
+  imports: [CommonModule, UserTransactionsRoutingModule, MatCardModule, DateBrPipeModule, MatRippleModule],
 })
 export class UserTransactionsModule {}
