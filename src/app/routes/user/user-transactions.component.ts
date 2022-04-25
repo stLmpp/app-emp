@@ -15,6 +15,7 @@ import { TransactionCard } from '../../models/transaction-card';
 export class UserTransactionsComponent {
   constructor(private readonly activatedRoute: ActivatedRoute) {}
 
-  readonly transactions: TransactionCard[] = this.activatedRoute.snapshot.data[RouteDataEnum.transactionCards] ?? [];
+  readonly transactions: readonly TransactionCard[] =
+    this.activatedRoute.snapshot.data[RouteDataEnum.transactionCards] ?? [];
   readonly trackByTransaction = trackByFactory<TransactionCard>('idTransaction');
 }

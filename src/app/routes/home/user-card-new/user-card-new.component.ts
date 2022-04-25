@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 
 import { User } from '../../../models/user';
 import { ModalService } from '../../../services/modal.service';
@@ -11,7 +11,7 @@ import type { NewUserModalComponent } from '../new-user-modal/new-user-modal.com
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserCardNewComponent {
-  constructor(private readonly modalService: ModalService) {}
+  constructor(private readonly modalService: ModalService, private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   @Output() readonly userCreated = new EventEmitter<User>();
 
@@ -30,5 +30,7 @@ export class UserCardNewComponent {
         this.userCreated.emit(user);
       }
     });
+    this.loadingModal = false;
+    this.changeDetectorRef.markForCheck();
   }
 }

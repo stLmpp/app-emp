@@ -6,6 +6,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
+import { CardNewModule } from '../../components/card-new/card-new.module';
+
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { UserCardNewComponent } from './user-card-new/user-card-new.component';
@@ -21,6 +23,7 @@ import { UserCardComponent } from './user-card/user-card.component';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
+    CardNewModule,
   ],
 })
 export class HomeModule {}

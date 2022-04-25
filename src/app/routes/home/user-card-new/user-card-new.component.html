@@ -1,5 +1,1 @@
-<mat-card mat-ripple (click)="openModalNewUser()" class="card-selectable">
-  <button mat-fab color="accent">
-    <mat-icon>add</mat-icon>
-  </button>
-</mat-card>
+<app-card-new (cardClick)="openModalNewUser()" [disabled]="loadingModal" tooltip="New user"> </app-card-new>

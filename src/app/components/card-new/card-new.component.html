@@ -1,0 +1,5 @@
+<mat-card mat-ripple (click)="onClick($event)" class="card-selectable" [class.disabled]="disabled">
+  <button mat-fab color="accent" [disabled]="disabled" [matTooltip]="tooltip ?? ''" [matTooltipDisabled]="!tooltip">
+    <mat-icon>{{ icon }}</mat-icon>
+  </button>
+</mat-card>
