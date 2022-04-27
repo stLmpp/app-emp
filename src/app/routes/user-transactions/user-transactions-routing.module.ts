@@ -14,6 +14,11 @@ const routes: Routes = [
       [RouteDataEnum.transactionCards]: TransactionCardsResolver,
     },
   },
+  {
+    path: 'new',
+    loadChildren: () =>
+      import('../user-transactions-new/user-transactions-new.module').then(m => m.UserTransactionsNewModule),
+  },
 ];
 
 @NgModule({

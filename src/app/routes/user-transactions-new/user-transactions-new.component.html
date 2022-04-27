@@ -1,0 +1,12 @@
+<app-go-back-button routerLink="../"></app-go-back-button>
+
+<form [formGroup]="form">
+  <mat-card>
+    <mat-card-title>New transaction</mat-card-title>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+    </mat-form-field>
+  </mat-card>
+</form>

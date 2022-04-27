@@ -6,12 +6,12 @@
   cursor: pointer;
 
   &:hover {
-    button {
+    .mat-fab {
       transform: scale(1.15);
     }
   }
 }
 
-button {
+.mat-fab {
   transition: transform 200ms ease;
 }

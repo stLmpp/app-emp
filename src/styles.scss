@@ -13,6 +13,16 @@ body {
   color: #fff;
 }
 
+:root {
+  --navbar-height: 64px;
+}
+
+@media only screen and (max-width: 599px) {
+  :root {
+    --navbar-height: 56px;
+  }
+}
+
 @include mat.core();
 @include mat.all-component-themes(var.$theme);
 

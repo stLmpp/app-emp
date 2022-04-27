@@ -3,9 +3,5 @@
 }
 
 main {
-  padding: calc(1rem + 64px) 1rem 1rem;
-
-  @media (max-width: 599px) {
-    padding-top: calc(1rem + 56px);
-  }
+  padding: calc(1rem + var(--navbar-height)) 1rem 1rem;
 }
