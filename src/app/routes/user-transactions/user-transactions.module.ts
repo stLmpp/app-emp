@@ -9,6 +9,7 @@ import { DateBrPipeModule } from '../../pipes/date-br-pipe/date-br-pipe.module';
 import { UserTransactionCardComponent } from './user-transaction-card/user-transaction-card.component';
 import { UserTransactionsRoutingModule } from './user-transactions-routing.module';
 import { UserTransactionsComponent } from './user-transactions.component';
+import { GoBackButtonModule } from '../../components/go-back-button/go-back-button.module';
 
 @NgModule({
   declarations: [UserTransactionsComponent, UserTransactionCardComponent],
@@ -19,6 +20,7 @@ import { UserTransactionsComponent } from './user-transactions.component';
     DateBrPipeModule,
     MatRippleModule,
     CardNewModule,
+    GoBackButtonModule,
   ],
 })
 export class UserTransactionsModule {}

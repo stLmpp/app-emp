@@ -5,8 +5,36 @@
     <mat-card-title>New transaction</mat-card-title>
     <mat-form-field>
       <mat-label>Name</mat-label>
-      <input matInput formControlName="name" />
-      <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+      <input matInput formControlName="name" [maxlength]="nameMaxLength" />
+      <mat-error *ngIf="nameControl.errors?.required">Name is required</mat-error>
+      <mat-hint>Max {{ nameMaxLength }} characters</mat-hint>
+      <mat-hint align="end">{{ nameControl.value.length }} / {{ nameMaxLength }}</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" [maxlength]="descriptionMaxLength"></textarea>
+      <mat-hint>Max {{ descriptionMaxLength }} characters</mat-hint>
+      <mat-hint align="end">{{ descriptionControl.value?.length ?? 0 }} / {{ descriptionMaxLength }}</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Person</mat-label>
+      <input matInput type="text" formControlName="personName" />
+      <mat-hint>Max {{ personNameMaxLength }} characters</mat-hint>
+      <mat-hint align="end">{{ personNameControl.value.length }} / {{ personNameMaxLength }}</mat-hint>
+      <mat-error *ngIf="personNameControl.errors?.required">Person is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput type="date" formControlName="date" [matDatepicker]="datepicker" />
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker></mat-datepicker>
+      <mat-error *ngIf="dateControl.errors?.required">Date is required</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Total</mat-label>
+      <input type="number" matInput formControlName="total" />
+      <mat-error *ngIf="totalControl.errors?.required">Total is required</mat-error>
+      <mat-error *ngIf="totalControl.errors?.min">Total must be greater than {{ 0 | number: '1.2-2' }}</mat-error>
     </mat-form-field>
   </mat-card>
 </form>
