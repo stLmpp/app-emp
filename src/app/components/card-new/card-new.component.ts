@@ -1,4 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatRippleModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterModule } from '@angular/router';
 import { BooleanInput, coerceBooleanProperty } from 'st-utils';
 
 @Component({
@@ -6,6 +13,16 @@ import { BooleanInput, coerceBooleanProperty } from 'st-utils';
   templateUrl: './card-new.component.html',
   styleUrls: ['./card-new.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatRippleModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    RouterModule,
+  ],
 })
 export class CardNewComponent {
   private _disabled = false;

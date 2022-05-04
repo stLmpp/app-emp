@@ -9,11 +9,8 @@ export type LazyFn<T = any> = () => Promise<ComponentType<T>>;
 export class ModalService extends MatDialog {
   async openLazy<T, D = any, R = any>(
     componentFn: LazyFn<T>,
-    config?: MatDialogConfig<D> & { module?: LazyFn }
+    config?: MatDialogConfig<D>
   ): Promise<MatDialogRef<T, R>> {
-    if (config?.module) {
-      await config.module();
-    }
     const component = await componentFn();
     return this.open(component, config);
   }

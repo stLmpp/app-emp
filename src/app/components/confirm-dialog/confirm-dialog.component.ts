@@ -15,6 +15,8 @@ import { ConfirmDialogButton, ConfirmDialogOptions } from './confirm-dialog.serv
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule, MatDialogModule, MatButtonModule, MatProgressBarModule],
 })
 export class ConfirmDialogComponent implements OnDestroy {
   constructor(
@@ -75,9 +77,3 @@ export class ConfirmDialogComponent implements OnDestroy {
     this._destroy$.complete();
   }
 }
-
-@NgModule({
-  declarations: [ConfirmDialogComponent],
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatProgressBarModule],
-})
-export class ConfirmDialogModule {}

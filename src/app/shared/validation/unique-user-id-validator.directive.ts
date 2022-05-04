@@ -13,6 +13,7 @@ import { UniqueUserIdValidatorFactory } from './unique-user-id-validator-factory
 @Directive({
   selector: '[ngModel][uniqueUserId]',
   providers: [{ provide: NG_ASYNC_VALIDATORS, useExisting: UniqueUserIdValidatorDirective, multi: true }],
+  standalone: true,
 })
 export class UniqueUserIdValidatorDirective implements AsyncValidator {
   constructor(changeDetectorRef: ChangeDetectorRef, uniqueUserIdValidatorFactory: UniqueUserIdValidatorFactory) {

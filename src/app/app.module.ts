@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarModule } from './components/navbar/navbar.module';
+import { NavbarComponent } from './components/navbar/navbar.component';
 import { ApiInterceptor } from './core/interceptor/api.interceptor';
 import { DateInterceptor } from './core/interceptor/date.interceptor';
 import { NAVIGATOR } from './core/navigator.token';
@@ -18,7 +18,7 @@ registerLocaleData(localePt);
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, NavbarModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, BrowserAnimationsModule, NavbarComponent],
   providers: [
     ...WINDOW_PROVIDERS,
     { provide: NAVIGATOR, useFactory: (window: Window) => window.navigator ?? {}, deps: [WINDOW] },

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, NgModule } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,13 +10,22 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { UserService } from '../../../services/user.service';
 import { catchAndThrow } from '../../../shared/utils/catch-and-throw';
 import { UniqueUserIdValidatorFactory } from '../../../shared/validation/unique-user-id-validator-factory';
-import { UniqueUserIdValidatorModule } from '../../../shared/validation/unique-user-id-validator.module';
 
 @Component({
   selector: 'app-new-user-modal',
   templateUrl: './new-user-modal.component.html',
   styleUrls: ['./new-user-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    ReactiveFormsModule,
+  ],
 })
 export class NewUserModalComponent {
   constructor(
@@ -65,19 +74,3 @@ export class NewUserModalComponent {
       });
   }
 }
-
-@NgModule({
-  declarations: [NewUserModalComponent],
-  imports: [
-    CommonModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatProgressBarModule,
-    FormsModule,
-    UniqueUserIdValidatorModule,
-    ReactiveFormsModule,
-  ],
-})
-export class NewUserModalModule {}

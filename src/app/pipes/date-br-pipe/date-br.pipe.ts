@@ -2,7 +2,7 @@ import { formatDate } from '@angular/common';
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { isString } from 'st-utils';
 
-@Pipe({ name: 'dateBr' })
+@Pipe({ name: 'dateBr', standalone: true })
 export class DateBrPipe implements PipeTransform {
   constructor(@Inject(LOCALE_ID) private readonly locale: string) {}
 
