@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { GoBackButtonComponent } from '../../components/go-back-button/go-back-button.component';
+import { MaskDirective } from '../../directives/mask.directive';
 
 import { UserTransactionsNewRoutingModule } from './user-transactions-new-routing.module';
 import { UserTransactionsNewComponent } from './user-transactions-new.component';
@@ -22,6 +23,7 @@ import { UserTransactionsNewComponent } from './user-transactions-new.component'
     ReactiveFormsModule,
     MatDatepickerModule,
     GoBackButtonComponent,
+    MaskDirective,
   ],
 })
 export class UserTransactionsNewModule {}

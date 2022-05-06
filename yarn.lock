@@ -260,6 +260,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/material-date-fns-adapter@^14.0.0-next.12":
+  version "14.0.0-next.12"
+  resolved "https://registry.yarnpkg.com/@angular/material-date-fns-adapter/-/material-date-fns-adapter-14.0.0-next.12.tgz#7108c2a3e9e86025229a6d7b017b3f003be2b7c6"
+  integrity sha512-wKylKdf+tySWg4ioKjEfDl6cKJB5NMZTjkbK/mrYeNz2RKpyPUN1glE/XMS/p5xLRFOwdHEfrMz+bnVqld6Y3g==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/material@^14.0.0-next.12":
   version "14.0.0-next.12"
   resolved "https://registry.yarnpkg.com/@angular/material/-/material-14.0.0-next.12.tgz#4ee31763101245f8933856e6259b7c8fc79605d7"
@@ -1710,6 +1717,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/inputmask@^5.0.3":
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/@types/inputmask/-/inputmask-5.0.3.tgz#f23492d5b5862c5737ae24bfe9fb8b2acf77b453"
+  integrity sha512-9aTXacRhf9D3+porVydLR28ll8/y3TQIrXEXv7ZWY0c3Lzl/1r4nHoaesZeh2Fd+UIefpWZrg2tkSnDn/dKUsw==
+
 "@types/jasmine@~4.0.3":
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-4.0.3.tgz#097ce710d70eb7f3662e96c1f75824dd22c27d5c"
@@ -2940,6 +2952,11 @@ custom-event@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/custom-event/-/custom-event-1.0.1.tgz#5d02a46850adf1b4a317946a3928fccb5bfd0425"
   integrity sha1-XQKkaFCt8bSjF5RqOSj8y1v9BCU=
+
+date-fns@^2.28.0:
+  version "2.28.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.28.0.tgz#9570d656f5fc13143e50c975a3b6bbeb46cd08b2"
+  integrity sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==
 
 date-format@^4.0.6:
   version "4.0.6"
@@ -4325,6 +4342,11 @@ ini@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/ini/-/ini-3.0.0.tgz#2f6de95006923aa75feed8894f5686165adc08f1"
   integrity sha512-TxYQaeNW/N8ymDvwAxPyRbhMBtnEwuvaTYpOQkFx1nSeusgezHniEc/l35Vo4iCq/mMiTJbpD7oYxN98hFlfmw==
+
+inputmask@^5.0.7:
+  version "5.0.7"
+  resolved "https://registry.yarnpkg.com/inputmask/-/inputmask-5.0.7.tgz#b04d5d4e1c85018893c3c8edb1a9f074b051007f"
+  integrity sha512-rUxbRDS25KEib+c/Ow+K01oprU/+EK9t9SOPC8ov94/ftULGDqj1zOgRU/Hko6uzoKRMdwCfuhAafJ/Wk2wffQ==
 
 inquirer@8.2.2:
   version "8.2.2"
