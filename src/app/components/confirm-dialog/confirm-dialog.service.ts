@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
-import { MatDialogRef } from '@angular/material/dialog/dialog-ref';
+import { MatDialogConfig, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 import { ModalService } from '../../services/modal.service';
