@@ -5,6 +5,7 @@ import { RouteDataEnum } from '../../models/route-data.enum';
 import { TransactionCardsResolver } from '../../services/transaction-cards.resolver';
 
 import { UserTransactionsComponent } from './user-transactions.component';
+import { UserTransactionsTitleResolver } from './user-transactions-title.resolver';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     resolve: {
       [RouteDataEnum.transactionCards]: TransactionCardsResolver,
     },
+    title: UserTransactionsTitleResolver,
   },
   {
     path: 'new',

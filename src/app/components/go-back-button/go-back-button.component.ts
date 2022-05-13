@@ -17,7 +17,7 @@ import { GoBackButtonService } from './go-back-button.service';
 export class GoBackButtonComponent {
   constructor(private readonly goBackButtonService: GoBackButtonService) {}
 
-  @Input() routerLink!: string | any[];
+  @Input() link!: string | any[];
 
   readonly show$ = this.goBackButtonService.addButton();
 }

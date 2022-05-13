@@ -13,6 +13,7 @@ const routes: Routes = [
     resolve: {
       [RouteDataEnum.usersWithValues]: UsersWithValuesResolver,
     },
+    title: 'Home',
   },
 ];
 

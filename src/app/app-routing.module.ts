@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 
 import { RouteParamEnum } from './models/route-param.enum';
+import { PageTitleStrategy } from './page-title-strategy';
 
 const routes: Routes = [
   {
@@ -27,5 +28,6 @@ const routes: Routes = [
     }),
   ],
   exports: [RouterModule],
+  providers: [{ provide: TitleStrategy, useClass: PageTitleStrategy }],
 })
 export class AppRoutingModule {}

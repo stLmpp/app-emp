@@ -21,16 +21,19 @@ const routes: Routes = [
       {
         path: '1',
         component: UserTransactionsNewStep1Component,
+        title: 'New transaction - Step 1',
       },
       {
         path: '2',
         component: UserTransactionsNewStep2Component,
         canActivate: [UserTransactionsNewStep2Guard],
+        title: 'New transaction - Step 2',
       },
       {
         path: '3',
         component: UserTransactionsNewStep3Component,
         canActivate: [UserTransactionsNewStep3Guard],
+        title: 'New transaction - Step 3',
       },
     ],
   },
