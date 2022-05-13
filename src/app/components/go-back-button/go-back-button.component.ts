@@ -4,6 +4,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 
+import { GoBackButtonService } from './go-back-button.service';
+
 @Component({
   selector: 'app-go-back-button',
   templateUrl: './go-back-button.component.html',
@@ -13,5 +15,9 @@ import { RouterModule } from '@angular/router';
   imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
 })
 export class GoBackButtonComponent {
+  constructor(private readonly goBackButtonService: GoBackButtonService) {}
+
   @Input() routerLink!: string | any[];
+
+  readonly show$ = this.goBackButtonService.addButton();
 }

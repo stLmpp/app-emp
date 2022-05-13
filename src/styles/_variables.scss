@@ -17,3 +17,9 @@ $success: mat.define-palette(mat.$green-palette);
 $primary-color: mat.get-color-from-palette($primary);
 $warn-color: mat.get-color-from-palette($warn);
 $success-color: mat.get-color-from-palette($success);
+
+$screen-sm: 599px;
+$screen-md: 768px;
+$screen-lg: 992px;
+$screen-xl: 1200px;
+$screen-xxl: 1400px;

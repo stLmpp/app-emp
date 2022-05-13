@@ -1,11 +1,17 @@
 import { TransactionType } from './transaction-type';
 
-export interface TransactionCreateDto {
-  name: string;
-  description?: string;
-  idPerson?: string;
-  personName?: string;
-  date: Date;
-  type: TransactionType;
-  total: number;
+export class TransactionCreateDto {
+  readonly name!: string;
+  readonly description?: string | null;
+  readonly idPerson?: string | null;
+  readonly personName?: string | null;
+  readonly date!: Date;
+  readonly type!: TransactionType;
+  readonly total!: number;
+
+  static readonly nameMaxLength = 40;
+  static readonly descriptionMaxLength = 500;
+  static readonly personNameMaxLength = 150;
+  static readonly totalMin = Number.EPSILON;
+  static readonly totalMax = Number.MAX_SAFE_INTEGER;
 }

@@ -1,0 +1,31 @@
+<h3>Here you put the name and description of the new transaction</h3>
+
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" [maxlength]="transactionCreateDto.nameMaxLength" />
+    <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+    <mat-hint>Max {{ transactionCreateDto.nameMaxLength }} characters</mat-hint>
+    <mat-hint align="end"> {{ form.controls.name.value.length }} / {{ transactionCreateDto.nameMaxLength }} </mat-hint>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      formControlName="description"
+      [maxlength]="transactionCreateDto.descriptionMaxLength"
+      rows="5"
+      cdkTextareaAutosize
+      [cdkAutosizeMaxRows]="10"
+    ></textarea>
+    <mat-hint>Max {{ transactionCreateDto.descriptionMaxLength }} characters</mat-hint>
+    <mat-hint align="end">
+      {{ form.controls.description.value?.length ?? 0 }} / {{ transactionCreateDto.descriptionMaxLength }}
+    </mat-hint>
+  </mat-form-field>
+</form>
+
+<div class="button-actions">
+  <a mat-raised-button [routerLink]="['../../']">Back</a>
+  <a mat-raised-button color="primary" [routerLink]="['../', '2']" [disabled]="form.invalid">Next</a>
+</div>

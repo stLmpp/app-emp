@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use 'variables' as var;
+@use 'mixins' as mixins;
 
 html,
 body {
@@ -17,7 +18,7 @@ body {
   --navbar-height: 64px;
 }
 
-@media only screen and (max-width: 599px) {
+@include mixins.sm-screen {
   :root {
     --navbar-height: 56px;
   }
@@ -39,6 +40,7 @@ body {
 
 .mat-form-field {
   width: 100%;
+  margin-bottom: 1rem;
 }
 
 .mat-card.card-selectable {
@@ -64,6 +66,19 @@ body {
   flex-wrap: wrap;
 }
 
-.mat-form-field {
-  margin-bottom: 1rem;
+.button-actions {
+  .mat-button-base:not(:last-child) {
+    margin-right: 1rem;
+  }
+
+  @include mixins.md-screen {
+    .mat-button-base {
+      width: 100%;
+
+      &:not(:last-child) {
+        margin-bottom: 1rem;
+        margin-right: 0;
+      }
+    }
+  }
 }
