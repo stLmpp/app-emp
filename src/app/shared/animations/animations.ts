@@ -5,7 +5,6 @@ import { FadeAnimations } from './fade';
 import { ScaleAnimations } from './scale';
 import { SlideAnimations } from './slide';
 
-
 export class Animations {
   static slide = SlideAnimations;
   static collapse = CollapseAnimations;
