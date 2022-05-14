@@ -65,6 +65,7 @@
         "@typescript-eslint/no-shadow": ["error"],
         "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "as" }],
         "@typescript-eslint/no-inferrable-types": ["error"],
+        "@typescript-eslint/prefer-readonly": ["error"],
         "@typescript-eslint/naming-convention": [
           "error",
           {

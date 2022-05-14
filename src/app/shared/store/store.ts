@@ -6,8 +6,29 @@ import { StoreConfig } from './store-config';
 
 export type UpdateQueueType<T extends Record<any, any>> = ((state: T) => T)[];
 
+declare global {
+  interface Window {
+    ngStores: Store<any>[];
+    ngStoresGetSnapshot: () => Record<string, any>;
+  }
+}
+
+if (ngDevMode) {
+  window.ngStores = [];
+  window.ngStoresGetSnapshot = () => {
+    const snapshot: Record<string, any> = {};
+    for (const store of window.ngStores) {
+      snapshot[store.name] = store.get();
+    }
+    return snapshot;
+  };
+}
+
 export class Store<T extends Record<any, any>> {
   constructor(config: StoreConfig<T>) {
+    if (ngDevMode) {
+      window.ngStores.push(this);
+    }
     const persist = !!config.persist;
     if (persist) {
       this._storePersist = config.persistAdapter

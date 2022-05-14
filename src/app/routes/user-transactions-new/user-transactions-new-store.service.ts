@@ -38,7 +38,9 @@ export class UserTransactionsNewStoreService {
 
   isStep1Valid(): boolean {
     const { name } = this.store.get('dto');
-    return !!name && name.length <= TransactionCreateDto.nameMaxLength;
+    return (
+      !!name && name.length >= TransactionCreateDto.nameMinLength && name.length <= TransactionCreateDto.nameMaxLength
+    );
   }
 
   isStep2Valid(): boolean {
@@ -46,7 +48,10 @@ export class UserTransactionsNewStoreService {
     const isStep1Valid = this.isStep1Valid();
     return (
       (isStep1Valid && !!idPerson) ||
-      (isStep1Valid && !!personName && personName.length <= TransactionCreateDto.personNameMaxLength)
+      (isStep1Valid &&
+        !!personName &&
+        personName.length >= TransactionCreateDto.personNameMinLength &&
+        personName.length <= TransactionCreateDto.personNameMaxLength)
     );
   }
 

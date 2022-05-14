@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { map } from 'rxjs';
 
 import { BaseComponent } from '../../../components/base-component';
@@ -25,20 +25,27 @@ export class UserTransactionsNewStep1Component extends BaseComponent implements 
     super();
   }
 
-  readonly form = this.formBuilder.group<Form>({
-    name: this.formBuilder.control('', {
-      validators: [Validators.required, Validators.maxLength(TransactionCreateDto.nameMaxLength)],
-    }),
-    description: this.formBuilder.control<string | null | undefined>(null, {
-      validators: [Validators.maxLength(TransactionCreateDto.descriptionMaxLength)],
-    }),
-  });
+  readonly form = this._getForm();
 
   readonly transactionCreateDto = TransactionCreateDto;
 
-  ngOnInit(): void {
+  private _getForm(): FormGroup<Form> {
     const { name, description } = this.userTransactionNewStoreService.getDto();
-    this.form.patchValue({ name, description });
+    return this.formBuilder.group<Form>({
+      name: this.formBuilder.control(name, {
+        validators: [
+          Validators.required,
+          Validators.minLength(TransactionCreateDto.nameMinLength),
+          Validators.maxLength(TransactionCreateDto.nameMaxLength),
+        ],
+      }),
+      description: this.formBuilder.control<string | null | undefined>(description, {
+        validators: [Validators.maxLength(TransactionCreateDto.descriptionMaxLength)],
+      }),
+    });
+  }
+
+  ngOnInit(): void {
     this.form.valueChanges
       .pipe(
         this.untilDestroy(),

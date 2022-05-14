@@ -7,6 +7,7 @@ import { UserTransactionsNewStep2Guard } from './user-transactions-new-step2.gua
 import { UserTransactionsNewStep2Component } from './user-transactions-new-step2/user-transactions-new-step2.component';
 import { UserTransactionsNewStep3Guard } from './user-transactions-new-step3.guard';
 import { UserTransactionsNewStep3Component } from './user-transactions-new-step3/user-transactions-new-step3.component';
+import { UserTransactionsNewSummaryComponent } from './user-transactions-new-summary/user-transactions-new-summary.component';
 import { UserTransactionsNewComponent } from './user-transactions-new.component';
 
 const routes: Routes = [
@@ -36,6 +37,12 @@ const routes: Routes = [
         component: UserTransactionsNewStep3Component,
         canActivate: [UserTransactionsNewStep3Guard],
         title: 'New transaction - Step 3',
+      },
+      {
+        path: 'summary',
+        component: UserTransactionsNewSummaryComponent,
+        canActivate: [UserTransactionsNewStep3Guard],
+        title: 'New transactions - Summary',
       },
     ],
   },

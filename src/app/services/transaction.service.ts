@@ -9,7 +9,7 @@ import { TransactionCreateDto } from '../models/transaction-create.dto';
 export class TransactionService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  readonly path = (idUser: string): string => `/users/${idUser}/transactions`;
+  readonly path = (idUser: string): string => `/user/${idUser}/transaction`;
 
   getCards(idUser: string): Observable<TransactionCard[]> {
     return this.httpClient.get<TransactionCard[]>(`${this.path(idUser)}/cards`);

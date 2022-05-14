@@ -19,7 +19,7 @@ export class UserTransactionsNewStep3Guard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const idUser = route.paramMap.get(RouteParamEnum.idUser)!;
     return (
-      this.userTransactionNewStoreService.isStep2Valid() ||
+      this.userTransactionNewStoreService.isStep3Valid() ||
       this.router.createUrlTree(['/users', idUser, 'transactions', 'new', '2'])
     );
   }

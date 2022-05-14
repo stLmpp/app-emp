@@ -11,7 +11,7 @@ import { UserWithValues } from '../models/user-with-values';
 export class UserService {
   constructor(private readonly httpClient: HttpClient) {}
 
-  readonly path = '/users';
+  readonly path = '/user';
 
   getAllWithValues(): Observable<UserWithValues[]> {
     return this.httpClient.get<UserWithValues[]>(`${this.path}/values`);

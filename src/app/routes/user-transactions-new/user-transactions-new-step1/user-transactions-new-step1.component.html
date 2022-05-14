@@ -3,8 +3,19 @@
 <form [formGroup]="form">
   <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput formControlName="name" [maxlength]="transactionCreateDto.nameMaxLength" />
+    <input
+      matInput
+      formControlName="name"
+      [maxlength]="transactionCreateDto.nameMaxLength"
+      [minLength]="transactionCreateDto.nameMinLength"
+    />
     <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+    <mat-error *ngIf="form.controls.name.errors?.minLength">
+      Name must have more than {{ transactionCreateDto.nameMinLength }} characters
+    </mat-error>
+    <mat-error *ngIf="form.controls.name.errors?.required">
+      Name must have less than {{ transactionCreateDto.nameMaxLength }} characters
+    </mat-error>
     <mat-hint>Max {{ transactionCreateDto.nameMaxLength }} characters</mat-hint>
     <mat-hint align="end"> {{ form.controls.name.value.length }} / {{ transactionCreateDto.nameMaxLength }} </mat-hint>
   </mat-form-field>
@@ -18,14 +29,16 @@
       cdkTextareaAutosize
       [cdkAutosizeMaxRows]="10"
     ></textarea>
+    <mat-error *ngIf="form.controls.description.errors?.maxLength">
+      Description must have less than {{ transactionCreateDto.descriptionMaxLength }} characters
+    </mat-error>
     <mat-hint>Max {{ transactionCreateDto.descriptionMaxLength }} characters</mat-hint>
     <mat-hint align="end">
       {{ form.controls.description.value?.length ?? 0 }} / {{ transactionCreateDto.descriptionMaxLength }}
     </mat-hint>
   </mat-form-field>
+  <app-button-actions validationOnEnter>
+    <a mat-raised-button [routerLink]="['../../']">Back</a>
+    <a mat-raised-button color="primary" [routerLink]="['../', '2']" [disabled]="form.invalid">Next</a>
+  </app-button-actions>
 </form>
-
-<div class="button-actions">
-  <a mat-raised-button [routerLink]="['../../']">Back</a>
-  <a mat-raised-button color="primary" [routerLink]="['../', '2']" [disabled]="form.invalid">Next</a>
-</div>

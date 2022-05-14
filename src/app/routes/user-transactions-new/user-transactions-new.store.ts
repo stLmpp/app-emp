@@ -20,21 +20,6 @@ class UserTransactionsNewStorePersist extends LocalStorageStorePersist<UserTrans
     if (dto.date) {
       dto = { ...dto, date: new Date(dto.date) };
     }
-    if (dto.name.length > TransactionCreateDto.nameMaxLength) {
-      dto = { ...dto, name: dto.name.substring(0, TransactionCreateDto.nameMaxLength) };
-    }
-    if (dto.description && dto.description.length > TransactionCreateDto.descriptionMaxLength) {
-      dto = { ...dto, description: dto.description.substring(0, TransactionCreateDto.descriptionMaxLength) };
-    }
-    if (dto.personName && dto.personName.length > TransactionCreateDto.personNameMaxLength) {
-      dto = { ...dto, personName: dto.personName.substring(0, TransactionCreateDto.personNameMaxLength) };
-    }
-    if (dto.total > TransactionCreateDto.totalMax) {
-      dto = { ...dto, total: TransactionCreateDto.totalMax };
-    }
-    if (dto.total < TransactionCreateDto.totalMin) {
-      dto = { ...dto, total: 1 };
-    }
     return { ...state, dto };
   }
 }
