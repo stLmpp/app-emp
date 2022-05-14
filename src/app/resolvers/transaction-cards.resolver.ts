@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 
 import { RouteParamEnum } from '../models/route-param.enum';
 import { TransactionCard } from '../models/transaction-card';
-
-import { TransactionService } from './transaction.service';
+import { TransactionService } from '../services/transaction.service';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionCardsResolver implements Resolve<TransactionCard[]> {

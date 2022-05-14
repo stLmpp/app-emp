@@ -13,12 +13,17 @@ export class GoBackButtonService {
 
   private _uniqueId = 0;
 
-  addButton(): Observable<boolean> {
+  addButton(): [id: number, show$: Observable<boolean>] {
     const id = this._uniqueId++;
     this._store.update(state => ({ ...state, buttons: [...state.buttons, id] }));
-    return this._store.select('buttons').pipe(
+    const show$ = this._store.select('buttons').pipe(
       map(buttons => Math.max(...buttons) === id),
       distinctUntilChanged()
     );
+    return [id, show$];
+  }
+
+  removeButton(id: number): void {
+    this._store.update('buttons', buttons => buttons.filter(button => button !== id));
   }
 }

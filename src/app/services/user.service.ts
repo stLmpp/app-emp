@@ -33,4 +33,8 @@ export class UserService {
     const params = new HttpParams({ fromObject: { exclude: exclude ?? [] } });
     return this.httpClient.get<boolean>(`${this.path}/${id}/exists`, { params });
   }
+
+  getById(idUser: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.path}/${idUser}`);
+  }
 }

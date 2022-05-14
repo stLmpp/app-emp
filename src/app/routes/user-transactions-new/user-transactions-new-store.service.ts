@@ -6,33 +6,43 @@ import { UserTransactionsNewStore } from './user-transactions-new.store';
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsNewStoreService {
-  constructor(private readonly newTransactionStore: UserTransactionsNewStore) {}
+  constructor(private readonly store: UserTransactionsNewStore) {}
 
-  state$ = this.newTransactionStore.select();
+  private _updateDto(dto: Partial<TransactionCreateDto>): void {
+    this.store.update('dto', oldDto => ({ ...oldDto, ...dto }));
+  }
 
-  start(): void {
-    this.newTransactionStore.reset();
+  reset(): void {
+    this.store.reset();
+  }
+
+  setIdUser(idUser: string): void {
+    this.store.set('idUser', idUser);
+  }
+
+  getIdUser(): string | null {
+    return this.store.get('idUser');
   }
 
   setStep1(step1: Pick<TransactionCreateDto, 'name' | 'description'>): void {
-    this.newTransactionStore.update(step1);
+    this._updateDto(step1);
   }
 
   setStep2(step2: Pick<TransactionCreateDto, 'personName' | 'idPerson'>): void {
-    this.newTransactionStore.update(step2);
+    this._updateDto(step2);
   }
 
   setStep3(step3: Pick<TransactionCreateDto, 'total' | 'date'>): void {
-    this.newTransactionStore.update(step3);
+    this._updateDto(step3);
   }
 
   isStep1Valid(): boolean {
-    const name = this.newTransactionStore.get('name');
+    const { name } = this.store.get('dto');
     return !!name && name.length <= TransactionCreateDto.nameMaxLength;
   }
 
   isStep2Valid(): boolean {
-    const { personName, idPerson } = this.newTransactionStore.get();
+    const { personName, idPerson } = this.store.get('dto');
     const isStep1Valid = this.isStep1Valid();
     return (
       (isStep1Valid && !!idPerson) ||
@@ -41,13 +51,13 @@ export class UserTransactionsNewStoreService {
   }
 
   isStep3Valid(): boolean {
-    const { total, date } = this.newTransactionStore.get();
+    const { total, date } = this.store.get('dto');
     return (
       this.isStep2Valid() && !!date && total >= TransactionCreateDto.totalMin && total <= TransactionCreateDto.totalMax
     );
   }
 
-  get(): TransactionCreateDto {
-    return this.newTransactionStore.get();
+  getDto(): TransactionCreateDto {
+    return this.store.get('dto');
   }
 }

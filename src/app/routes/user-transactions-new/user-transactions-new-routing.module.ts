@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { UserTransactionsNewResetStoreGuard } from './user-transactions-new-reset-store.guard';
 import { UserTransactionsNewStep1Component } from './user-transactions-new-step1/user-transactions-new-step1.component';
 import { UserTransactionsNewStep2Guard } from './user-transactions-new-step2.guard';
 import { UserTransactionsNewStep2Component } from './user-transactions-new-step2/user-transactions-new-step2.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: UserTransactionsNewComponent,
+    canActivate: [UserTransactionsNewResetStoreGuard],
     children: [
       {
         path: '',

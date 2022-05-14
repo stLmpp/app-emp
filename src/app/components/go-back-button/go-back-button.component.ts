@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { GoBackButtonService } from './go-back-button.service';
 
@@ -14,10 +15,20 @@ import { GoBackButtonService } from './go-back-button.service';
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
 })
-export class GoBackButtonComponent {
-  constructor(private readonly goBackButtonService: GoBackButtonService) {}
+export class GoBackButtonComponent implements OnDestroy {
+  constructor(private readonly goBackButtonService: GoBackButtonService) {
+    const [id, show$] = this.goBackButtonService.addButton();
+    this._id = id;
+    this.show$ = show$;
+  }
+
+  private readonly _id: number;
 
   @Input() link!: string | any[];
 
-  readonly show$ = this.goBackButtonService.addButton();
+  readonly show$: Observable<boolean>;
+
+  ngOnDestroy(): void {
+    this.goBackButtonService.removeButton(this._id);
+  }
 }

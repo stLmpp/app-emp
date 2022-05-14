@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { RouteDataEnum } from '../../models/route-data.enum';
-import { UsersWithValuesResolver } from '../../services/users-with-values.resolver';
+import { UsersWithValuesResolver } from '../../resolvers/users-with-values.resolver';
 
 import { HomeComponent } from './home.component';
 

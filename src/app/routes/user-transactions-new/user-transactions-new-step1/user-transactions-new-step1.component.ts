@@ -37,7 +37,7 @@ export class UserTransactionsNewStep1Component extends BaseComponent implements 
   readonly transactionCreateDto = TransactionCreateDto;
 
   ngOnInit(): void {
-    const { name, description } = this.userTransactionNewStoreService.get();
+    const { name, description } = this.userTransactionNewStoreService.getDto();
     this.form.patchValue({ name, description });
     this.form.valueChanges
       .pipe(

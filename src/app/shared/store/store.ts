@@ -15,12 +15,10 @@ export class Store<T extends Record<any, any>> {
         : new LocalStorageStorePersist(config.name);
     }
     this._initialState = config.initialState;
-    if (this._storePersist?.has()) {
-      this._initialState = { ...this._initialState, ...this._storePersist.get() };
-    }
-    this._storePersist?.set(this._initialState);
+    const startState = { ...config.initialState, ...this._storePersist?.get() };
+    this._storePersist?.set(startState);
     this.name = config.name;
-    this._state$ = new BehaviorSubject(this._initialState);
+    this._state$ = new BehaviorSubject(startState);
     this._updateQueue$
       .pipe(
         observeOn(queueScheduler),
