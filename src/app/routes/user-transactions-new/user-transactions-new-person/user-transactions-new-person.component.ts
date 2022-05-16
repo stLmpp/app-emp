@@ -29,12 +29,12 @@ interface Form {
 }
 
 @Component({
-  selector: 'app-user-transactions-new-step2',
-  templateUrl: './user-transactions-new-step2.component.html',
-  styleUrls: ['./user-transactions-new-step2.component.scss'],
+  selector: 'app-user-transactions-new-person',
+  templateUrl: './user-transactions-new-person.component.html',
+  styleUrls: ['./user-transactions-new-person.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewStep2Component extends BaseComponent implements OnInit {
+export class UserTransactionsNewPersonComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly formBuilder: NonNullableFormBuilder,
     private readonly personService: PersonService,
@@ -126,7 +126,7 @@ export class UserTransactionsNewStep2Component extends BaseComponent implements 
         map(() => this.form.getRawValue())
       )
       .subscribe(state => {
-        this.userTransactionNewStoreService.setStep2(state);
+        this.userTransactionNewStoreService.setPerson(state);
       });
   }
 

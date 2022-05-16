@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-user-transactions-new-summary',
@@ -6,12 +6,4 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./user-transactions-new-summary.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewSummaryComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
-
-// TODO change step1 step2 step3 to name person date-and-value
-// TODO change guards names to reflect the route changes
-// TODO change component names to reflect the route changes
+export class UserTransactionsNewSummaryComponent {}

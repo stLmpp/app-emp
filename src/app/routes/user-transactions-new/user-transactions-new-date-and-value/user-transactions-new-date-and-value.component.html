@@ -2,7 +2,7 @@
 
 <form [formGroup]="form">
   <app-button-actions validationOnEnter>
-    <a mat-raised-button [routerLink]="['../2']">Back</a>
+    <a mat-raised-button [routerLink]="['../person']">Back</a>
     <a mat-raised-button color="primary" [routerLink]="['../', 'summary']" [disabled]="form.invalid">Next</a>
   </app-button-actions>
 </form>

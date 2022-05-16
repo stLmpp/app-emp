@@ -7,7 +7,7 @@ import { RouteParamEnum } from '../../models/route-param.enum';
 import { UserTransactionsNewStoreService } from './user-transactions-new-store.service';
 
 @Injectable({ providedIn: 'root' })
-export class UserTransactionsNewStep2Guard implements CanActivate {
+export class UserTransactionsNewNameAndDescriptionGuard implements CanActivate {
   constructor(
     private readonly userTransactionNewStoreService: UserTransactionsNewStoreService,
     private readonly router: Router
@@ -19,8 +19,8 @@ export class UserTransactionsNewStep2Guard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const idUser = route.paramMap.get(RouteParamEnum.idUser)!;
     return (
-      this.userTransactionNewStoreService.isStep1Valid() ||
-      this.router.createUrlTree(['/users', idUser, 'transactions', 'new', '1'])
+      this.userTransactionNewStoreService.isNameAndDescriptionValid() ||
+      this.router.createUrlTree(['/users', idUser, 'transactions', 'new', 'name-and-description'])
     );
   }
 }

@@ -12,12 +12,12 @@ interface Form {
 }
 
 @Component({
-  selector: 'app-user-transactions-new-step1',
-  templateUrl: './user-transactions-new-step1.component.html',
-  styleUrls: ['./user-transactions-new-step1.component.scss'],
+  selector: 'app-user-transactions-new-name-and-description',
+  templateUrl: './user-transactions-new-name-and-description.component.html',
+  styleUrls: ['./user-transactions-new-name-and-description.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewStep1Component extends BaseComponent implements OnInit {
+export class UserTransactionsNewNameAndDescriptionComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly userTransactionNewStoreService: UserTransactionsNewStoreService,
     private readonly formBuilder: NonNullableFormBuilder
@@ -52,7 +52,7 @@ export class UserTransactionsNewStep1Component extends BaseComponent implements 
         map(() => this.form.getRawValue())
       )
       .subscribe(state => {
-        this.userTransactionNewStoreService.setStep1(state);
+        this.userTransactionNewStoreService.setNameAndDescription(state);
       });
   }
 }

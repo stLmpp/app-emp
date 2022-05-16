@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { UserTransactionsNewDateAndValueGuard } from './user-transactions-new-date-and-value.guard';
+import { UserTransactionsNewDateAndValueComponent } from './user-transactions-new-date-and-value/user-transactions-new-date-and-value.component';
+import { UserTransactionsNewNameAndDescriptionGuard } from './user-transactions-new-name-and-description.guard';
+import { UserTransactionsNewNameAndDescriptionComponent } from './user-transactions-new-name-and-description/user-transactions-new-name-and-description.component';
+import { UserTransactionsNewPersonGuard } from './user-transactions-new-person.guard';
+import { UserTransactionsNewPersonComponent } from './user-transactions-new-person/user-transactions-new-person.component';
 import { UserTransactionsNewResetStoreGuard } from './user-transactions-new-reset-store.guard';
-import { UserTransactionsNewStep1Component } from './user-transactions-new-step1/user-transactions-new-step1.component';
-import { UserTransactionsNewStep2Guard } from './user-transactions-new-step2.guard';
-import { UserTransactionsNewStep2Component } from './user-transactions-new-step2/user-transactions-new-step2.component';
-import { UserTransactionsNewStep3Guard } from './user-transactions-new-step3.guard';
-import { UserTransactionsNewStep3Component } from './user-transactions-new-step3/user-transactions-new-step3.component';
 import { UserTransactionsNewSummaryComponent } from './user-transactions-new-summary/user-transactions-new-summary.component';
 import { UserTransactionsNewComponent } from './user-transactions-new.component';
 
@@ -19,29 +20,29 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: '1',
+        redirectTo: 'name-and-description',
       },
       {
-        path: '1',
-        component: UserTransactionsNewStep1Component,
-        title: 'New transaction - Step 1',
+        path: 'name-and-description',
+        component: UserTransactionsNewNameAndDescriptionComponent,
+        title: 'New transaction - Name and description',
       },
       {
-        path: '2',
-        component: UserTransactionsNewStep2Component,
-        canActivate: [UserTransactionsNewStep2Guard],
-        title: 'New transaction - Step 2',
+        path: 'person',
+        component: UserTransactionsNewPersonComponent,
+        canActivate: [UserTransactionsNewNameAndDescriptionGuard],
+        title: 'New transaction - Person',
       },
       {
-        path: '3',
-        component: UserTransactionsNewStep3Component,
-        canActivate: [UserTransactionsNewStep3Guard],
-        title: 'New transaction - Step 3',
+        path: 'date-and-value',
+        component: UserTransactionsNewDateAndValueComponent,
+        canActivate: [UserTransactionsNewPersonGuard],
+        title: 'New transaction - Date and value',
       },
       {
         path: 'summary',
         component: UserTransactionsNewSummaryComponent,
-        canActivate: [UserTransactionsNewStep3Guard],
+        canActivate: [UserTransactionsNewDateAndValueGuard],
         title: 'New transactions - Summary',
       },
     ],

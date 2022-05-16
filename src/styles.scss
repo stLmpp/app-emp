@@ -67,6 +67,8 @@ body {
 }
 
 .button-actions {
+  display: block;
+
   .mat-button-base:not(:last-child) {
     margin-right: 1rem;
   }

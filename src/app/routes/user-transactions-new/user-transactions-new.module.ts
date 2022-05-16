@@ -12,19 +12,19 @@ import { GoBackButtonComponent } from '../../components/go-back-button/go-back-b
 import { ButtonActionsDirective } from '../../directives/button-actions.directive';
 import { MaskDirective } from '../../directives/mask.directive';
 
+import { UserTransactionsNewDateAndValueComponent } from './user-transactions-new-date-and-value/user-transactions-new-date-and-value.component';
+import { UserTransactionsNewNameAndDescriptionComponent } from './user-transactions-new-name-and-description/user-transactions-new-name-and-description.component';
+import { UserTransactionsNewPersonComponent } from './user-transactions-new-person/user-transactions-new-person.component';
 import { UserTransactionsNewRoutingModule } from './user-transactions-new-routing.module';
-import { UserTransactionsNewStep1Component } from './user-transactions-new-step1/user-transactions-new-step1.component';
-import { UserTransactionsNewStep2Component } from './user-transactions-new-step2/user-transactions-new-step2.component';
-import { UserTransactionsNewStep3Component } from './user-transactions-new-step3/user-transactions-new-step3.component';
 import { UserTransactionsNewSummaryComponent } from './user-transactions-new-summary/user-transactions-new-summary.component';
 import { UserTransactionsNewComponent } from './user-transactions-new.component';
 
 @NgModule({
   declarations: [
     UserTransactionsNewComponent,
-    UserTransactionsNewStep1Component,
-    UserTransactionsNewStep2Component,
-    UserTransactionsNewStep3Component,
+    UserTransactionsNewNameAndDescriptionComponent,
+    UserTransactionsNewPersonComponent,
+    UserTransactionsNewDateAndValueComponent,
     UserTransactionsNewSummaryComponent,
   ],
   imports: [

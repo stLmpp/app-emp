@@ -24,41 +24,41 @@ export class UserTransactionsNewStoreService {
     return this.store.get('idUser');
   }
 
-  setStep1(step1: Pick<TransactionCreateDto, 'name' | 'description'>): void {
-    this._updateDto(step1);
+  setNameAndDescription(dto: Pick<TransactionCreateDto, 'name' | 'description'>): void {
+    this._updateDto(dto);
   }
 
-  setStep2(step2: Pick<TransactionCreateDto, 'personName' | 'idPerson'>): void {
-    this._updateDto(step2);
+  setPerson(dto: Pick<TransactionCreateDto, 'personName' | 'idPerson'>): void {
+    this._updateDto(dto);
   }
 
-  setStep3(step3: Pick<TransactionCreateDto, 'total' | 'date'>): void {
-    this._updateDto(step3);
+  setDateAndValue(dto: Pick<TransactionCreateDto, 'total' | 'date'>): void {
+    this._updateDto(dto);
   }
 
-  isStep1Valid(): boolean {
+  isNameAndDescriptionValid(): boolean {
     const { name } = this.store.get('dto');
     return (
       !!name && name.length >= TransactionCreateDto.nameMinLength && name.length <= TransactionCreateDto.nameMaxLength
     );
   }
 
-  isStep2Valid(): boolean {
+  isPersonValid(): boolean {
     const { personName, idPerson } = this.store.get('dto');
-    const isStep1Valid = this.isStep1Valid();
+    const isNameAndDescriptionValid = this.isNameAndDescriptionValid();
     return (
-      (isStep1Valid && !!idPerson) ||
-      (isStep1Valid &&
+      (isNameAndDescriptionValid && !!idPerson) ||
+      (isNameAndDescriptionValid &&
         !!personName &&
         personName.length >= TransactionCreateDto.personNameMinLength &&
         personName.length <= TransactionCreateDto.personNameMaxLength)
     );
   }
 
-  isStep3Valid(): boolean {
+  isDateAndValueValid(): boolean {
     const { total, date } = this.store.get('dto');
     return (
-      this.isStep2Valid() && !!date && total >= TransactionCreateDto.totalMin && total <= TransactionCreateDto.totalMax
+      this.isPersonValid() && !!date && total >= TransactionCreateDto.totalMin && total <= TransactionCreateDto.totalMax
     );
   }
 
