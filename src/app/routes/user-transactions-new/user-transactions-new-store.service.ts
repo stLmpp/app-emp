@@ -62,7 +62,7 @@ export class UserTransactionsNewStoreService {
     );
   }
 
-  getDto(): TransactionCreateDto {
+  getDto(): Readonly<TransactionCreateDto> {
     return this.store.get('dto');
   }
 }

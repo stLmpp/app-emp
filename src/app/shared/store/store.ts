@@ -75,7 +75,7 @@ export class Store<T extends Record<any, any>> {
     }
   }
 
-  private _updateQueue(update: (state: T) => T): this {
+  private _updateQueue(update: (state: Readonly<T>) => T): this {
     this._updateQueue$.next([...this._updateQueue$.value, update]);
     return this;
   }
@@ -90,9 +90,9 @@ export class Store<T extends Record<any, any>> {
     return state$;
   }
 
-  get(): T;
-  get<K extends keyof T>(key: K): T[K];
-  get<K extends keyof T>(key?: K): T | T[K] {
+  get(): Readonly<T>;
+  get<K extends keyof T>(key: K): Readonly<T[K]>;
+  get<K extends keyof T>(key?: K): Readonly<T> | Readonly<T[K]> {
     this._assertNotDestroyed();
     const state = this._getState();
     return key ? state[key] : state;
@@ -110,11 +110,11 @@ export class Store<T extends Record<any, any>> {
     return this;
   }
 
-  update(update: Partial<T> | ((state: T) => T)): this;
-  update<K extends keyof T>(key: K, update: T[K] | ((state: T[K]) => T[K])): this;
+  update(update: Partial<T> | ((state: Readonly<T>) => T)): this;
+  update<K extends keyof T>(key: K, update: T[K] | ((state: Readonly<T[K]>) => T[K])): this;
   update<K extends keyof T>(
-    keyOrStateOrCallback: Partial<T> | ((state: T) => T) | K,
-    stateOrCallback?: T[K] | ((state: T[K]) => T[K])
+    keyOrStateOrCallback: Partial<T> | ((state: Readonly<T>) => T) | K,
+    stateOrCallback?: T[K] | ((state: Readonly<T[K]>) => T[K])
   ): this {
     const isUpdateCallback = isFunction(keyOrStateOrCallback);
     if (isUpdateCallback || isObject(keyOrStateOrCallback)) {

@@ -12,6 +12,7 @@ import { NgxCurrencyModule } from 'ngx-currency';
 import { GoBackButtonComponent } from '../../components/go-back-button/go-back-button.component';
 import { ButtonActionsDirective } from '../../directives/button-actions.directive';
 import { MaskDirective } from '../../directives/mask.directive';
+import { DateBrPipe } from '../../pipes/date-br-pipe/date-br.pipe';
 
 import { UserTransactionsNewDateAndTotalComponent } from './user-transactions-new-date-and-total/user-transactions-new-date-and-total.component';
 import { UserTransactionsNewNameAndDescriptionComponent } from './user-transactions-new-name-and-description/user-transactions-new-name-and-description.component';
@@ -42,6 +43,7 @@ import { UserTransactionsNewComponent } from './user-transactions-new.component'
     ButtonActionsDirective,
     MatAutocompleteModule,
     NgxCurrencyModule,
+    DateBrPipe,
   ],
 })
 export class UserTransactionsNewModule {}
