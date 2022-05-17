@@ -7,12 +7,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 import { GoBackButtonComponent } from '../../components/go-back-button/go-back-button.component';
 import { ButtonActionsDirective } from '../../directives/button-actions.directive';
 import { MaskDirective } from '../../directives/mask.directive';
 
-import { UserTransactionsNewDateAndValueComponent } from './user-transactions-new-date-and-value/user-transactions-new-date-and-value.component';
+import { UserTransactionsNewDateAndTotalComponent } from './user-transactions-new-date-and-total/user-transactions-new-date-and-total.component';
 import { UserTransactionsNewNameAndDescriptionComponent } from './user-transactions-new-name-and-description/user-transactions-new-name-and-description.component';
 import { UserTransactionsNewPersonComponent } from './user-transactions-new-person/user-transactions-new-person.component';
 import { UserTransactionsNewRoutingModule } from './user-transactions-new-routing.module';
@@ -24,7 +25,7 @@ import { UserTransactionsNewComponent } from './user-transactions-new.component'
     UserTransactionsNewComponent,
     UserTransactionsNewNameAndDescriptionComponent,
     UserTransactionsNewPersonComponent,
-    UserTransactionsNewDateAndValueComponent,
+    UserTransactionsNewDateAndTotalComponent,
     UserTransactionsNewSummaryComponent,
   ],
   imports: [
@@ -40,6 +41,7 @@ import { UserTransactionsNewComponent } from './user-transactions-new.component'
     MatButtonModule,
     ButtonActionsDirective,
     MatAutocompleteModule,
+    NgxCurrencyModule,
   ],
 })
 export class UserTransactionsNewModule {}

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { UserTransactionsNewDateAndValueGuard } from './user-transactions-new-date-and-value.guard';
-import { UserTransactionsNewDateAndValueComponent } from './user-transactions-new-date-and-value/user-transactions-new-date-and-value.component';
+import { UserTransactionsNewDateAndTotalGuard } from './user-transactions-new-date-and-total.guard';
+import { UserTransactionsNewDateAndTotalComponent } from './user-transactions-new-date-and-total/user-transactions-new-date-and-total.component';
 import { UserTransactionsNewNameAndDescriptionGuard } from './user-transactions-new-name-and-description.guard';
 import { UserTransactionsNewNameAndDescriptionComponent } from './user-transactions-new-name-and-description/user-transactions-new-name-and-description.component';
 import { UserTransactionsNewPersonGuard } from './user-transactions-new-person.guard';
@@ -34,15 +34,15 @@ const routes: Routes = [
         title: 'New transaction - Person',
       },
       {
-        path: 'date-and-value',
-        component: UserTransactionsNewDateAndValueComponent,
+        path: 'date-and-total',
+        component: UserTransactionsNewDateAndTotalComponent,
         canActivate: [UserTransactionsNewPersonGuard],
-        title: 'New transaction - Date and value',
+        title: 'New transaction - Date and total',
       },
       {
         path: 'summary',
         component: UserTransactionsNewSummaryComponent,
-        canActivate: [UserTransactionsNewDateAndValueGuard],
+        canActivate: [UserTransactionsNewDateAndTotalGuard],
         title: 'New transactions - Summary',
       },
     ],

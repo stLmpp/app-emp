@@ -8,6 +8,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldDefaultOptions } from '@ang
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import dateFnsLocalePt from 'date-fns/locale/pt-BR';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from 'ngx-currency';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,20 @@ import { NAVIGATOR } from './core/navigator.token';
 import { WINDOW, WINDOW_PROVIDERS } from './core/window.service';
 
 registerLocaleData(localePt);
+
+function currencyMaskConfigFactory(): CurrencyMaskConfig {
+  return {
+    align: 'left',
+    decimal: ',',
+    allowZero: true,
+    nullable: false,
+    precision: 2,
+    thousands: '.',
+    prefix: '',
+    suffix: '',
+    allowNegative: true,
+  };
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +52,7 @@ registerLocaleData(localePt);
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } as MatFormFieldDefaultOptions },
     { provide: MAT_DATE_LOCALE, useValue: dateFnsLocalePt },
+    { provide: CURRENCY_MASK_CONFIG, useFactory: currencyMaskConfigFactory },
   ],
   bootstrap: [AppComponent],
 })

@@ -29,7 +29,7 @@
       cdkTextareaAutosize
       [cdkAutosizeMaxRows]="10"
     ></textarea>
-    <mat-error *ngIf="form.controls.description.errors?.maxLength">
+    <mat-error *ngIf="form.controls.description.errors?.maxlength">
       Description must have less than {{ transactionCreateDto.descriptionMaxLength }} characters
     </mat-error>
     <mat-hint>Max {{ transactionCreateDto.descriptionMaxLength }} characters</mat-hint>

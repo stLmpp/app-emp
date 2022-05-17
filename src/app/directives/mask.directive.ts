@@ -21,15 +21,31 @@ export class MaskDirective implements OnInit {
       this.inputmaskService.createMask('datetime', {
         inputFormat: 'dd/mm/yyyy',
         placeholder: 'DD/MM/YYYY',
+        ...this._maskOptions,
       }),
   };
 
   private _isInitialized = false;
 
+  private _maskType!: MaskType;
   private _mask?: Inputmask.Instance;
+  private _maskOptions?: Inputmask.Options;
 
   @Input('appMask')
   set mask(mask: MaskType) {
+    this._maskType = mask;
+    this._applyMask(mask);
+  }
+
+  @Input()
+  set appMaskOptions(options: Inputmask.Options) {
+    this._maskOptions = options;
+    if (this._mask) {
+      this._applyMask(this._maskType);
+    }
+  }
+
+  private _applyMask(mask: MaskType): void {
     if (this._mask) {
       this._mask.remove();
     }
