@@ -1,8 +1,8 @@
 <app-go-back-button routerLink="/"></app-go-back-button>
 <div class="cards">
+  <app-card-new routerLink="new"></app-card-new>
   <app-user-transaction-card
     *ngFor="let transaction of transactions; trackBy: trackByTransaction"
     [transaction]="transaction"
   ></app-user-transaction-card>
-  <app-card-new routerLink="new"></app-card-new>
 </div>

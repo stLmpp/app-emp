@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxCurrencyModule } from 'ngx-currency';
 
 import { GoBackButtonComponent } from '../../components/go-back-button/go-back-button.component';
@@ -44,6 +45,7 @@ import { UserTransactionsNewComponent } from './user-transactions-new.component'
     MatAutocompleteModule,
     NgxCurrencyModule,
     DateBrPipe,
+    MatSnackBarModule,
   ],
 })
 export class UserTransactionsNewModule {}

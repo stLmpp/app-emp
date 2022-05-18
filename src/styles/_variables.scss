@@ -13,7 +13,7 @@ $theme: mat.define-dark-theme(
   )
 );
 $success: mat.define-palette(mat.$green-palette);
-
+$accent-color: mat.get-color-from-palette($accent);
 $primary-color: mat.get-color-from-palette($primary);
 $warn-color: mat.get-color-from-palette($warn);
 $success-color: mat.get-color-from-palette($success);

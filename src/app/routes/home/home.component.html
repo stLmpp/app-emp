@@ -1,4 +1,5 @@
 <div class="cards">
+  <app-user-card-new (userCreated)="onUserCreated($event)"></app-user-card-new>
   <app-user-card
     *ngFor="let user of users; trackBy: trackByUser"
     [name]="user.id"
@@ -6,5 +7,4 @@
     (deleted)="onUserDeleted(user)"
     (edited)="onUserEdited(user.id, $event)"
   ></app-user-card>
-  <app-user-card-new (userCreated)="onUserCreated($event)"></app-user-card-new>
 </div>

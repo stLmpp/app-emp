@@ -1,4 +1,5 @@
 @use 'variables' as var;
+@use 'mixins' as mixins;
 
 :host {
   display: block;
@@ -14,4 +15,9 @@ a {
 
 .total-to-receive {
   color: var.$warn-color;
+}
+
+.description {
+  @include mixins.clamp(1);
+  word-break: break-word;
 }

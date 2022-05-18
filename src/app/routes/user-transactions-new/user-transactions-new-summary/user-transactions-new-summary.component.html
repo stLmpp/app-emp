@@ -1,10 +1,10 @@
-<h3>Summary</h3>
+<h3>Summary of the new transaction</h3>
 
 <div class="container">
   <div class="title">Name</div>
   <div class="value">{{ dto.name }}</div>
   <div class="title">Description</div>
-  <div class="value">{{ dto.description }}</div>
+  <div class="value">{{ dto.description || '-' }}</div>
   <div class="title">Person</div>
   <div class="value">{{ dto.personName }}</div>
   <div class="title">Date</div>
@@ -14,6 +14,6 @@
 </div>
 
 <app-button-actions>
-  <a mat-raised-button [routerLink]="['../date-and-total']">Back</a>
-  <button mat-raised-button color="primary">Create transaction</button>
+  <a mat-raised-button [routerLink]="['../date-and-total']" [disabled]="loading">Back</a>
+  <button mat-raised-button color="primary" (click)="create()" [disabled]="loading">Create transaction</button>
 </app-button-actions>

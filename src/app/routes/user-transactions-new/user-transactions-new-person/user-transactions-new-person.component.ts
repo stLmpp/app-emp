@@ -11,13 +11,11 @@ import {
 } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { ActivatedRoute } from '@angular/router';
 import { debounceTime, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { isNotNil } from 'st-utils';
 
 import { BaseComponent } from '../../../components/base-component';
 import { Person } from '../../../models/person';
-import { RouteParamEnum } from '../../../models/route-param.enum';
 import { TransactionCreateDto } from '../../../models/transaction-create.dto';
 import { PersonService } from '../../../services/person.service';
 import { trackById } from '../../../shared/utils/track-by';
@@ -38,8 +36,7 @@ export class UserTransactionsNewPersonComponent extends BaseComponent implements
   constructor(
     private readonly formBuilder: NonNullableFormBuilder,
     private readonly personService: PersonService,
-    private readonly userTransactionNewStoreService: UserTransactionsNewStoreService,
-    private readonly activatedRoute: ActivatedRoute
+    private readonly userTransactionNewStoreService: UserTransactionsNewStoreService
   ) {
     super();
   }
@@ -72,7 +69,7 @@ export class UserTransactionsNewPersonComponent extends BaseComponent implements
   readonly trackByPerson = trackById<Person>();
 
   private _getPeople(name: string): Observable<Person[]> {
-    return this.personService.searchByName(this._getIdUser(), name).pipe(
+    return this.personService.searchByName(this.userTransactionNewStoreService.getIdUser()!, name).pipe(
       tap(people => {
         if (people.length && people[0].name === name) {
           this.form.controls.idPerson.setValue(people[0].id);
@@ -83,10 +80,6 @@ export class UserTransactionsNewPersonComponent extends BaseComponent implements
         }
       })
     );
-  }
-
-  private _getIdUser(): string {
-    return this.activatedRoute.snapshot.paramMap.get(RouteParamEnum.idUser)!;
   }
 
   private _getForm(): FormGroup<Form> {
