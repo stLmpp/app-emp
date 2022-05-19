@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,18 +33,18 @@ export class EditUserModalComponent {
     private readonly userService: UserService,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly uniqueUserIdValidatorFactory: UniqueUserIdValidatorFactory,
-    @Inject(MAT_DIALOG_DATA) public readonly idUser: string
+    @Inject(MAT_DIALOG_DATA) public readonly idUser: string,
+    private readonly formBuilder: NonNullableFormBuilder
   ) {}
 
-  readonly form = new FormGroup({
-    name: new FormControl(this.idUser, {
+  readonly form = this.formBuilder.group({
+    name: this.formBuilder.control(this.idUser, {
       asyncValidators: [this.uniqueUserIdValidatorFactory.create(this.changeDetectorRef, [this.idUser])],
       validators: [
         Validators.minLength(3),
         Validators.maxLength(30),
         Validators.pattern(/^[a-zA-Z][-_a-zA-Z\d]{1,28}[a-zA-Z\d]$/),
       ],
-      initialValueIsDefault: true,
     }),
   });
   readonly nameControl = this.form.controls.name;
