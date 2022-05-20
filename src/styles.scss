@@ -84,3 +84,14 @@ body {
     }
   }
 }
+
+.utility {
+  &.button,
+  &.mat-fab,
+  &.mat-button-base,
+  &* {
+    display: block;
+    position: fixed;
+    top: calc(1rem + var(--navbar-height));
+  }
+}

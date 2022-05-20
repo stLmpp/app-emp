@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { UtilitiesService } from '../utilities/utilities.service';
+import { UtilityDirective } from '../utilities/utility.directive';
 
 import { GoBackButtonService } from './go-back-button.service';
 
@@ -15,20 +18,27 @@ import { GoBackButtonService } from './go-back-button.service';
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
 })
-export class GoBackButtonComponent implements OnDestroy {
-  constructor(private readonly goBackButtonService: GoBackButtonService) {
+export class GoBackButtonComponent extends UtilityDirective implements OnDestroy {
+  constructor(
+    private readonly goBackButtonService: GoBackButtonService,
+    utilitiesService: UtilitiesService,
+    renderer2: Renderer2,
+    elementRef: ElementRef
+  ) {
+    super(utilitiesService, renderer2, elementRef);
     const [id, show$] = this.goBackButtonService.addButton();
-    this._id = id;
+    this._idGoBack = id;
     this.show$ = show$;
   }
 
-  private readonly _id: number;
+  private readonly _idGoBack: number;
 
   @Input() link!: string | any[];
 
   readonly show$: Observable<boolean>;
 
-  ngOnDestroy(): void {
-    this.goBackButtonService.removeButton(this._id);
+  override ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.goBackButtonService.removeButton(this._idGoBack);
   }
 }

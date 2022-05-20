@@ -104,8 +104,8 @@ export class Store<T extends Record<any, any>> {
     this._assertNotDestroyed();
     if (isObject(keyOrState)) {
       this._updateQueue(() => keyOrState);
-    } else if (state) {
-      this._updateQueue(oldState => ({ ...oldState, [keyOrState]: state }));
+    } else {
+      this._updateQueue(oldState => ({ ...oldState, [keyOrState]: state! }));
     }
     return this;
   }
@@ -120,8 +120,8 @@ export class Store<T extends Record<any, any>> {
     if (isUpdateCallback || isObject(keyOrStateOrCallback)) {
       const callback = isUpdateCallback ? keyOrStateOrCallback : (state: T) => ({ ...state, ...keyOrStateOrCallback });
       this._updateQueue(callback);
-    } else if (stateOrCallback) {
-      const callback = isFunction(stateOrCallback) ? stateOrCallback : () => stateOrCallback;
+    } else {
+      const callback = isFunction(stateOrCallback) ? stateOrCallback : () => stateOrCallback!;
       this._updateQueue(oldState => ({
         ...oldState,
         [keyOrStateOrCallback]: callback(oldState[keyOrStateOrCallback]),

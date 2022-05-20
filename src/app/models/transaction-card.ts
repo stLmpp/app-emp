@@ -7,4 +7,5 @@ export interface TransactionCard {
   totalReceived: number;
   totalToReceive: number;
   total: number;
+  idPerson: string;
 }
