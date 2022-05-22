@@ -2,7 +2,7 @@ import { BehaviorSubject, filter, Observable, observeOn, pluck, queueScheduler, 
 import { isFunction, isObject } from 'st-utils';
 
 import { LocalStorageStorePersist } from './local-storage-store-persist';
-import { StoreConfig } from './store-config';
+import { StoreConfig, StorePersistConfig } from './store-config';
 
 export type UpdateQueueType<T extends Record<any, any>> = ((state: T) => T)[];
 
@@ -29,11 +29,12 @@ export class Store<T extends Record<any, any>> {
     if (ngDevMode) {
       window.ngStores.push(this);
     }
-    const persist = !!config.persist;
+    const persist = config.persist;
     if (persist) {
-      this._storePersist = config.persistAdapter
-        ? new config.persistAdapter(config.name)
-        : new LocalStorageStorePersist(config.name);
+      const persistObject: StorePersistConfig<T> = isObject(persist) ? persist : {};
+      this._storePersist = persistObject.adapter
+        ? new persistObject.adapter(config.name, config.persist)
+        : new LocalStorageStorePersist(config.name, persistObject);
     }
     this._initialState = config.initialState;
     const startState = { ...config.initialState, ...this._storePersist?.get() };

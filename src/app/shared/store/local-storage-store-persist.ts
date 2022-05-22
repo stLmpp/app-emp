@@ -9,14 +9,28 @@ export class LocalStorageStorePersist<T extends Record<any, any>> extends StoreP
 
   get(): T | undefined {
     const item = localStorage.getItem(this._key);
-    return item ? JSON.parse(item) : undefined;
+    if (!item) {
+      return undefined;
+    }
+    let object = JSON.parse(item);
+    for (const { getFromPersist, setToStore } of this._options.specialKeys ?? []) {
+      object = setToStore(object, getFromPersist(object));
+    }
+    return object;
   }
 
   set(value: T | null | undefined): this {
     if (isNil(value)) {
       localStorage.removeItem(this._key);
     } else {
-      localStorage.setItem(this._key, JSON.stringify(value));
+      for (const { getFromStore, setToPersist } of this._options.specialKeys ?? []) {
+        value = setToPersist(value, getFromStore(value));
+      }
+      let object: any = value;
+      for (const key of this._options.ignoreKeys ?? []) {
+        object = { ...value, [key]: undefined };
+      }
+      localStorage.setItem(this._key, JSON.stringify(object));
     }
     return this;
   }
