@@ -8,6 +8,7 @@ import { LocalStorageStateStorage } from '../../shared/store/local-storage-state
 export interface UserTransactionsState {
   showSettled: boolean;
   peopleSelected: Set<string>;
+  idUser: string | null;
 }
 
 const store = createStore(
@@ -17,6 +18,7 @@ const store = createStore(
   withProps<UserTransactionsState>({
     showSettled: false,
     peopleSelected: new Set(),
+    idUser: null,
   }),
   withEntities<TransactionCard, 'idTransaction'>({ idKey: 'idTransaction' })
 );

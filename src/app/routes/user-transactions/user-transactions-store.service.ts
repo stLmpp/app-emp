@@ -75,4 +75,16 @@ export class UserTransactionsStoreService {
   clearPeopleSelected(): void {
     this.store.update(setProp('peopleSelected', new Set()));
   }
+
+  setIdUser(idUser: string): void {
+    this.store.update(setProp('idUser', idUser));
+  }
+
+  getIdUser(): string | null {
+    return this.store.query(state => state.idUser);
+  }
+
+  reset(): void {
+    this.store.reset();
+  }
 }
