@@ -3,7 +3,8 @@ import { Observable } from 'rxjs';
 
 import { BaseComponent } from '../base-component';
 
-import { UtilitiesService, Utility } from './utilities.service';
+import { UtilitiesService } from './utilities.service';
+import { Utility } from './utility';
 
 @Directive({
   selector: '[appUtility]',
@@ -21,19 +22,17 @@ export class UtilityDirective extends BaseComponent implements OnDestroy, OnInit
     this._id = id;
     this._utility$ = utility$;
   }
-  
+
   private readonly _id: number;
   private readonly _utility$: Observable<Utility>;
-  
+
   ngOnInit(): void {
-    this._utility$.pipe(
-      this.untilDestroy()
-    ).subscribe(utility => {
+    this._utility$.pipe(this.untilDestroy()).subscribe(utility => {
       const entries = Object.entries(utility.style);
       for (const [key, value] of entries) {
-        this.renderer2.setStyle(this.elementRef.nativeElement, key, value)
+        this.renderer2.setStyle(this.elementRef.nativeElement, key, value);
       }
-    })
+    });
   }
 
   override ngOnDestroy(): void {

@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { setProp } from '@ngneat/elf';
 
 import { TransactionCreateDto } from '../../models/transaction-create.dto';
 
-import { UserTransactionsNewStore } from './user-transactions-new.store';
+import { UserTransactionsNewStore, UserTransactionsNewStoreToken } from './user-transactions-new.store';
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsNewStoreService {
-  constructor(private readonly store: UserTransactionsNewStore) {}
+  constructor(@Inject(UserTransactionsNewStoreToken) private readonly store: UserTransactionsNewStore) {}
 
   private _updateDto(dto: Partial<TransactionCreateDto>): void {
-    this.store.update('dto', oldDto => ({ ...oldDto, ...dto }));
+    this.store.update(setProp('dto', oldDto => ({ ...oldDto, ...dto })));
   }
 
   reset(): void {
@@ -17,11 +18,11 @@ export class UserTransactionsNewStoreService {
   }
 
   setIdUser(idUser: string): void {
-    this.store.set('idUser', idUser);
+    this.store.update(setProp('idUser', idUser));
   }
 
   getIdUser(): string | null {
-    return this.store.get('idUser');
+    return this.store.query(state => state.idUser);
   }
 
   setNameAndDescription(dto: Pick<TransactionCreateDto, 'name' | 'description'>): void {
@@ -37,14 +38,14 @@ export class UserTransactionsNewStoreService {
   }
 
   isNameAndDescriptionValid(): boolean {
-    const { name } = this.store.get('dto');
+    const { name } = this.getDto();
     return (
       !!name && name.length >= TransactionCreateDto.nameMinLength && name.length <= TransactionCreateDto.nameMaxLength
     );
   }
 
   isPersonValid(): boolean {
-    const { personName, idPerson } = this.store.get('dto');
+    const { personName, idPerson } = this.getDto();
     const isNameAndDescriptionValid = this.isNameAndDescriptionValid();
     return (
       (isNameAndDescriptionValid && !!idPerson) ||
@@ -56,13 +57,13 @@ export class UserTransactionsNewStoreService {
   }
 
   isDateAndValueValid(): boolean {
-    const { total, date } = this.store.get('dto');
+    const { total, date } = this.getDto();
     return (
       this.isPersonValid() && !!date && total >= TransactionCreateDto.totalMin && total <= TransactionCreateDto.totalMax
     );
   }
 
   getDto(): Readonly<TransactionCreateDto> {
-    return this.store.get('dto');
+    return this.store.query(state => state.dto);
   }
 }

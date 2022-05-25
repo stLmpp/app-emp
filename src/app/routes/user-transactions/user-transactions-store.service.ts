@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { select, setProp } from '@ngneat/elf';
+import { selectAllEntities, setEntities } from '@ngneat/elf-entities';
 import { combineLatest, map, Observable } from 'rxjs';
 import { uniqBy } from 'st-utils';
 
@@ -6,16 +8,22 @@ import { IdName } from '../../models/id-name';
 import { IdNameChecked } from '../../models/id-name-checked';
 import { TransactionCard } from '../../models/transaction-card';
 
-import { UserTransactionsStore } from './user-transactions.store';
+import { UserTransactionsStore, UserTransactionsStoreToken } from './user-transactions.store';
 
 // TODO add guard to reset state
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsStoreService {
-  constructor(private readonly store: UserTransactionsStore) {}
+  constructor(@Inject(UserTransactionsStoreToken) private readonly store: UserTransactionsStore) {}
 
-  readonly transactionsFiltered$ = this.store.select().pipe(
-    map(({ transactions, showSettled, peopleSelected }) => {
+  readonly showSettled$ = this.store.pipe(select(state => state.showSettled));
+
+  readonly transactionsFiltered$ = combineLatest([
+    this.store.pipe(select(state => state.peopleSelected)),
+    this.showSettled$,
+    this.store.pipe(selectAllEntities()),
+  ]).pipe(
+    map(([peopleSelected, showSettled, transactions]) => {
       const peopleSet = new Set(peopleSelected);
       if (!showSettled) {
         transactions = transactions.filter(transaction => transaction.total !== transaction.totalReceived);
@@ -28,8 +36,8 @@ export class UserTransactionsStoreService {
   );
 
   readonly people$: Observable<IdNameChecked[]> = combineLatest([
-    this.store.select('transactions'),
-    this.store.select('peopleSelected'),
+    this.store.pipe(selectAllEntities()),
+    this.store.pipe(select(state => state.peopleSelected)),
   ]).pipe(
     map(([transactions, peopleSelected]) =>
       uniqBy(
@@ -42,29 +50,29 @@ export class UserTransactionsStoreService {
     )
   );
 
-  readonly showSettled$ = this.store.select('showSettled');
-
   setTransactions(transactions: TransactionCard[]): void {
-    this.store.set('transactions', transactions);
+    this.store.update(setEntities(transactions));
   }
 
   setShowSettled(showSettled: boolean): void {
-    this.store.set('showSettled', showSettled);
+    this.store.update(setProp('showSettled', showSettled));
   }
 
   togglePerson(id: string): void {
-    this.store.update('peopleSelected', peopleSelected => {
-      const newPeopleSelected = new Set([...peopleSelected]);
-      if (newPeopleSelected.has(id)) {
-        newPeopleSelected.delete(id);
-      } else {
-        newPeopleSelected.add(id);
-      }
-      return newPeopleSelected;
-    });
+    this.store.update(
+      setProp('peopleSelected', peopleSelected => {
+        const newPeopleSelected = new Set([...peopleSelected]);
+        if (newPeopleSelected.has(id)) {
+          newPeopleSelected.delete(id);
+        } else {
+          newPeopleSelected.add(id);
+        }
+        return newPeopleSelected;
+      })
+    );
   }
 
   clearPeopleSelected(): void {
-    this.store.set('peopleSelected', new Set());
+    this.store.update(setProp('peopleSelected', new Set()));
   }
 }

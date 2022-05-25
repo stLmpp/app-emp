@@ -1,16 +1,20 @@
-import { Injectable } from '@angular/core';
+import { InjectionToken } from '@angular/core';
+import { createStore, withProps } from '@ngneat/elf';
 
 import { TransactionCreateDto } from '../../models/transaction-create.dto';
 import { TransactionType } from '../../models/transaction-type';
-import { Store } from '../../shared/store/store';
+import { LocalStorageStateStorage } from '../../shared/store/local-storage-state-storage';
 
 export interface UserTransactionsNewState {
   dto: TransactionCreateDto;
   idUser: string | null;
 }
 
-function newTransactionStoreInitialState(): UserTransactionsNewState {
-  return {
+const store = createStore(
+  {
+    name: 'user-transactions-new',
+  },
+  withProps<UserTransactionsNewState>({
     dto: {
       total: 1,
       name: '',
@@ -18,24 +22,20 @@ function newTransactionStoreInitialState(): UserTransactionsNewState {
       type: TransactionType.Loan,
     },
     idUser: null,
-  };
-}
+  })
+);
 
-@Injectable({ providedIn: 'root' })
-export class UserTransactionsNewStore extends Store<UserTransactionsNewState> {
-  constructor() {
-    super({
-      name: 'user-transactions-new',
-      initialState: newTransactionStoreInitialState(),
-      persist: {
-        specialKeys: [
-          {
-            type: 'date',
-            get: state => state.dto.date,
-            set: (state, value) => ({ ...state, dto: { ...state.dto, date: value } }),
-          },
-        ],
-      },
-    });
-  }
-}
+LocalStorageStateStorage.persistStore(store, {
+  specialKeys: [
+    {
+      type: 'date',
+      get: state => state.dto.date,
+      set: (state, value) => ({ ...state, dto: { ...state.dto, date: value } }),
+    },
+  ],
+});
+export type UserTransactionsNewStore = typeof store;
+export const UserTransactionsNewStoreToken = new InjectionToken<typeof store>(store.name, {
+  providedIn: 'root',
+  factory: () => store,
+});

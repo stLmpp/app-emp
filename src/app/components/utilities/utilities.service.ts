@@ -1,17 +1,11 @@
-import { Injectable } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
-import { arrayUtil, isNotNil } from 'st-utils';
+import { Inject, Injectable } from '@angular/core';
+import { filterNil } from '@ngneat/elf';
+import { addEntities, getAllEntities, selectEntity, setEntities } from '@ngneat/elf-entities';
+import { Observable } from 'rxjs';
+import { arrayUtil } from 'st-utils';
 
-import { Store } from '../../shared/store/store';
-
-export interface Utility {
-  id: number;
-  style: Partial<CSSStyleDeclaration>;
-}
-
-interface UtilitiesState {
-  utilities: Utility[];
-}
+import { UtilitiesStore, UtilitiesStoreToken } from './utilities.store';
+import { Utility } from './utility';
 
 function getLeft(index: number): string {
   return `calc(${index * 56}px + ${index > 0 ? 2 : 1}rem)`;
@@ -19,44 +13,42 @@ function getLeft(index: number): string {
 
 @Injectable({ providedIn: 'root' })
 export class UtilitiesService {
-  private readonly _store = new Store<UtilitiesState>({ name: 'utilities', initialState: { utilities: [] } });
+  constructor(@Inject(UtilitiesStoreToken) private readonly _store: UtilitiesStore) {}
+
   private _uniqueId = 0;
 
   add(): [number, Observable<Utility>] {
     const id = this._uniqueId++;
-    const utility$ = this._store
-      .update('utilities', utilities =>
-        arrayUtil(utilities)
-          .append({
-            id,
-            style: {
-              left: getLeft(utilities.length),
-              position: 'fixed',
-              top: 'calc(1rem + var(--navbar-height))',
-            },
-          })
-          .toArray()
-      )
-      .select('utilities')
-      .pipe(
-        map(utilities => utilities.find(util => util.id === id)),
-        filter(isNotNil)
-      );
+    const utilities = this._store.query(getAllEntities());
+    this._store.update(
+      addEntities({
+        id,
+        style: {
+          left: getLeft(utilities.length),
+          position: 'fixed',
+          top: 'calc(1rem + var(--navbar-height))',
+        },
+      })
+    );
+    const utility$ = this._store.pipe(selectEntity(id), filterNil());
     return [id, utility$];
   }
 
   remove(id: number): this {
-    this._store.update('utilities', utilities =>
-      arrayUtil(utilities)
-        .remove(id)
-        .map((util, index) => ({
-          ...util,
-          style: {
-            ...util.style,
-            left: getLeft(index),
-          },
-        }))
-        .toArray()
+    const utilities = this._store.query(getAllEntities());
+    this._store.update(
+      setEntities(
+        arrayUtil(utilities)
+          .remove(id)
+          .map((util, index) => ({
+            ...util,
+            style: {
+              ...util.style,
+              left: getLeft(index),
+            },
+          }))
+          .toArray()
+      )
     );
     return this;
   }

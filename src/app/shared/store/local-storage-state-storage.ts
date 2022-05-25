@@ -1,18 +1,17 @@
-import { StorePersistConfig, StorePersistConfigSpecialKeys, StorePersistConfigSpecialKeysType } from './store-config';
+import { Store } from '@ngneat/elf';
+import { excludeKeys, persistState, StateStorage } from '@ngneat/elf-persist-state';
+import { auditTime } from 'rxjs';
 
-interface StorePersistConfigSpecialKeysInternal<T extends Record<any, any>> extends StorePersistConfigSpecialKeys<T> {
-  getFromStore: (state: T) => any;
-  setToStore: (state: T, value: any) => T;
-  getFromPersist: (state: T) => any;
-  setToPersist: (state: T, value: any) => T;
-}
-
-interface StorePersistConfigInternal<T extends Record<any, any>> extends Pick<StorePersistConfig<T>, 'ignoreKeys'> {
-  specialKeys?: StorePersistConfigSpecialKeysInternal<T>[];
-}
+import {
+  LocalStorageStateStorageConfig,
+  LocalStorageStateStorageConfigSpecialKey,
+  LocalStorageStateStorageConfigSpecialKeyType,
+  StorePersistConfigInternal,
+  StorePersistConfigSpecialKeysInternal,
+} from './local-storage-state-storage-config';
 
 const typeMap = new Map<
-  StorePersistConfigSpecialKeysType | 'default',
+  LocalStorageStateStorageConfigSpecialKeyType | 'default',
   { toStore: (value: any) => any; toPersist: (value: any) => any }
 >()
   .set('set', {
@@ -36,20 +35,18 @@ function filterSpecialKeys<T extends Record<any, any>>(
   );
 }
 
-export abstract class StorePersist<T extends Record<any, any>> {
-  constructor(protected readonly name: string, options: Pick<StorePersistConfig<T>, 'ignoreKeys' | 'specialKeys'>) {
-    this._key = `__STORE__${name}`;
+export class LocalStorageStateStorage<T extends Record<string, any>> implements StateStorage {
+  private constructor(options: LocalStorageStateStorageConfig<T>) {
     this._options = {
       ...options,
       specialKeys: this._parseSpecialKeys(options.specialKeys),
     };
   }
 
-  protected readonly _key: string;
   protected readonly _options: StorePersistConfigInternal<T>;
 
   private _parseSpecialKeys(
-    specialKeys: StorePersistConfigSpecialKeys<T>[] | undefined
+    specialKeys: LocalStorageStateStorageConfigSpecialKey<T>[] | undefined
   ): StorePersistConfigSpecialKeysInternal<T>[] | undefined {
     let newSpecialKeys = specialKeys?.map((specialKey, index) => {
       let getFromStore: ((state: T) => any) | undefined;
@@ -58,8 +55,8 @@ export abstract class StorePersist<T extends Record<any, any>> {
       let setToPersist: ((state: T, value: any) => T) | undefined;
       const typeFunctions = typeMap.get(specialKey.type ?? 'default')!;
       if (specialKey.key) {
-        getFromStore = state => state[specialKey.key];
-        setToStore = (state, value) => ({ ...state, [specialKey.key as any]: value });
+        getFromStore = state => state[specialKey.key!];
+        setToStore = (state, value) => ({ ...state, [specialKey.key!]: value });
       }
       if (specialKey.get) {
         getFromStore = specialKey.get;
@@ -76,14 +73,14 @@ export abstract class StorePersist<T extends Record<any, any>> {
       if (!getFromStore || !getFromPersist) {
         if (ngDevMode) {
           throw new Error(
-            `Could not set the getters functions for Store ${this.name} at specialKeys[${index}]. "get" or "key" is required`
+            `Could not set the getters functions for Store at specialKeys[${index}]. "get" or "key" is required`
           );
         }
       }
       if (!setToStore || !setToPersist) {
         if (ngDevMode) {
           throw new Error(
-            `Could not set the setter functions for Store ${this.name} at specialKeys[${index}]. "set" of "key" is required`
+            `Could not set the setter functions for Store at specialKeys[${index}]. "set" of "key" is required`
           );
         }
       }
@@ -101,7 +98,42 @@ export abstract class StorePersist<T extends Record<any, any>> {
     return newSpecialKeys as StorePersistConfigSpecialKeysInternal<T>[];
   }
 
-  abstract has(): boolean;
-  abstract get(): T | undefined;
-  abstract set(value: T | null | undefined): this;
+  getItem = async <U extends Record<string, any>>(key: string): Promise<U | undefined> => {
+    const item = localStorage.getItem(key);
+    if (!item) {
+      return undefined;
+    }
+    let object = JSON.parse(item);
+    for (const { getFromPersist, setToStore } of this._options.specialKeys ?? []) {
+      object = setToStore(object, getFromPersist(object));
+    }
+    return object;
+  };
+
+  setItem = async (key: string, value: T): Promise<boolean> => {
+    for (const { getFromStore, setToPersist } of this._options.specialKeys ?? []) {
+      value = setToPersist(value, getFromStore(value));
+    }
+    let object: any = value;
+    for (const ignoreKey of this._options.ignoreKeys ?? []) {
+      object = { ...value, [ignoreKey]: undefined };
+    }
+    localStorage.setItem(key, JSON.stringify(object));
+    return true;
+  };
+
+  removeItem = async (key: string): Promise<boolean> => {
+    localStorage.removeItem(key);
+    return true;
+  };
+
+  static persistStore<S extends Store>(
+    store: S,
+    options: LocalStorageStateStorageConfig<S['state']>
+  ): ReturnType<typeof persistState> {
+    return persistState(store, {
+      storage: new LocalStorageStateStorage(options),
+      source: () => store.pipe(auditTime(500), excludeKeys(options.ignoreKeys ?? [])),
+    });
+  }
 }

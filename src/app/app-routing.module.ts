@@ -4,7 +4,6 @@ import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 import { UserExistsGuard } from './guards/user-exists.guard';
 import { RouteParamEnum } from './models/route-param.enum';
 import { PageTitleStrategy } from './page-title-strategy';
-import { UserResolver } from './resolvers/user.resolver';
 
 const routes: Routes = [
   {
@@ -14,7 +13,6 @@ const routes: Routes = [
   {
     path: `users/:${RouteParamEnum.idUser}`,
     canActivate: [UserExistsGuard],
-    resolve: [UserResolver],
     children: [
       {
         path: 'transactions',

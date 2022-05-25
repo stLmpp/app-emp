@@ -1,22 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { select, setProp } from '@ngneat/elf';
 import { distinctUntilChanged, map, Observable } from 'rxjs';
 
-import { Store } from '../../shared/store/store';
-
-export interface GoBackButtonState {
-  buttons: number[];
-}
+import { GoBackButtonStore, GoBackButtonStoreToken } from './go-back-button.store';
 
 @Injectable({ providedIn: 'root' })
 export class GoBackButtonService {
-  private readonly _store = new Store<GoBackButtonState>({ name: 'go-back-name', initialState: { buttons: [] } });
+  constructor(@Inject(GoBackButtonStoreToken) private readonly _store: GoBackButtonStore) {}
 
   private _uniqueId = 0;
 
   addButton(): [id: number, show$: Observable<boolean>] {
     const id = this._uniqueId++;
-    this._store.update(state => ({ ...state, buttons: [...state.buttons, id] }));
-    const show$ = this._store.select('buttons').pipe(
+    this._store.update(state => ({ ...state, buttons: new Set(state.buttons).add(id) }));
+    const show$ = this._store.pipe(select(state => state.buttons)).pipe(
       map(buttons => Math.max(...buttons) === id),
       distinctUntilChanged()
     );
@@ -24,6 +21,12 @@ export class GoBackButtonService {
   }
 
   removeButton(id: number): void {
-    this._store.update('buttons', buttons => buttons.filter(button => button !== id));
+    this._store.update(
+      setProp('buttons', buttons => {
+        const newSet = new Set(buttons);
+        newSet.delete(id);
+        return newSet;
+      })
+    );
   }
 }
