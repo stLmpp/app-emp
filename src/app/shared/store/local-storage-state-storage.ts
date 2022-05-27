@@ -98,7 +98,7 @@ export class LocalStorageStateStorage<T extends Record<string, any>> implements 
     return newSpecialKeys as StorePersistConfigSpecialKeysInternal<T>[];
   }
 
-  getItem = async <U extends Record<string, any>>(key: string): Promise<U | undefined> => {
+  async getItem<U extends Record<string, any>>(key: string): Promise<U | undefined> {
     const item = localStorage.getItem(key);
     if (!item) {
       return undefined;
@@ -108,9 +108,9 @@ export class LocalStorageStateStorage<T extends Record<string, any>> implements 
       object = setToStore(object, getFromPersist(object));
     }
     return object;
-  };
+  }
 
-  setItem = async (key: string, value: T): Promise<boolean> => {
+  async setItem(key: string, value: T): Promise<boolean> {
     for (const { getFromStore, setToPersist } of this._options.specialKeys ?? []) {
       value = setToPersist(value, getFromStore(value));
     }
@@ -120,12 +120,12 @@ export class LocalStorageStateStorage<T extends Record<string, any>> implements 
     }
     localStorage.setItem(key, JSON.stringify(object));
     return true;
-  };
+  }
 
-  removeItem = async (key: string): Promise<boolean> => {
+  async removeItem(key: string): Promise<boolean> {
     localStorage.removeItem(key);
     return true;
-  };
+  }
 
   static persistStore<S extends Store>(
     store: S,
