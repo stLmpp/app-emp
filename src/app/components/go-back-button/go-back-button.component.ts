@@ -33,7 +33,7 @@ export class GoBackButtonComponent extends UtilityDirective implements OnDestroy
 
   private readonly _idGoBack: number;
 
-  @Input() link!: string | any[];
+  @Input() link!: string | unknown[];
 
   readonly show$: Observable<boolean>;
 

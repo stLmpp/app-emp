@@ -39,7 +39,7 @@ export class ConfirmDialogComponent implements OnDestroy {
 
   readonly trackByButton = trackByIndex<ConfirmDialogButton>();
 
-  private _processButtonObservable(observable: Observable<any>): void {
+  private _processButtonObservable(observable: Observable<unknown>): void {
     this.loading = true;
     this.matDialogRef.disableClose = true;
     this.changeDetectorRef.markForCheck();

@@ -8,7 +8,7 @@ export class DateInterceptor implements HttpInterceptor {
   private readonly _dateRegexp =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d([+-][0-2]\d:[0-5]\d|Z))/;
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       map(resp => {
         if (resp.type === HttpEventType.Response && resp.body) {
@@ -19,7 +19,7 @@ export class DateInterceptor implements HttpInterceptor {
     );
   }
 
-  handleAny(value: any): any {
+  handleAny(value: unknown): unknown {
     if (isArray(value)) {
       return this.handleArray(value);
     } else if (isObject(value)) {
@@ -28,7 +28,7 @@ export class DateInterceptor implements HttpInterceptor {
     return value;
   }
 
-  handleObject(object: Record<any, any>): any {
+  handleObject(object: Record<string, unknown>): unknown {
     return Object.entries(object).reduce((newObject, [key, value]) => {
       if (isArray(value)) {
         value = this.handleArray(value);
@@ -41,7 +41,7 @@ export class DateInterceptor implements HttpInterceptor {
     }, {});
   }
 
-  handleArray(value: readonly any[]): any {
+  handleArray(value: readonly unknown[]): unknown {
     return value.map(item => {
       if (isArray(item)) {
         return this.handleArray(item);
@@ -52,7 +52,7 @@ export class DateInterceptor implements HttpInterceptor {
     });
   }
 
-  isIsoDate(key: string, value: any): boolean {
-    return key && value && isString(value) && this._dateRegexp.test(value);
+  isIsoDate(key: string, value: unknown): value is string {
+    return !!key && !!value && isString(value) && this._dateRegexp.test(value);
   }
 }

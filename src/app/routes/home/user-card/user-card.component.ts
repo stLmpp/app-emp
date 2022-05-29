@@ -4,6 +4,7 @@ import { ConfirmDialogService } from '../../../components/confirm-dialog/confirm
 import { User } from '../../../models/user';
 import { ModalService } from '../../../services/modal.service';
 import { UserService } from '../../../services/user.service';
+import type { EditUserModalComponent } from '../edit-user-modal/edit-user-modal.component';
 
 @Component({
   selector: 'app-user-card',
@@ -32,7 +33,7 @@ export class UserCardComponent {
     this.loadingEditModal = true;
     $event.preventDefault();
     $event.stopPropagation();
-    const dialogRef = await this.modalService.openLazy(
+    const dialogRef = await this.modalService.openLazy<EditUserModalComponent, string, User>(
       () => import('../edit-user-modal/edit-user-modal.component').then(m => m.EditUserModalComponent),
       { data: this.name }
     );

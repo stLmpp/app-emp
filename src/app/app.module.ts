@@ -47,7 +47,11 @@ function currencyMaskConfigFactory(): CurrencyMaskConfig {
   ],
   providers: [
     ...WINDOW_PROVIDERS,
-    { provide: NAVIGATOR, useFactory: (window: Window) => window.navigator ?? {}, deps: [WINDOW] },
+    {
+      provide: NAVIGATOR,
+      useFactory: (window: Window | Record<string, unknown>) => window.navigator ?? {},
+      deps: [WINDOW],
+    },
     { provide: HTTP_INTERCEPTORS, useExisting: ApiInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useExisting: DateInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt-BR' },

@@ -10,13 +10,19 @@ import {
   StorePersistConfigSpecialKeysInternal,
 } from './local-storage-state-storage-config';
 
-const typeMap = new Map<
-  LocalStorageStateStorageConfigSpecialKeyType | 'default',
-  { toStore: (value: any) => any; toPersist: (value: any) => any }
->()
+interface TypeMap {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  toStore: (value: any) => any;
+  toPersist: (value: any) => any;
+  /* eslint-enable @typescript-eslint/no-explicit-any */
+}
+
+const typeMap = new Map<LocalStorageStateStorageConfigSpecialKeyType | 'default', TypeMap>()
   .set('set', {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     toStore: (value: any[] | undefined | null) => new Set(value ?? []),
     toPersist: (value: Set<any> | undefined | null) => value && [...value],
+    /* eslint-enable @typescript-eslint/no-explicit-any */
   })
   .set('date', {
     toStore: (value: string | null | undefined) => value && new Date(value),
@@ -27,7 +33,7 @@ const typeMap = new Map<
     toPersist: value => value,
   });
 
-function filterSpecialKeys<T extends Record<any, any>>(
+function filterSpecialKeys<T extends Record<string, unknown>>(
   specialKey: Partial<StorePersistConfigSpecialKeysInternal<T>>
 ): specialKey is StorePersistConfigSpecialKeysInternal<T> {
   return (
@@ -35,7 +41,7 @@ function filterSpecialKeys<T extends Record<any, any>>(
   );
 }
 
-export class LocalStorageStateStorage<T extends Record<string, any>> implements StateStorage {
+export class LocalStorageStateStorage<T extends Record<string, unknown>> implements StateStorage {
   private constructor(options: LocalStorageStateStorageConfig<T>) {
     this._options = {
       ...options,
@@ -46,13 +52,15 @@ export class LocalStorageStateStorage<T extends Record<string, any>> implements 
   protected readonly _options: StorePersistConfigInternal<T>;
 
   private _parseSpecialKeys(
-    specialKeys: LocalStorageStateStorageConfigSpecialKey<T>[] | undefined
-  ): StorePersistConfigSpecialKeysInternal<T>[] | undefined {
+    specialKeys: Array<LocalStorageStateStorageConfigSpecialKey<T>> | undefined
+  ): Array<StorePersistConfigSpecialKeysInternal<T>> | undefined {
     let newSpecialKeys = specialKeys?.map((specialKey, index) => {
+      /* eslint-disable @typescript-eslint/no-explicit-any */
       let getFromStore: ((state: T) => any) | undefined;
       let setToStore: ((state: T, value: any) => T) | undefined;
       let getFromPersist: ((state: T) => any) | undefined;
       let setToPersist: ((state: T, value: any) => T) | undefined;
+      /* eslint-enable @typescript-eslint/no-explicit-any */
       const typeFunctions = typeMap.get(specialKey.type ?? 'default')!;
       if (specialKey.key) {
         getFromStore = state => state[specialKey.key!];
@@ -95,10 +103,10 @@ export class LocalStorageStateStorage<T extends Record<string, any>> implements 
     if (!ngDevMode) {
       newSpecialKeys = newSpecialKeys?.filter(filterSpecialKeys);
     }
-    return newSpecialKeys as StorePersistConfigSpecialKeysInternal<T>[];
+    return newSpecialKeys as Array<StorePersistConfigSpecialKeysInternal<T>>;
   }
 
-  async getItem<U extends Record<string, any>>(key: string): Promise<U | undefined> {
+  async getItem<U extends Record<string, unknown>>(key: string): Promise<U | undefined> {
     const item = localStorage.getItem(key);
     if (!item) {
       return undefined;
@@ -114,7 +122,7 @@ export class LocalStorageStateStorage<T extends Record<string, any>> implements 
     for (const { getFromStore, setToPersist } of this._options.specialKeys ?? []) {
       value = setToPersist(value, getFromStore(value));
     }
-    let object: any = value;
+    let object: Record<string, unknown> = value;
     for (const ignoreKey of this._options.ignoreKeys ?? []) {
       object = { ...value, [ignoreKey]: undefined };
     }

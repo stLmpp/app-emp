@@ -29,7 +29,7 @@ export class CardNewComponent {
 
   @Input() icon = 'add';
   @Input() tooltip?: string;
-  @Input() routerLink?: string | any[];
+  @Input() routerLink?: string | unknown[];
 
   @Input()
   get disabled(): boolean {

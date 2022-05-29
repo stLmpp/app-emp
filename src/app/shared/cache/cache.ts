@@ -1,7 +1,7 @@
 import { finalize, MonoTypeOperatorFunction, Observable, Subscription } from 'rxjs';
 
 interface CacheStore {
-  value: any;
+  value: unknown;
   timeout: () => void;
 }
 
@@ -12,18 +12,18 @@ export class Cache {
 
   private readonly _cache = new Map<string, CacheStore>();
 
-  private _serializeKey(params: any): string {
+  private _serializeKey(params: unknown): string {
     return JSON.stringify(params);
   }
 
-  private _setCache(key: string, value: any): void {
+  private _setCache(key: string, value: unknown): void {
     const timeout = setTimeout(() => {
       this._cache.delete(key);
     }, this.timeout);
     this._cache.set(key, { timeout: () => clearTimeout(timeout), value });
   }
 
-  burstCache(params: any): void {
+  burstCache(params: unknown): void {
     const key = this._serializeKey(params);
     if (this._cache.has(key)) {
       const { timeout } = this._cache.get(key)!;
@@ -39,13 +39,13 @@ export class Cache {
     this._cache.clear();
   }
 
-  use<T>(...params: any): MonoTypeOperatorFunction<T> {
+  use<T>(...params: unknown[]): MonoTypeOperatorFunction<T> {
     const key = this._serializeKey(params);
     return source =>
       new Observable<T>(subscriber => {
         let subscription: Subscription | undefined = undefined;
         if (this._cache.has(key)) {
-          subscriber.next(this._cache.get(key)!.value);
+          subscriber.next(this._cache.get(key)!.value as T);
           subscriber.complete();
         } else {
           subscription = source.subscribe({
@@ -63,13 +63,13 @@ export class Cache {
       });
   }
 
-  burst<T>(...params: any): MonoTypeOperatorFunction<T> {
+  burst<T>(...params: unknown[]): MonoTypeOperatorFunction<T> {
     return finalize(() => {
       this.burstCache(params);
     });
   }
 
-  burstMultiple<T>(params: any[][]): MonoTypeOperatorFunction<T> {
+  burstMultiple<T>(params: unknown[][]): MonoTypeOperatorFunction<T> {
     return finalize(() => {
       for (const param of params) {
         this.burstCache(param);

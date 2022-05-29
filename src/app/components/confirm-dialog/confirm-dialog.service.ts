@@ -8,7 +8,7 @@ import type { ConfirmDialogComponent } from './confirm-dialog.component';
 
 export type ConfirmDialogRef = MatDialogRef<ConfirmDialogComponent, boolean>;
 
-export type ConfirmDialogButtonAction = ((matDialogRef: ConfirmDialogRef) => any) | Observable<any> | boolean;
+export type ConfirmDialogButtonAction = ((matDialogRef: ConfirmDialogRef) => unknown) | Observable<unknown> | boolean;
 
 export interface ConfirmDialogButton {
   title: string;

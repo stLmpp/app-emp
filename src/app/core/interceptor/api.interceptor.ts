@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ApiInterceptor implements HttpInterceptor {
-  intercept(_req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(_req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const req = _req.clone({ url: this.handleUrl(_req.url) });
     return next.handle(req);
   }

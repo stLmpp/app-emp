@@ -57,10 +57,8 @@ export class UserTransactionsNewStoreService {
   }
 
   isDateAndValueValid(): boolean {
-    const { total, date } = this.getDto();
-    return (
-      this.isPersonValid() && !!date && total >= TransactionCreateDto.totalMin && total <= TransactionCreateDto.totalMax
-    );
+    const { total } = this.getDto();
+    return this.isPersonValid() && total >= TransactionCreateDto.totalMin && total <= TransactionCreateDto.totalMax;
   }
 
   getDto(): Readonly<TransactionCreateDto> {

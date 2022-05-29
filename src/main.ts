@@ -8,7 +8,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 declare global {
-  const ngDevMode: any;
+  const ngDevMode: unknown;
 }
 
 if (environment.production) {
