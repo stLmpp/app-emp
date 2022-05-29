@@ -11,6 +11,7 @@ export interface LocalStorageStateStorageConfigSpecialKey<T extends Record<strin
 
 export interface LocalStorageStateStorageConfig<T extends Record<string, unknown>> {
   ignoreKeys?: Array<keyof T>;
+  includeKeys?: Array<keyof T>;
   specialKeys?: Array<LocalStorageStateStorageConfigSpecialKey<T>>;
 }
 

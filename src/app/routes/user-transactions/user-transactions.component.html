@@ -6,7 +6,7 @@
 
 <mat-menu #menu>
   <button *ngLet="showSettled$ | async as showSettled" mat-menu-item (click)="onShowSettledChange(!showSettled)">
-    <mat-icon>{{ showSettled ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+    <mat-pseudo-checkbox [state]="showSettled ? 'checked' : 'unchecked'"> </mat-pseudo-checkbox>
     Show settled
   </button>
   <button mat-menu-item [matMenuTriggerFor]="menuPeople">
@@ -21,7 +21,7 @@
     *ngFor="let person of people$ | async; trackBy: trackByIdName"
     (click)="onPersonChange($event, person)"
   >
-    <mat-icon>{{ person.checked ? 'check_box' : 'check_box_outline_blank' }}</mat-icon>
+    <mat-pseudo-checkbox [state]="person.checked ? 'checked' : 'unchecked'"> </mat-pseudo-checkbox>
     {{ person.name }}
   </button>
   <button mat-menu-item (click)="clearPersonFilter()">

@@ -1,6 +1,9 @@
 import { Store } from '@ngneat/elf';
-import { excludeKeys, persistState, StateStorage } from '@ngneat/elf-persist-state';
+import { persistState, StateStorage } from '@ngneat/elf-persist-state';
 import { auditTime } from 'rxjs';
+
+import { excludeKeys } from '../utils/exclude-keys';
+import { includeKeys } from '../utils/include-keys';
 
 import {
   LocalStorageStateStorageConfig,
@@ -141,7 +144,8 @@ export class LocalStorageStateStorage<T extends Record<string, unknown>> impleme
   ): ReturnType<typeof persistState> {
     return persistState(store, {
       storage: new LocalStorageStateStorage(options),
-      source: () => store.pipe(auditTime(500), excludeKeys(options.ignoreKeys ?? [])),
+      source: () =>
+        store.pipe(auditTime(500), excludeKeys(options.ignoreKeys ?? []), includeKeys(options.includeKeys ?? [])),
     });
   }
 }

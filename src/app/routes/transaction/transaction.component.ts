@@ -1,8 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { trackByFactory } from '@stlmpp/utils';
 
-import { RouteDataEnum } from '../../models/route-data.enum';
-import { TransactionWithItems } from '../../models/transaction-with-items';
+import { trackById } from '../../shared/utils/track-by';
+
+import {
+  TransactionItemDay,
+  TransactionItemMonth,
+  TransactionItemYear,
+  TransactionStoreService,
+} from './transaction-store.service';
 
 @Component({
   selector: 'app-transaction',
@@ -11,7 +17,15 @@ import { TransactionWithItems } from '../../models/transaction-with-items';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionComponent {
-  constructor(private readonly activatedRoute: ActivatedRoute) {}
+  constructor(private readonly transactionStoreService: TransactionStoreService) {}
 
-  readonly transaction: TransactionWithItems = this.activatedRoute.snapshot.data[RouteDataEnum.transactionWithItems];
+  readonly transaction$ = this.transactionStoreService.transaction$;
+
+  readonly trackByMonth = trackById<TransactionItemMonth>();
+  readonly trackByYear = trackByFactory<TransactionItemYear>('year');
+  readonly trackByItem = trackById<TransactionItemDay>();
+
+  onAfterExpand(id: string): void {
+    this.transactionStoreService.setOpened(id);
+  }
 }

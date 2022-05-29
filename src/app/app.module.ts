@@ -1,4 +1,4 @@
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, TitleCasePipe } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import localePt from '@angular/common/locales/pt';
 import { LOCALE_ID, NgModule } from '@angular/core';
@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ApiInterceptor } from './core/interceptor/api.interceptor';
 import { DateInterceptor } from './core/interceptor/date.interceptor';
+import { LocaleMonthsProvider } from './core/locale-months.token';
 import { NAVIGATOR } from './core/navigator.token';
 import { WINDOW, WINDOW_PROVIDERS } from './core/window.service';
 
@@ -59,6 +60,8 @@ function currencyMaskConfigFactory(): CurrencyMaskConfig {
     { provide: MAT_DATE_LOCALE, useValue: dateFnsLocalePt },
     { provide: CURRENCY_MASK_CONFIG, useFactory: currencyMaskConfigFactory },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 5000 } as MatSnackBarConfig },
+    { provide: TitleCasePipe, useClass: TitleCasePipe },
+    LocaleMonthsProvider,
   ],
   bootstrap: [AppComponent],
 })

@@ -1,37 +1,32 @@
 import { isPlatformBrowser } from '@angular/common';
-import { ClassProvider, FactoryProvider, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
+import { Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
 
 export const WINDOW = new InjectionToken('WindowToken');
+
 export abstract class WindowRef {
-  get nativeWindow(): Window | Record<string, unknown> {
+  getNativeWindow(): Window | Record<string, unknown> {
     throw new Error('Not implemented.');
   }
 }
-@Injectable({ providedIn: 'root' })
+
+@Injectable()
 export class BrowserWindowRef extends WindowRef {
-  override get nativeWindow(): Window | Record<string, unknown> {
-    return window;
+  override getNativeWindow(): Window | Record<string, unknown> {
+    return typeof window !== 'undefined' ? window : {};
   }
 }
+
 export function windowFactory(
   browserWindowRef: BrowserWindowRef,
-  platformId: Record<string, unknown>
+  platformId: string
 ): Window | Record<string, unknown> {
   if (isPlatformBrowser(platformId)) {
-    return browserWindowRef.nativeWindow;
+    return browserWindowRef.getNativeWindow();
   }
   return {};
 }
 
-const browserWindowProvider: ClassProvider = {
-  provide: WindowRef,
-  useClass: BrowserWindowRef,
-};
-
-const windowProvider: FactoryProvider = {
-  provide: WINDOW,
-  useFactory: windowFactory,
-  deps: [WindowRef, PLATFORM_ID],
-};
-
-export const WINDOW_PROVIDERS = [browserWindowProvider, windowProvider];
+export const WINDOW_PROVIDERS = [
+  { provide: WindowRef, useClass: BrowserWindowRef },
+  { provide: WINDOW, useFactory: windowFactory, deps: [WindowRef, PLATFORM_ID] },
+];

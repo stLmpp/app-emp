@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRippleModule } from '@angular/material/core';
+import { MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgLetModule } from '@stlmpp/utils';
@@ -33,6 +33,7 @@ import { UserTransactionsComponent } from './user-transactions.component';
     MatMenuModule,
     MatCheckboxModule,
     NgLetModule,
+    MatPseudoCheckboxModule,
   ],
 })
 export class UserTransactionsModule {}

@@ -95,3 +95,8 @@ body {
     top: calc(1rem + var(--navbar-height));
   }
 }
+
+.mat-menu-item .mat-pseudo-checkbox {
+  margin-right: 16px;
+  vertical-align: middle;
+}

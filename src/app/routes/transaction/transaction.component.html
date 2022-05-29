@@ -1,3 +1,42 @@
 <app-go-back-button link="../"></app-go-back-button>
 
-{{ transaction | json }}
+<!-- TODO add summary of transaction, name, description, person, etc -->
+<!-- TODO add no-data-found message -->
+<!-- TODO add button to add new transaction-item -->
+
+<ng-container *ngIf="transaction$ | async as transaction">
+  <ng-container *ngFor="let year of transaction.years; trackBy: trackByYear">
+    <div class="title">
+      <h2>{{ year.year }}</h2>
+      <h2>{{ year.total | currency: 'R$' }}</h2>
+    </div>
+    <mat-accordion>
+      <mat-expansion-panel
+        *ngFor="let month of year.months; trackBy: trackByMonth"
+        [expanded]="month.id === transaction.opened"
+        (afterExpand)="onAfterExpand(month.id)"
+      >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ month.description }}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{ month.total | currency: 'R$' }}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-list>
+          <ng-container *ngFor="let item of month.items; trackBy: trackByItem">
+            <mat-list-item>
+              <div matLine>
+                <span class="date">{{ item.description }}</span>
+                <span class="value">{{ item.value | currency: 'R$' }}</span>
+              </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+          </ng-container>
+        </mat-list>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+</ng-container>

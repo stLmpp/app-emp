@@ -6,7 +6,7 @@ export interface TransactionWithItems {
   personName: string;
   name: string;
   description: string;
-  date: string;
+  date: Date;
   total: number;
   items: TransactionItem[];
 }
