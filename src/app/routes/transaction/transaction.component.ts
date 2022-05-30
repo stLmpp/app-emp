@@ -1,6 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { trackByFactory } from '@stlmpp/utils';
 
+import { ConfirmDialogService } from '../../components/confirm-dialog/confirm-dialog.service';
+import { RouteParamEnum } from '../../models/route-param.enum';
+import { TransactionService } from '../../services/transaction.service';
 import { trackById } from '../../shared/utils/track-by';
 
 import {
@@ -17,7 +21,13 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TransactionComponent {
-  constructor(private readonly transactionStoreService: TransactionStoreService) {}
+  constructor(
+    private readonly transactionStoreService: TransactionStoreService,
+    private readonly confirmDialogService: ConfirmDialogService,
+    private readonly transactionService: TransactionService,
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly router: Router
+  ) {}
 
   readonly transaction$ = this.transactionStoreService.transaction$;
 
@@ -27,5 +37,23 @@ export class TransactionComponent {
 
   onAfterExpand(id: string): void {
     this.transactionStoreService.setOpened(id);
+  }
+
+  async onDelete(): Promise<void> {
+    const transaction = this.transactionStoreService.get();
+    const idUser = this.activatedRoute.snapshot.paramMap.get(RouteParamEnum.idUser)!;
+    const dialogRef = await this.confirmDialogService.confirm({
+      title: 'Delete transaction',
+      content: `All transaction items will be deleted. This action can't be undone`,
+      buttons: [
+        'Close',
+        { title: 'Delete', action: () => this.transactionService.delete(idUser, transaction.idTransaction) },
+      ],
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+      }
+    });
   }
 }

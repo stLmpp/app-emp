@@ -7,7 +7,7 @@ export class PageTitleStrategy extends DefaultTitleStrategy {
   override buildTitle(snapshot: RouterStateSnapshot): string | undefined {
     let title = super.buildTitle(snapshot);
     if (isNotNil(title)) {
-      title = `Emp - ${title}`;
+      title = `${title} - Emp`;
     }
     return title;
   }

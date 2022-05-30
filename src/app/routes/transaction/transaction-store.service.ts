@@ -1,6 +1,6 @@
 import { formatDate } from '@angular/common';
 import { Inject, Injectable, LOCALE_ID } from '@angular/core';
-import { setProp, setProps } from '@ngneat/elf';
+import { select, setProp, setProps } from '@ngneat/elf';
 import { getMonth, getYear } from 'date-fns';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -80,11 +80,17 @@ export class TransactionStoreService {
     })
   );
 
+  readonly transactionName$ = this.store.pipe(select(state => state.name));
+
   set(transactionWithItems: TransactionWithItems): void {
     this.store.update(setProps(transactionWithItems));
   }
 
   setOpened(id: string): void {
     this.store.update(setProp('opened', id));
+  }
+
+  get(): TransactionWithItemsState {
+    return this.store.value;
   }
 }

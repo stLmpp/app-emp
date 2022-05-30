@@ -1,8 +1,15 @@
 <app-go-back-button link="../"></app-go-back-button>
 
+<button mat-fab appUtility (click)="onDelete()">
+  <mat-icon>delete</mat-icon>
+</button>
+
 <!-- TODO add summary of transaction, name, description, person, etc -->
 <!-- TODO add no-data-found message -->
 <!-- TODO add button to add new transaction-item -->
+<!-- TODO add button to edit transaction item -->
+<!-- TODO add button to delete transaction item -->
+<!-- TODO add button to edit transaction -->
 
 <ng-container *ngIf="transaction$ | async as transaction">
   <ng-container *ngFor="let year of transaction.years; trackBy: trackByYear">

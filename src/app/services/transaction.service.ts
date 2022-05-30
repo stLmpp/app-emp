@@ -28,4 +28,13 @@ export class TransactionService {
       .get<TransactionWithItems>(`${this.path(idUser)}/${idTransaction}/with/items`)
       .pipe(this._cache.use(idUser, idTransaction));
   }
+
+  delete(idUser: string, idTransaction: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.path(idUser)}/${idTransaction}`).pipe(
+      this._cache.burstMultiple([
+        [idUser, idTransaction],
+        [idUser, 'cards'],
+      ])
+    );
+  }
 }
