@@ -10,8 +10,6 @@ import { TransactionCard } from '../../models/transaction-card';
 
 import { UserTransactionsStore, UserTransactionsStoreToken } from './user-transactions.store';
 
-// TODO add guard to reset state
-
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsStoreService {
   constructor(@Inject(UserTransactionsStoreToken) private readonly store: UserTransactionsStore) {}
