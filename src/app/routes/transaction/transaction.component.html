@@ -12,15 +12,14 @@
   <mat-icon>add</mat-icon>
 </a>
 
-<!-- TODO add summary of transaction, name, description, person, etc -->
 <!-- TODO add no-data-found message -->
-<!-- TODO add button to add new transaction-item -->
 <!-- TODO add button to edit transaction item -->
 <!-- TODO add button to delete transaction item -->
 <!-- TODO add button to edit transaction, re-use layout from adding new transaction to edit -->
 
 <ng-container *ngIf="transaction$ | async as transaction">
   <div class="summary">
+    <!-- TODO improve summary of transaction -->
     <h1>{{ transaction.name }} ({{ transaction.date | dateBr }})</h1>
     <h3>{{ transaction.personName }}</h3>
     <div>{{ transaction.total }}</div>
