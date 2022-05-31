@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxCurrencyModule } from 'ngx-currency';
 
 import { GoBackButtonComponent } from '../../components/go-back-button/go-back-button.component';
+import { AutoFocusDirective } from '../../directives/auto-focus.directive';
 import { ButtonActionsDirective } from '../../directives/button-actions.directive';
 import { MaskDirective } from '../../directives/mask.directive';
 import { DateBrPipe } from '../../pipes/date-br-pipe/date-br.pipe';
@@ -46,6 +47,7 @@ import { UserTransactionsNewComponent } from './user-transactions-new.component'
     NgxCurrencyModule,
     DateBrPipe,
     MatSnackBarModule,
+    AutoFocusDirective,
   ],
 })
 export class UserTransactionsNewModule {}

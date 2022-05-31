@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 
 import { BaseComponent } from '../../../components/base-component';
@@ -20,7 +21,9 @@ interface Form {
 export class UserTransactionsNewNameAndDescriptionComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly userTransactionNewStoreService: UserTransactionsNewStoreService,
-    private readonly formBuilder: NonNullableFormBuilder
+    private readonly formBuilder: NonNullableFormBuilder,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {
     super();
   }
@@ -43,6 +46,13 @@ export class UserTransactionsNewNameAndDescriptionComponent extends BaseComponen
         validators: [Validators.maxLength(TransactionCreateDto.descriptionMaxLength)],
       }),
     });
+  }
+
+  onEnter(): void {
+    if (this.form.invalid) {
+      return;
+    }
+    this.router.navigate(['../', 'person'], { relativeTo: this.activatedRoute });
   }
 
   ngOnInit(): void {

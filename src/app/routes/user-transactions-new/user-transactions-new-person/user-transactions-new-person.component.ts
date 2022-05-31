@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { isNotNil } from 'st-utils';
 
@@ -36,7 +37,9 @@ export class UserTransactionsNewPersonComponent extends BaseComponent implements
   constructor(
     private readonly formBuilder: NonNullableFormBuilder,
     private readonly personService: PersonService,
-    private readonly userTransactionNewStoreService: UserTransactionsNewStoreService
+    private readonly userTransactionNewStoreService: UserTransactionsNewStoreService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {
     super();
   }
@@ -112,6 +115,17 @@ export class UserTransactionsNewPersonComponent extends BaseComponent implements
     };
   }
 
+  onEnter(): void {
+    if (this.form.invalid || this.matAutocomplete.isOpen) {
+      return;
+    }
+    this.router.navigate(['../', 'date-and-total'], { relativeTo: this.activatedRoute });
+  }
+
+  onOptionSelected($event: MatAutocompleteSelectedEvent): void {
+    this.form.controls.idPerson.setValue($event.option.id);
+  }
+
   ngOnInit(): void {
     this.form.valueChanges
       .pipe(
@@ -121,9 +135,5 @@ export class UserTransactionsNewPersonComponent extends BaseComponent implements
       .subscribe(state => {
         this.userTransactionNewStoreService.setPerson(state);
       });
-  }
-
-  onOptionSelected($event: MatAutocompleteSelectedEvent): void {
-    this.form.controls.idPerson.setValue($event.option.id);
   }
 }

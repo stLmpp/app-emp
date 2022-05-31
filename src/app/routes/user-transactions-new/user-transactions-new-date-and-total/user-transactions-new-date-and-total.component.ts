@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskConfig } from 'ngx-currency/src/currency-mask.config';
 import { map } from 'rxjs';
 
@@ -21,14 +22,14 @@ interface Form {
 export class UserTransactionsNewDateAndTotalComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly formBuilder: NonNullableFormBuilder,
-    private readonly userTransactionsNewStoreService: UserTransactionsNewStoreService
+    private readonly userTransactionsNewStoreService: UserTransactionsNewStoreService,
+    private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute
   ) {
     super();
   }
 
   readonly form = this._getForm();
-
-  readonly transactionCreateDto = TransactionCreateDto;
 
   readonly currencyMaskOptions: Partial<CurrencyMaskConfig> = {
     allowNegative: false,
@@ -47,6 +48,13 @@ export class UserTransactionsNewDateAndTotalComponent extends BaseComponent impl
         ],
       }),
     });
+  }
+
+  onEnter(): void {
+    if (this.form.invalid) {
+      return;
+    }
+    this.router.navigate(['../', 'summary'], { relativeTo: this.activatedRoute });
   }
 
   ngOnInit(): void {

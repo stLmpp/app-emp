@@ -8,6 +8,8 @@
       formControlName="name"
       [maxlength]="transactionCreateDto.nameMaxLength"
       [minLength]="transactionCreateDto.nameMinLength"
+      (keydown.enter)="descriptionTextarea.focus()"
+      appAutoFocus
     />
     <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
     <mat-error *ngIf="form.controls.name.errors?.minLength">
@@ -28,6 +30,8 @@
       rows="5"
       cdkTextareaAutosize
       [cdkAutosizeMaxRows]="10"
+      (keydown.control.enter)="onEnter()"
+      #descriptionTextarea
     ></textarea>
     <mat-error *ngIf="form.controls.description.errors?.maxlength">
       Description must have less than {{ transactionCreateDto.descriptionMaxLength }} characters

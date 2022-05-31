@@ -10,6 +10,8 @@
       [minLength]="transactionCreateDto.personNameMinLength"
       [errorStateMatcher]="errorStateMatcher"
       [matAutocomplete]="autocomplete"
+      (keydown.enter)="onEnter()"
+      appAutoFocus
     />
     <mat-autocomplete (optionSelected)="onOptionSelected($event)" autoActiveFirstOption #autocomplete>
       <mat-option *ngFor="let person of people$ | async; trackBy: trackByPerson" [value]="person.name" [id]="person.id">
