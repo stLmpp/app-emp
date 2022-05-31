@@ -6,7 +6,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CardNewComponent } from '../../components/card-new/card-new.component';
+import { CardNewComponent } from '../../shared/components/card-new/card-new.component';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';

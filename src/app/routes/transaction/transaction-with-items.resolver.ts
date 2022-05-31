@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
-import { RouteParamEnum } from '../../models/route-param.enum';
-import { TransactionWithItems } from '../../models/transaction-with-items';
-import { TransactionService } from '../../services/transaction.service';
-
 import { TransactionStoreService } from './transaction-store.service';
+
+import { RouteParamEnum } from '@model/route-param.enum';
+import { TransactionWithItems } from '@model/transaction-with-items';
+import { TransactionService } from '@shared/services/transaction.service';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionWithItemsResolver implements Resolve<TransactionWithItems> {

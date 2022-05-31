@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { map, Observable, of } from 'rxjs';
 
-import { RouteParamEnum } from '../models/route-param.enum';
 import { UserService } from '../services/user.service';
+
+import { RouteParamEnum } from '@model/route-param.enum';
 
 @Injectable({ providedIn: 'root' })
 export class UserExistsGuard implements CanActivate {

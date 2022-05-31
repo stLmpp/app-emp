@@ -7,12 +7,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { GoBackButtonComponent } from '../../components/go-back-button/go-back-button.component';
-import { UtilityDirective } from '../../components/utilities/utility.directive';
-import { DateBrPipe } from '../../pipes/date-br-pipe/date-br.pipe';
-
 import { TransactionRoutingModule } from './transaction-routing.module';
 import { TransactionComponent } from './transaction.component';
+
+import { GoBackButtonComponent } from '@shared/components/go-back-button/go-back-button.component';
+import { UtilityDirective } from '@shared/components/utilities/utility.directive';
+import { DateBrPipe } from '@shared/pipes/date-br-pipe/date-br.pipe';
 
 @NgModule({
   declarations: [TransactionComponent],

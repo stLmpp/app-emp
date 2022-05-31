@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { RouteParamEnum } from '../../models/route-param.enum';
-
 import { UserTransactionsNewStoreService } from './user-transactions-new-store.service';
+
+import { RouteParamEnum } from '@model/route-param.enum';
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsNewDateAndTotalGuard implements CanActivate {

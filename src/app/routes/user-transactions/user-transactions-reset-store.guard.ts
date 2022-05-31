@@ -3,9 +3,9 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { isNotNil } from 'st-utils';
 
-import { RouteParamEnum } from '../../models/route-param.enum';
-
 import { UserTransactionsStoreService } from './user-transactions-store.service';
+
+import { RouteParamEnum } from '@model/route-param.enum';
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsResetStoreGuard implements CanActivate {

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@angular/core';
 import { setProp } from '@ngneat/elf';
 
-import { TransactionCreateDto } from '../../models/transaction-create.dto';
-
 import { UserTransactionsNewStore, UserTransactionsNewStoreToken } from './user-transactions-new.store';
+
+import { TransactionCreateDto } from '@model/transaction-create.dto';
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsNewStoreService {

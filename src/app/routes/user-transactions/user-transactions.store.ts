@@ -2,8 +2,8 @@ import { InjectionToken } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
 import { withEntities } from '@ngneat/elf-entities';
 
-import { TransactionCard } from '../../models/transaction-card';
-import { LocalStorageStateStorage } from '../../shared/store/local-storage-state-storage';
+import { TransactionCard } from '@model/transaction-card';
+import { LocalStorageStateStorage } from '@shared/store/local-storage-state-storage';
 
 export interface UserTransactionsState {
   showSettled: boolean;

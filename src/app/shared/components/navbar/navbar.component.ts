@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { RouterQuery } from '@stlmpp/router';
 import { NgLetModule } from '@stlmpp/utils';
 
-import { RouteParamEnum } from '../../models/route-param.enum';
+import { RouteParamEnum } from '@model/route-param.enum';
 
 @Component({
   selector: 'app-navbar',

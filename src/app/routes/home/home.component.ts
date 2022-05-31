@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { arrayUtil } from 'st-utils';
 
-import { RouteDataEnum } from '../../models/route-data.enum';
-import { User } from '../../models/user';
-import { UserWithValues } from '../../models/user-with-values';
-import { trackById } from '../../shared/utils/track-by';
+import { RouteDataEnum } from '@model/route-data.enum';
+import { User } from '@model/user';
+import { UserWithValues } from '@model/user-with-values';
+import { trackById } from '@shared/utils/track-by';
 
 @Component({
   selector: 'app-home',

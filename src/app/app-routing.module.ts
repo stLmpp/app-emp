@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 
-import { UserExistsGuard } from './guards/user-exists.guard';
-import { RouteParamEnum } from './models/route-param.enum';
 import { PageTitleStrategy } from './page-title-strategy';
+
+import { RouteParamEnum } from '@model/route-param.enum';
+import { UserExistsGuard } from '@shared/guards/user-exists.guard';
 
 const routes: Routes = [
   {

@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
 
-import { TransactionCreateDto } from '../../models/transaction-create.dto';
-import { TransactionType } from '../../models/transaction-type';
-import { LocalStorageStateStorage } from '../../shared/store/local-storage-state-storage';
+import { TransactionCreateDto } from '@model/transaction-create.dto';
+import { TransactionType } from '@model/transaction-type';
+import { LocalStorageStateStorage } from '@shared/store/local-storage-state-storage';
 
 export interface UserTransactionsNewState {
   dto: TransactionCreateDto;

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { UserWithValues } from '../models/user-with-values';
 import { UserService } from '../services/user.service';
+
+import { UserWithValues } from '@model/user-with-values';
 
 @Injectable({ providedIn: 'root' })
 export class UsersWithValuesResolver implements Resolve<UserWithValues[]> {

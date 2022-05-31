@@ -2,11 +2,11 @@ import { Injectable, NgModule } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterModule, RouterStateSnapshot, Routes } from '@angular/router';
 import { map, Observable } from 'rxjs';
 
-import { RouteDataEnum } from '../../models/route-data.enum';
-
 import { TransactionStoreService } from './transaction-store.service';
 import { TransactionWithItemsResolver } from './transaction-with-items.resolver';
 import { TransactionComponent } from './transaction.component';
+
+import { RouteDataEnum } from '@model/route-data.enum';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionTitleResolver implements Resolve<string> {

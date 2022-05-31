@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { orderBy } from 'st-utils';
 
-import { LocaleMonthsToken } from '../../core/locale-months.token';
-import { TransactionItem } from '../../models/transaction-item';
-import { TransactionWithItems } from '../../models/transaction-with-items';
-
 import { TransactionStore, TransactionStoreToken, TransactionWithItemsState } from './transaction.store';
+
+import { LocaleMonthsToken } from '@core/locale-months.token';
+import { TransactionItem } from '@model/transaction-item';
+import { TransactionWithItems } from '@model/transaction-with-items';
 
 export interface TransactionItemDay extends TransactionItem {
   description: string;

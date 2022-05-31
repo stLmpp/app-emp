@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
 
-import { TransactionWithItems } from '../../models/transaction-with-items';
-import { LocalStorageStateStorage } from '../../shared/store/local-storage-state-storage';
+import { TransactionWithItems } from '@model/transaction-with-items';
+import { LocalStorageStateStorage } from '@shared/store/local-storage-state-storage';
 
 export interface TransactionWithItemsState extends TransactionWithItems {
   opened?: string | null;

@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 
-import { User } from '../../../models/user';
-import { ModalService } from '../../../services/modal.service';
 import type { NewUserModalComponent } from '../new-user-modal/new-user-modal.component';
+
+import { User } from '@model/user';
+import { ModalService } from '@shared/services/modal.service';
 
 @Component({
   selector: 'app-user-card-new',

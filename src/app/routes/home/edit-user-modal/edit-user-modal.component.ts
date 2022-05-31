@@ -7,9 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { UserService } from '../../../services/user.service';
-import { catchAndThrow } from '../../../shared/utils/catch-and-throw';
-import { UniqueUserIdValidatorFactory } from '../../../shared/validation/unique-user-id-validator-factory';
+import { UserService } from '@shared/services/user.service';
+import { catchAndThrow } from '@shared/utils/catch-and-throw';
+import { UniqueUserIdValidatorFactory } from '@shared/validation/unique-user-id-validator-factory';
 
 @Component({
   selector: 'app-edit-user-modal',

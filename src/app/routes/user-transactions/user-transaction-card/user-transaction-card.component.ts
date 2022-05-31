@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { TransactionCard } from '../../../models/transaction-card';
+import { TransactionCard } from '@model/transaction-card';
 
 @Component({
   selector: 'app-user-transaction-card',

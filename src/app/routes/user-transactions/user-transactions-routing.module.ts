@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { RouteDataEnum } from '../../models/route-data.enum';
-import { RouteParamEnum } from '../../models/route-param.enum';
-import { TransactionCardsResolver } from '../../resolvers/transaction-cards.resolver';
-
 import { UserTransactionsTitleResolver } from './user-transactions-title.resolver';
 import { UserTransactionsComponent } from './user-transactions.component';
+
+import { RouteDataEnum } from '@model/route-data.enum';
+import { RouteParamEnum } from '@model/route-param.enum';
+import { TransactionCardsResolver } from '@shared/resolvers/transaction-cards.resolver';
 
 const routes: Routes = [
   {

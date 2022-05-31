@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
-import { RouteParamEnum } from '../models/route-param.enum';
-import { TransactionCard } from '../models/transaction-card';
-import { UserTransactionsStoreService } from '../routes/user-transactions/user-transactions-store.service';
+import { UserTransactionsStoreService } from '../../routes/user-transactions/user-transactions-store.service';
 import { TransactionService } from '../services/transaction.service';
+
+import { RouteParamEnum } from '@model/route-param.enum';
+import { TransactionCard } from '@model/transaction-card';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionCardsResolver implements Resolve<TransactionCard[]> {

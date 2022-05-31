@@ -13,12 +13,13 @@ import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from 'ngx-currency';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { ApiInterceptor } from './core/interceptor/api.interceptor';
-import { DateInterceptor } from './core/interceptor/date.interceptor';
-import { LocaleMonthsProvider } from './core/locale-months.token';
-import { NAVIGATOR } from './core/navigator.token';
-import { WINDOW, WINDOW_PROVIDERS } from './core/window.service';
+
+import { ApiInterceptor } from '@core/interceptor/api.interceptor';
+import { DateInterceptor } from '@core/interceptor/date.interceptor';
+import { LocaleMonthsProvider } from '@core/locale-months.token';
+import { NAVIGATOR } from '@core/navigator.token';
+import { WINDOW, WINDOW_PROVIDERS } from '@core/window.service';
+import { NavbarComponent } from '@shared/components/navbar/navbar.component';
 
 registerLocaleData(localePt);
 

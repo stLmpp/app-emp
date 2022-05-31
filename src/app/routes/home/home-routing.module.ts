@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { RouteDataEnum } from '../../models/route-data.enum';
-import { UsersWithValuesResolver } from '../../resolvers/users-with-values.resolver';
-
 import { HomeComponent } from './home.component';
+
+import { RouteDataEnum } from '@model/route-data.enum';
+import { UsersWithValuesResolver } from '@shared/resolvers/users-with-values.resolver';
 
 const routes: Routes = [
   {

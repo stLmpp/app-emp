@@ -3,9 +3,10 @@ import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@ang
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 
-import { BaseComponent } from '../../../components/base-component';
-import { TransactionCreateDto } from '../../../models/transaction-create.dto';
 import { UserTransactionsNewStoreService } from '../user-transactions-new-store.service';
+
+import { TransactionCreateDto } from '@model/transaction-create.dto';
+import { BaseComponent } from '@shared/components/base-component';
 
 interface Form {
   name: FormControl<string>;

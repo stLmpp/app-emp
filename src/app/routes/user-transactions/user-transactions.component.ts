@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { trackByFactory } from '@stlmpp/utils';
 
-import { IdNameChecked } from '../../models/id-name-checked';
-import { TransactionCard } from '../../models/transaction-card';
-
 import { UserTransactionsStoreService } from './user-transactions-store.service';
+
+import { IdNameChecked } from '@model/id-name-checked';
+import { TransactionCard } from '@model/transaction-card';
 
 @Component({
   selector: 'app-user-transactions',

@@ -2,17 +2,17 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trackByFactory } from '@stlmpp/utils';
 
-import { ConfirmDialogService } from '../../components/confirm-dialog/confirm-dialog.service';
-import { RouteParamEnum } from '../../models/route-param.enum';
-import { TransactionService } from '../../services/transaction.service';
-import { trackById } from '../../shared/utils/track-by';
-
 import {
   TransactionItemDay,
   TransactionItemMonth,
   TransactionItemYear,
   TransactionStoreService,
 } from './transaction-store.service';
+
+import { RouteParamEnum } from '@model/route-param.enum';
+import { ConfirmDialogService } from '@shared/components/confirm-dialog/confirm-dialog.service';
+import { TransactionService } from '@shared/services/transaction.service';
+import { trackById } from '@shared/utils/track-by';
 
 @Component({
   selector: 'app-transaction',

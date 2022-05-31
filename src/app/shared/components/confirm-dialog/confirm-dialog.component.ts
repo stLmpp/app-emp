@@ -6,7 +6,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { finalize, isObservable, Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { isFunction, isString } from 'st-utils';
 
-import { trackByIndex } from '../../shared/utils/track-by';
+import { trackByIndex } from '../../utils/track-by';
 
 import { ConfirmDialogButton, ConfirmDialogOptions } from './confirm-dialog.service';
 

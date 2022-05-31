@@ -20,7 +20,13 @@
     "module": "es2020",
     "lib": ["es2020", "dom"],
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@core/*": ["./src/app/core/*"],
+      "@model/*": ["./src/app/model/*"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@environment/*": ["./src/environments/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

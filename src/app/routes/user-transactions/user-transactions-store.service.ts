@@ -4,11 +4,11 @@ import { selectAllEntities, setEntities } from '@ngneat/elf-entities';
 import { combineLatest, map, Observable } from 'rxjs';
 import { uniqBy } from 'st-utils';
 
-import { IdName } from '../../models/id-name';
-import { IdNameChecked } from '../../models/id-name-checked';
-import { TransactionCard } from '../../models/transaction-card';
-
 import { UserTransactionsStore, UserTransactionsStoreToken } from './user-transactions.store';
+
+import { IdName } from '@model/id-name';
+import { IdNameChecked } from '@model/id-name-checked';
+import { TransactionCard } from '@model/transaction-card';
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsStoreService {
