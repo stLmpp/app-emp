@@ -1,8 +1,16 @@
-<app-go-back-button link="../"></app-go-back-button>
+<app-go-back-button link="../" tooltip="Back to transactions"></app-go-back-button>
 
-<button mat-fab appUtility (click)="onDelete()">
+<button mat-fab appUtility (click)="onDelete()" matTooltip="Delete transaction">
   <mat-icon>delete</mat-icon>
 </button>
+
+<a mat-fab appUtility matTooltip="Edit transaction" routerLink="edit">
+  <mat-icon>edit</mat-icon>
+</a>
+
+<a mat-fab appUtility matTooltip="Add new transaction item" routerLink="add-item">
+  <mat-icon>add</mat-icon>
+</a>
 
 <!-- TODO add summary of transaction, name, description, person, etc -->
 <!-- TODO add no-data-found message -->
@@ -12,6 +20,19 @@
 <!-- TODO add button to edit transaction -->
 
 <ng-container *ngIf="transaction$ | async as transaction">
+  <div class="summary">
+    <h1>{{ transaction.name }} ({{ transaction.date | dateBr }})</h1>
+    <h3>{{ transaction.personName }}</h3>
+    <div>{{ transaction.total }}</div>
+    <p *ngIf="transaction.description">{{ transaction.description }}</p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="no-data-found" *ngIf="!transaction.years.length">
+    <h2>No transaction items found!</h2>
+    <a mat-raised-button color="accent" routerLink="add-item">Add a new one</a>
+  </div>
+
   <ng-container *ngFor="let year of transaction.years; trackBy: trackByYear">
     <div class="title">
       <h2>{{ year.year }}</h2>

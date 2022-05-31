@@ -33,3 +33,13 @@ h2 {
 .value {
   margin-right: 8px;
 }
+
+.no-data-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.summary {
+  margin-bottom: 2rem;
+}

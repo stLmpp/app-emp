@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -16,7 +17,7 @@ import { GoBackButtonService } from './go-back-button.service';
   styleUrls: ['./go-back-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule, MatTooltipModule],
 })
 export class GoBackButtonComponent extends UtilityDirective implements OnDestroy {
   constructor(
@@ -34,6 +35,7 @@ export class GoBackButtonComponent extends UtilityDirective implements OnDestroy
   private readonly _idGoBack: number;
 
   @Input() link!: string | unknown[];
+  @Input() tooltip: string | null = 'Go back';
 
   readonly show$: Observable<boolean>;
 

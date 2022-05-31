@@ -8,7 +8,7 @@ import { UtilitiesStore, UtilitiesStoreToken } from './utilities.store';
 import { Utility } from './utility';
 
 function getLeft(index: number): string {
-  return `calc(${index * 56}px + ${index > 0 ? 2 : 1}rem)`;
+  return `calc(${index * 56}px + ${index + 1}rem)`;
 }
 
 @Injectable({ providedIn: 'root' })

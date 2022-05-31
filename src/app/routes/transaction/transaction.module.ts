@@ -5,6 +5,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { GoBackButtonComponent } from '../../components/go-back-button/go-back-button.component';
 import { UtilityDirective } from '../../components/utilities/utility.directive';
@@ -26,6 +27,7 @@ import { TransactionComponent } from './transaction.component';
     MatIconModule,
     UtilityDirective,
     MatDialogModule,
+    MatTooltipModule,
   ],
 })
 export class TransactionModule {}
