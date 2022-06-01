@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, TitleStrategy } from '@angular/router';
 
 import { PageTitleStrategy } from './page-title-strategy';
+import { UserExistsGuard } from './user/user-exists.guard';
 
 import { RouteParamEnum } from '@model/route-param.enum';
-import { UserExistsGuard } from '@shared/guards/user-exists.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./routes/home/home.module').then(m => m.HomeModule),
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
   },
   {
     path: `users/:${RouteParamEnum.idUser}`,

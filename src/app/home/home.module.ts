@@ -6,12 +6,12 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CardNewComponent } from '../../shared/components/card-new/card-new.component';
-
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { UserCardNewComponent } from './user-card-new/user-card-new.component';
 import { UserCardComponent } from './user-card/user-card.component';
+
+import { CardNewComponent } from '@shared/components/card-new/card-new.component';
 
 @NgModule({
   declarations: [HomeComponent, UserCardComponent, UserCardNewComponent],

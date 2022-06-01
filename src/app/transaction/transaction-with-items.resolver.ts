@@ -3,10 +3,10 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { Observable, tap } from 'rxjs';
 
 import { TransactionStoreService } from './transaction-store.service';
+import { TransactionService } from './transaction.service';
 
 import { RouteParamEnum } from '@model/route-param.enum';
 import { TransactionWithItems } from '@model/transaction-with-items';
-import { TransactionService } from '@shared/services/transaction.service';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionWithItemsResolver implements Resolve<TransactionWithItems> {

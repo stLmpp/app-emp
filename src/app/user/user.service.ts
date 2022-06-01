@@ -2,12 +2,11 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CacheService } from '../cache/cache.service';
-
 import { User } from '@model/user';
 import { UserCreateDto } from '@model/user-create.dto';
 import { UserUpdateDto } from '@model/user-update.dto';
 import { UserWithValues } from '@model/user-with-values';
+import { CacheService } from '@shared/cache/cache.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {

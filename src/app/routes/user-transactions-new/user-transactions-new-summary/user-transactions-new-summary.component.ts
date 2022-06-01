@@ -3,9 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize } from 'rxjs';
 
+import { TransactionService } from '../../../transaction/transaction.service';
 import { UserTransactionsNewStoreService } from '../user-transactions-new-store.service';
-
-import { TransactionService } from '@shared/services/transaction.service';
 
 @Component({
   selector: 'app-user-transactions-new-summary',

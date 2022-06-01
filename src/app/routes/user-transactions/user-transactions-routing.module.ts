@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { TransactionCardsResolver } from '../../transaction/transaction-cards.resolver';
+
 import { UserTransactionsTitleResolver } from './user-transactions-title.resolver';
 import { UserTransactionsComponent } from './user-transactions.component';
 
 import { RouteDataEnum } from '@model/route-data.enum';
 import { RouteParamEnum } from '@model/route-param.enum';
-import { TransactionCardsResolver } from '@shared/resolvers/transaction-cards.resolver';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: `:${RouteParamEnum.idTransaction}`,
-    loadChildren: () => import('../transaction/transaction.module').then(m => m.TransactionModule),
+    loadChildren: () => import('../../transaction/transaction.module').then(m => m.TransactionModule),
   },
 ];
 

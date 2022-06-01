@@ -2,11 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { CacheService } from '../cache/cache.service';
-
 import { TransactionCard } from '@model/transaction-card';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { TransactionWithItems } from '@model/transaction-with-items';
+import { CacheService } from '@shared/cache/cache.service';
 
 @Injectable({ providedIn: 'root' })
 export class TransactionService {

@@ -15,12 +15,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { debounceTime, filter, map, Observable, switchMap, tap } from 'rxjs';
 import { isNotNil } from 'st-utils';
 
+import { PersonService } from '../../../person/person.service';
 import { UserTransactionsNewStoreService } from '../user-transactions-new-store.service';
 
 import { Person } from '@model/person';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { BaseComponent } from '@shared/components/base-component';
-import { PersonService } from '@shared/services/person.service';
 import { trackById } from '@shared/utils/track-by';
 
 interface Form {

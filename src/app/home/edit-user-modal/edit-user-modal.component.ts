@@ -1,46 +1,47 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { UserService } from '@shared/services/user.service';
+import { UserService } from '../../user/user.service';
+
 import { catchAndThrow } from '@shared/utils/catch-and-throw';
 import { UniqueUserIdValidatorFactory } from '@shared/validation/unique-user-id-validator-factory';
 
 @Component({
-  selector: 'app-new-user-modal',
-  templateUrl: './new-user-modal.component.html',
-  styleUrls: ['./new-user-modal.component.scss'],
+  selector: 'app-edit-user-modal',
+  templateUrl: './edit-user-modal.component.html',
+  styleUrls: ['./edit-user-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     CommonModule,
-    MatDialogModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     MatProgressBarModule,
+    MatDialogModule,
     ReactiveFormsModule,
   ],
 })
-export class NewUserModalComponent {
+export class EditUserModalComponent {
   constructor(
-    private readonly matDialogRef: MatDialogRef<NewUserModalComponent>,
+    private readonly matDialogRef: MatDialogRef<EditUserModalComponent>,
     private readonly userService: UserService,
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly uniqueUserIdValidatorFactory: UniqueUserIdValidatorFactory,
+    @Inject(MAT_DIALOG_DATA) public readonly idUser: string,
     private readonly formBuilder: NonNullableFormBuilder
   ) {}
 
   readonly form = this.formBuilder.group({
-    name: this.formBuilder.control('', {
-      asyncValidators: [this.uniqueUserIdValidatorFactory.create(this.changeDetectorRef)],
+    name: this.formBuilder.control(this.idUser, {
+      asyncValidators: [this.uniqueUserIdValidatorFactory.create(this.changeDetectorRef, [this.idUser])],
       validators: [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(30),
         Validators.pattern(/^[a-zA-Z][-_a-zA-Z\d]{1,28}[a-zA-Z\d]$/),
@@ -60,7 +61,7 @@ export class NewUserModalComponent {
     this.form.disable();
     const formValue = this.form.getRawValue();
     this.userService
-      .create({ id: formValue.name })
+      .update(this.idUser, { id: formValue.name })
       .pipe(
         catchAndThrow(() => {
           this.matDialogRef.disableClose = false;

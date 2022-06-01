@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 
+import { UserService } from '../../user/user.service';
 import type { EditUserModalComponent } from '../edit-user-modal/edit-user-modal.component';
 
 import { User } from '@model/user';
 import { ConfirmDialogService } from '@shared/components/confirm-dialog/confirm-dialog.service';
 import { ModalService } from '@shared/services/modal.service';
-import { UserService } from '@shared/services/user.service';
 
 @Component({
   selector: 'app-user-card',

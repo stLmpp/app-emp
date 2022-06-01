@@ -8,10 +8,10 @@ import {
   TransactionItemYear,
   TransactionStoreService,
 } from './transaction-store.service';
+import { TransactionService } from './transaction.service';
 
 import { RouteParamEnum } from '@model/route-param.enum';
 import { ConfirmDialogService } from '@shared/components/confirm-dialog/confirm-dialog.service';
-import { TransactionService } from '@shared/services/transaction.service';
 import { trackById } from '@shared/utils/track-by';
 
 @Component({

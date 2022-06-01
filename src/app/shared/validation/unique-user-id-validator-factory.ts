@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { AsyncValidatorFn } from '@angular/forms';
 import { finalize, map, of, switchMap, timer } from 'rxjs';
 
-import { UserService } from '../services/user.service';
+import { UserService } from '../../user/user.service';
 
 @Injectable({ providedIn: 'root' })
 export class UniqueUserIdValidatorFactory {

@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
-import { UserTransactionsStoreService } from '../../routes/user-transactions/user-transactions-store.service';
-import { TransactionService } from '../services/transaction.service';
+import { UserTransactionsStoreService } from '../routes/user-transactions/user-transactions-store.service';
+
+import { TransactionService } from './transaction.service';
 
 import { RouteParamEnum } from '@model/route-param.enum';
 import { TransactionCard } from '@model/transaction-card';
