@@ -18,7 +18,7 @@ const routes: Routes = [
       {
         path: 'transactions',
         loadChildren: () =>
-          import('./routes/user-transactions/user-transactions.module').then(m => m.UserTransactionsModule),
+          import('./transaction/user-transactions/user-transactions.module').then(m => m.UserTransactionsModule),
       },
     ],
   },
