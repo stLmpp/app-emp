@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { setProp } from '@ngneat/elf';
 
-import { UserTransactionsNewStore, UserTransactionsNewStoreToken } from './user-transactions-new.store';
+import { TransactionAddStore, TransactionAddStoreToken } from './transaction-add.store';
 
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 
 @Injectable({ providedIn: 'root' })
-export class UserTransactionsNewStoreService {
-  constructor(@Inject(UserTransactionsNewStoreToken) private readonly store: UserTransactionsNewStore) {}
+export class TransactionAddStoreService {
+  constructor(@Inject(TransactionAddStoreToken) private readonly store: TransactionAddStore) {}
 
   private _updateDto(dto: Partial<TransactionCreateDto>): void {
     this.store.update(setProp('dto', oldDto => ({ ...oldDto, ...dto })));

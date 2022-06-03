@@ -14,12 +14,12 @@ interface Form {
 }
 
 @Component({
-  selector: 'app-user-transactions-new-name-and-description',
-  templateUrl: './user-transactions-new-name-and-description.component.html',
-  styleUrls: ['./user-transactions-new-name-and-description.component.scss'],
+  selector: 'app-transaction-flow-name-and-description',
+  templateUrl: './transaction-flow-name-and-description.component.html',
+  styleUrls: ['./transaction-flow-name-and-description.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewNameAndDescriptionComponent extends BaseComponent implements OnInit {
+export class TransactionFlowNameAndDescriptionComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly transactionFlowPort: TransactionFlowPort,
     private readonly formBuilder: NonNullableFormBuilder,

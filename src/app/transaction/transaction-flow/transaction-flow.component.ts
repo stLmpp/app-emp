@@ -3,12 +3,12 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TransactionFlowPort } from '../transaction-flow.port';
 
 @Component({
-  selector: 'app-user-transactions-new',
-  templateUrl: './user-transactions-new.component.html',
-  styleUrls: ['./user-transactions-new.component.scss'],
+  selector: 'app-transaction-flow',
+  templateUrl: './transaction-flow.component.html',
+  styleUrls: ['./transaction-flow.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewComponent {
+export class TransactionFlowComponent {
   constructor(private readonly transactionFlowPort: TransactionFlowPort) {}
 
   readonly messages = this.transactionFlowPort.messages;

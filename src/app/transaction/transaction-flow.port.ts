@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { TransactionCard } from '@model/transaction-card';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 
-export interface TransactionEditAddPortMessages {
+export interface TransactionFlowMessages {
   title: string;
   saveSuccessful: string;
   saveError: string;
@@ -17,10 +17,9 @@ export interface TransactionEditAddPortMessages {
 }
 
 // TODO add edit adapter
-// TODO rename user-transactions-new module, components, guards, etc to transaction-flow
 
 export abstract class TransactionFlowPort {
-  abstract readonly messages: TransactionEditAddPortMessages;
+  abstract readonly messages: TransactionFlowMessages;
 
   isNameAndDescriptionValid(): boolean {
     const { name } = this.getDto();

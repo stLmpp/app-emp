@@ -7,7 +7,7 @@ import { TransactionFlowPort } from '../transaction-flow.port';
 import { RouteParamEnum } from '@model/route-param.enum';
 
 @Injectable()
-export class UserTransactionsNewNameAndDescriptionGuard implements CanActivate {
+export class TransactionFlowNameAndDescriptionGuard implements CanActivate {
   constructor(private readonly transactionFlowPort: TransactionFlowPort, private readonly router: Router) {}
 
   canActivate(

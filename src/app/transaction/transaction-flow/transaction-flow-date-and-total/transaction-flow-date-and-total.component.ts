@@ -15,12 +15,12 @@ interface Form {
 }
 
 @Component({
-  selector: 'app-user-transactions-new-date-and-total',
-  templateUrl: './user-transactions-new-date-and-total.component.html',
-  styleUrls: ['./user-transactions-new-date-and-total.component.scss'],
+  selector: 'app-transaction-flow-new-date-and-total',
+  templateUrl: './transaction-flow-date-and-total.component.html',
+  styleUrls: ['./transaction-flow-date-and-total.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewDateAndTotalComponent extends BaseComponent implements OnInit {
+export class TransactionFlowDateAndTotalComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly formBuilder: NonNullableFormBuilder,
     private readonly transactionFlowPort: TransactionFlowPort,

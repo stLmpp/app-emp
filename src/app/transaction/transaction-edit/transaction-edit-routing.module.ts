@@ -4,8 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('../user-transactions-new/user-transactions-new.module').then(m => m.UserTransactionsNewModule),
+    loadChildren: () => import('../transaction-flow/transaction-flow.module').then(m => m.TransactionFlowModule),
   },
 ];
 

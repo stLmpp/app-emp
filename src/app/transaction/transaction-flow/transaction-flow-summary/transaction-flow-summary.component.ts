@@ -7,12 +7,12 @@ import { TransactionFlowPort } from '../../transaction-flow.port';
 import { TransactionService } from '../../transaction.service';
 
 @Component({
-  selector: 'app-user-transactions-new-summary',
-  templateUrl: './user-transactions-new-summary.component.html',
-  styleUrls: ['./user-transactions-new-summary.component.scss'],
+  selector: 'app-transaction-flow-summary',
+  templateUrl: './transaction-flow-summary.component.html',
+  styleUrls: ['./transaction-flow-summary.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewSummaryComponent {
+export class TransactionFlowSummaryComponent {
   constructor(
     private readonly transactionFlowPort: TransactionFlowPort,
     private readonly changeDetectorRef: ChangeDetectorRef,

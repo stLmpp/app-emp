@@ -5,16 +5,16 @@ import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { TransactionType } from '@model/transaction-type';
 import { LocalStorageStateStorage } from '@shared/store/local-storage-state-storage';
 
-export interface UserTransactionsNewState {
+export interface TransactionAddState {
   dto: TransactionCreateDto;
   idUser: string | null;
 }
 
 const store = createStore(
   {
-    name: 'user-transactions-new',
+    name: 'transaction-add',
   },
-  withProps<UserTransactionsNewState>({
+  withProps<TransactionAddState>({
     dto: {
       total: 1,
       name: '',
@@ -34,8 +34,8 @@ LocalStorageStateStorage.persistStore(store, {
     },
   ],
 });
-export type UserTransactionsNewStore = typeof store;
-export const UserTransactionsNewStoreToken = new InjectionToken<typeof store>(store.name, {
+export type TransactionAddStore = typeof store;
+export const TransactionAddStoreToken = new InjectionToken<typeof store>(store.name, {
   providedIn: 'root',
   factory: () => store,
 });

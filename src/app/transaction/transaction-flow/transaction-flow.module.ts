@@ -11,19 +11,19 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxCurrencyModule } from 'ngx-currency';
 
 import { TransactionFlowDateAndTotalTitleResolver } from './transaction-flow-date-and-total-title.resolver';
+import { TransactionFlowDateAndTotalGuard } from './transaction-flow-date-and-total.guard';
+import { TransactionFlowDateAndTotalComponent } from './transaction-flow-date-and-total/transaction-flow-date-and-total.component';
 import { TransactionFlowNameAndDescriptionTitleResolver } from './transaction-flow-name-and-description-title.resolver';
+import { TransactionFlowNameAndDescriptionGuard } from './transaction-flow-name-and-description.guard';
+import { TransactionFlowNameAndDescriptionComponent } from './transaction-flow-name-and-description/transaction-flow-name-and-description.component';
 import { TransactionFlowPersonTitleResolver } from './transaction-flow-person-title.resolver';
+import { TransactionFlowPersonGuard } from './transaction-flow-person.guard';
+import { TransactionFlowPersonComponent } from './transaction-flow-person/transaction-flow-person.component';
+import { TransactionFlowResetStoreGuard } from './transaction-flow-reset-store.guard';
+import { TransactionFlowRoutingModule } from './transaction-flow-routing.module';
 import { TransactionFlowSummaryTitleResolver } from './transaction-flow-summary-title.resolver';
-import { UserTransactionsNewDateAndTotalGuard } from './user-transactions-new-date-and-total.guard';
-import { UserTransactionsNewDateAndTotalComponent } from './user-transactions-new-date-and-total/user-transactions-new-date-and-total.component';
-import { UserTransactionsNewNameAndDescriptionGuard } from './user-transactions-new-name-and-description.guard';
-import { UserTransactionsNewNameAndDescriptionComponent } from './user-transactions-new-name-and-description/user-transactions-new-name-and-description.component';
-import { UserTransactionsNewPersonGuard } from './user-transactions-new-person.guard';
-import { UserTransactionsNewPersonComponent } from './user-transactions-new-person/user-transactions-new-person.component';
-import { UserTransactionsNewResetStoreGuard } from './user-transactions-new-reset-store.guard';
-import { UserTransactionsNewRoutingModule } from './user-transactions-new-routing.module';
-import { UserTransactionsNewSummaryComponent } from './user-transactions-new-summary/user-transactions-new-summary.component';
-import { UserTransactionsNewComponent } from './user-transactions-new.component';
+import { TransactionFlowSummaryComponent } from './transaction-flow-summary/transaction-flow-summary.component';
+import { TransactionFlowComponent } from './transaction-flow.component';
 
 import { GoBackButtonComponent } from '@shared/components/go-back-button/go-back-button.component';
 import { AutoFocusDirective } from '@shared/directives/auto-focus.directive';
@@ -33,15 +33,15 @@ import { DateBrPipe } from '@shared/pipes/date-br-pipe/date-br.pipe';
 
 @NgModule({
   declarations: [
-    UserTransactionsNewComponent,
-    UserTransactionsNewNameAndDescriptionComponent,
-    UserTransactionsNewPersonComponent,
-    UserTransactionsNewDateAndTotalComponent,
-    UserTransactionsNewSummaryComponent,
+    TransactionFlowComponent,
+    TransactionFlowNameAndDescriptionComponent,
+    TransactionFlowPersonComponent,
+    TransactionFlowDateAndTotalComponent,
+    TransactionFlowSummaryComponent,
   ],
   imports: [
     CommonModule,
-    UserTransactionsNewRoutingModule,
+    TransactionFlowRoutingModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -58,14 +58,14 @@ import { DateBrPipe } from '@shared/pipes/date-br-pipe/date-br.pipe';
     AutoFocusDirective,
   ],
   providers: [
-    UserTransactionsNewResetStoreGuard,
-    UserTransactionsNewPersonGuard,
-    UserTransactionsNewNameAndDescriptionGuard,
-    UserTransactionsNewDateAndTotalGuard,
+    TransactionFlowResetStoreGuard,
+    TransactionFlowPersonGuard,
+    TransactionFlowNameAndDescriptionGuard,
+    TransactionFlowDateAndTotalGuard,
     TransactionFlowNameAndDescriptionTitleResolver,
     TransactionFlowPersonTitleResolver,
     TransactionFlowDateAndTotalTitleResolver,
     TransactionFlowSummaryTitleResolver,
   ],
 })
-export class UserTransactionsNewModule {}
+export class TransactionFlowModule {}

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { TransactionEditAddPortMessages, TransactionFlowPort } from '../transaction-flow.port';
+import { TransactionFlowMessages, TransactionFlowPort } from '../transaction-flow.port';
 import { TransactionService } from '../transaction.service';
-import { UserTransactionsNewStoreService } from '../user-transactions-new/user-transactions-new-store.service';
+
+import { TransactionAddStoreService } from './transaction-add-store.service';
 
 import { TransactionCard } from '@model/transaction-card';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
@@ -12,13 +12,13 @@ import { TransactionCreateDto } from '@model/transaction-create.dto';
 @Injectable({ providedIn: 'root' })
 export class TransactionFlowAddAdapter extends TransactionFlowPort {
   constructor(
-    private readonly userTransactionsNewStoreService: UserTransactionsNewStoreService,
+    private readonly transactionAddStoreService: TransactionAddStoreService,
     private readonly transactionService: TransactionService
   ) {
     super();
   }
 
-  readonly messages: TransactionEditAddPortMessages = {
+  readonly messages: TransactionFlowMessages = {
     title: 'Add new transaction',
     saveError: 'Could not create transaction, please try again later',
     saveSuccessful: 'New transaction added successfully!',
@@ -31,15 +31,15 @@ export class TransactionFlowAddAdapter extends TransactionFlowPort {
   };
 
   getDto(): TransactionCreateDto {
-    return this.userTransactionsNewStoreService.getDto();
+    return this.transactionAddStoreService.getDto();
   }
 
   getIdUser(): string | null {
-    return this.userTransactionsNewStoreService.getIdUser();
+    return this.transactionAddStoreService.getIdUser();
   }
 
   reset(): void {
-    this.userTransactionsNewStoreService.reset();
+    this.transactionAddStoreService.reset();
   }
 
   save(idUser: string, dto: TransactionCreateDto): Observable<TransactionCard> {
@@ -47,22 +47,22 @@ export class TransactionFlowAddAdapter extends TransactionFlowPort {
   }
 
   setDateAndTotal(dto: Pick<TransactionCreateDto, 'total' | 'date'>): void {
-    this.userTransactionsNewStoreService.setDateAndValue(dto);
+    this.transactionAddStoreService.setDateAndValue(dto);
   }
 
   setIdUser(idUser: string): void {
-    this.userTransactionsNewStoreService.setIdUser(idUser);
+    this.transactionAddStoreService.setIdUser(idUser);
   }
 
   setNameAndDescription(dto: Pick<TransactionCreateDto, 'name' | 'description'>): void {
-    this.userTransactionsNewStoreService.setNameAndDescription(dto);
+    this.transactionAddStoreService.setNameAndDescription(dto);
   }
 
   setPerson(dto: Pick<TransactionCreateDto, 'personName' | 'idPerson'>): void {
-    this.userTransactionsNewStoreService.setPerson(dto);
+    this.transactionAddStoreService.setPerson(dto);
   }
 
-  override getMiddlePath(route: ActivatedRouteSnapshot): string[] {
+  override getMiddlePath(): string[] {
     return ['new'];
   }
 }

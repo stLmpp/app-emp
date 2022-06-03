@@ -29,12 +29,12 @@ interface Form {
 }
 
 @Component({
-  selector: 'app-user-transactions-new-person',
-  templateUrl: './user-transactions-new-person.component.html',
-  styleUrls: ['./user-transactions-new-person.component.scss'],
+  selector: 'app-transaction-flow-new-person',
+  templateUrl: './transaction-flow-person.component.html',
+  styleUrls: ['./transaction-flow-person.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserTransactionsNewPersonComponent extends BaseComponent implements OnInit {
+export class TransactionFlowPersonComponent extends BaseComponent implements OnInit {
   constructor(
     private readonly formBuilder: NonNullableFormBuilder,
     private readonly personService: PersonService,
