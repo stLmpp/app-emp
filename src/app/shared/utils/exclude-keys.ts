@@ -1,22 +1,20 @@
-import { Store, StoreValue } from '@ngneat/elf';
 import { OperatorFunction, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export function excludeKeys<S extends Store, State extends StoreValue<S>>(
-  keys: Array<keyof State>
-): OperatorFunction<State, Partial<State>> {
+import { getEntries } from '@shared/utils/get-entries';
+import { AnyObject } from '@shared/utils/type';
+
+export function excludeKeys<T extends AnyObject, K extends keyof T>(keys: K[]): OperatorFunction<T, Omit<T, K>> {
   if (!keys.length) {
     return pipe();
   }
   const keysSet = new Set(keys);
-  return pipe(
-    map(state =>
-      Object.entries(state).reduce((entity, [key, value]) => {
-        if (!keysSet.has(key)) {
-          entity[key] = value;
-        }
-        return entity;
-      }, {} as State)
-    )
+  return map(state =>
+    getEntries(state).reduce((entity, [key, value]) => {
+      if (!keysSet.has(key as K)) {
+        entity = { ...entity, [key]: value };
+      }
+      return entity;
+    }, {} as T)
   );
 }

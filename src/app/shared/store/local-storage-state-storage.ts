@@ -1,6 +1,6 @@
-import { Store } from '@ngneat/elf';
+import { Store, StoreValue } from '@ngneat/elf';
 import { persistState, StateStorage } from '@ngneat/elf-persist-state';
-import { auditTime } from 'rxjs';
+import { auditTime, Observable } from 'rxjs';
 
 import { excludeKeys } from '../utils/exclude-keys';
 import { includeKeys } from '../utils/include-keys';
@@ -12,6 +12,8 @@ import {
   StorePersistConfigInternal,
   StorePersistConfigSpecialKeysInternal,
 } from './local-storage-state-storage-config';
+
+import { AnyObject } from '@shared/utils/type';
 
 interface TypeMap {
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -36,7 +38,7 @@ const typeMap = new Map<LocalStorageStateStorageConfigSpecialKeyType | 'default'
     toPersist: value => value,
   });
 
-function filterSpecialKeys<T extends Record<string, unknown>>(
+function filterSpecialKeys<T extends AnyObject>(
   specialKey: Partial<StorePersistConfigSpecialKeysInternal<T>>
 ): specialKey is StorePersistConfigSpecialKeysInternal<T> {
   return (
@@ -44,7 +46,7 @@ function filterSpecialKeys<T extends Record<string, unknown>>(
   );
 }
 
-export class LocalStorageStateStorage<T extends Record<string, unknown>> implements StateStorage {
+export class LocalStorageStateStorage<T extends AnyObject> implements StateStorage {
   private constructor(options: LocalStorageStateStorageConfig<T>) {
     this._options = {
       ...options,
@@ -109,7 +111,7 @@ export class LocalStorageStateStorage<T extends Record<string, unknown>> impleme
     return newSpecialKeys as Array<StorePersistConfigSpecialKeysInternal<T>>;
   }
 
-  async getItem<U extends Record<string, unknown>>(key: string): Promise<U | undefined> {
+  async getItem<U extends AnyObject>(key: string): Promise<U | undefined> {
     const item = localStorage.getItem(key);
     if (!item) {
       return undefined;
@@ -138,14 +140,18 @@ export class LocalStorageStateStorage<T extends Record<string, unknown>> impleme
     return true;
   }
 
-  static persistStore<S extends Store>(
+  static persistStore<S extends Store, State extends StoreValue<S>>(
     store: S,
-    options: LocalStorageStateStorageConfig<S['state']> = {}
+    options: LocalStorageStateStorageConfig<State> = {}
   ): ReturnType<typeof persistState> {
     return persistState(store, {
       storage: new LocalStorageStateStorage(options),
       source: () =>
-        store.pipe(auditTime(500), excludeKeys(options.ignoreKeys ?? []), includeKeys(options.includeKeys ?? [])),
+        store.pipe(
+          auditTime(500),
+          includeKeys(options.includeKeys ?? []),
+          excludeKeys(options.ignoreKeys ?? [])
+        ) as Observable<Partial<State>>,
     });
   }
 }

@@ -1,6 +1,8 @@
+import { AnyObject } from '@shared/utils/type';
+
 export type LocalStorageStateStorageConfigSpecialKeyType = 'set' | 'date';
 
-export interface LocalStorageStateStorageConfigSpecialKey<T extends Record<string, unknown>> {
+export interface LocalStorageStateStorageConfigSpecialKey<T extends AnyObject> {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   get?: (state: T) => any;
   set?: (state: T, value: any) => T;
@@ -9,13 +11,13 @@ export interface LocalStorageStateStorageConfigSpecialKey<T extends Record<strin
   key?: keyof T;
 }
 
-export interface LocalStorageStateStorageConfig<T extends Record<string, unknown>> {
+export interface LocalStorageStateStorageConfig<T extends AnyObject> {
   ignoreKeys?: Array<keyof T>;
   includeKeys?: Array<keyof T>;
   specialKeys?: Array<LocalStorageStateStorageConfigSpecialKey<T>>;
 }
 
-export interface StorePersistConfigSpecialKeysInternal<T extends Record<string, unknown>>
+export interface StorePersistConfigSpecialKeysInternal<T extends AnyObject>
   extends LocalStorageStateStorageConfigSpecialKey<T> {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   getFromStore: (state: T) => any;
@@ -25,7 +27,7 @@ export interface StorePersistConfigSpecialKeysInternal<T extends Record<string, 
   /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
-export interface StorePersistConfigInternal<T extends Record<string, unknown>>
+export interface StorePersistConfigInternal<T extends AnyObject>
   extends Pick<LocalStorageStateStorageConfig<T>, 'ignoreKeys'> {
   specialKeys?: Array<StorePersistConfigSpecialKeysInternal<T>>;
 }
