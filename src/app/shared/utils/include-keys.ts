@@ -9,14 +9,12 @@ export function includeKeys<S extends Store, State extends StoreValue<S>, K exte
     return pipe();
   }
   const keysSet = new Set(keys);
-  return pipe(
-    map(state =>
-      Object.entries(state).reduce((entity, [key, value]) => {
-        if (keysSet.has(key as never)) {
-          entity[key] = value;
-        }
-        return entity;
-      }, {} as State)
-    )
+  return map(state =>
+    Object.entries(state).reduce((entity, [key, value]) => {
+      if (keysSet.has(key as never)) {
+        entity[key] = value;
+      }
+      return entity;
+    }, {} as State)
   );
 }

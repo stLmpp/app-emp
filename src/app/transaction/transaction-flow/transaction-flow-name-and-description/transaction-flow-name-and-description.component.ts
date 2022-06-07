@@ -6,7 +6,6 @@ import { TransactionFlowPort } from '../transaction-flow.port';
 
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { BaseComponent } from '@shared/components/base-component';
-import { distinctUntilObjectChanged } from '@shared/utils/distinct-until-object-changed';
 import { includeKeys } from '@shared/utils/include-keys';
 
 interface Form {
@@ -59,7 +58,7 @@ export class TransactionFlowNameAndDescriptionComponent extends BaseComponent im
   ngOnInit(): void {
     this.transactionFlowPort
       .selectDto()
-      .pipe(this.untilDestroy(), includeKeys(['name', 'description']), distinctUntilObjectChanged())
+      .pipe(this.untilDestroy(), includeKeys(['name', 'description']))
       .subscribe(values => {
         this.form.patchValue(values);
       });

@@ -60,7 +60,7 @@ export class TransactionFlowEditAdapter extends TransactionFlowPort {
   }
 
   reset(): void {
-    this.transactionEditStore.update(setProps(state => ({ ...state, hasUpdated: false, dto: state.initial })));
+    this.transactionEditStore.update(setProps(state => ({ ...state, hasUpdated: false, dto: { ...state.initial } })));
   }
 
   save(idUser: string, dto: TransactionCreateDto): Observable<TransactionCard> {

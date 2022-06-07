@@ -21,7 +21,6 @@ import { TransactionFlowPort } from '../transaction-flow.port';
 import { Person } from '@model/person';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { BaseComponent } from '@shared/components/base-component';
-import { distinctUntilObjectChanged } from '@shared/utils/distinct-until-object-changed';
 import { includeKeys } from '@shared/utils/include-keys';
 import { trackById } from '@shared/utils/track-by';
 
@@ -131,7 +130,7 @@ export class TransactionFlowPersonComponent extends BaseComponent implements OnI
   ngOnInit(): void {
     this.transactionFlowPort
       .selectDto()
-      .pipe(this.untilDestroy(), includeKeys(['idPerson', 'personName']), distinctUntilObjectChanged())
+      .pipe(this.untilDestroy(), includeKeys(['idPerson', 'personName']))
       .subscribe(values => {
         this.form.patchValue(values);
       });
