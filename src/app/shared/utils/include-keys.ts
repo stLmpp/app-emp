@@ -2,9 +2,9 @@ import { Store, StoreValue } from '@ngneat/elf';
 import { OperatorFunction, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export function includeKeys<S extends Store, State extends StoreValue<S>>(
-  keys: Array<keyof State>
-): OperatorFunction<State, Partial<State>> {
+export function includeKeys<S extends Store, State extends StoreValue<S>, K extends keyof State>(
+  keys: K[]
+): OperatorFunction<State, Pick<State, K>> {
   if (!keys.length) {
     return pipe();
   }
@@ -12,7 +12,7 @@ export function includeKeys<S extends Store, State extends StoreValue<S>>(
   return pipe(
     map(state =>
       Object.entries(state).reduce((entity, [key, value]) => {
-        if (keysSet.has(key)) {
+        if (keysSet.has(key as never)) {
           entity[key] = value;
         }
         return entity;

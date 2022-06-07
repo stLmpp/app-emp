@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { TransactionFlowPort } from '../transaction-flow.port';
+import { TransactionFlowPort } from '../transaction-flow/transaction-flow.port';
 
 import { TransactionAddRoutingModule } from './transaction-add-routing.module';
 import { TransactionFlowAddAdapter } from './transaction-flow-add.adapter';

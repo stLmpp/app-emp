@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { TransactionFlowPort } from '../transaction-flow.port';
+import { TransactionFlowPort } from '../transaction-flow/transaction-flow.port';
 
 import { TransactionEditRoutingModule } from './transaction-edit-routing.module';
+import { TransactionFlowEditAdapter } from './transaction-flow-edit.adapter';
 
 @NgModule({
   declarations: [],
@@ -11,7 +12,7 @@ import { TransactionEditRoutingModule } from './transaction-edit-routing.module'
   providers: [
     {
       provide: TransactionFlowPort,
-      useValue: { edit: 1 },
+      useExisting: TransactionFlowEditAdapter,
     },
   ],
 })

@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { select, setProp } from '@ngneat/elf';
 import { selectAllEntities, setEntities } from '@ngneat/elf-entities';
 import { combineLatest, map, Observable } from 'rxjs';
 import { uniqBy } from 'st-utils';
 
-import { UserTransactionsStore, UserTransactionsStoreToken } from './user-transactions.store';
+import { UserTransactionsStore } from './user-transactions.store';
 
 import { IdName } from '@model/id-name';
 import { IdNameChecked } from '@model/id-name-checked';
@@ -12,7 +12,7 @@ import { TransactionCard } from '@model/transaction-card';
 
 @Injectable({ providedIn: 'root' })
 export class UserTransactionsStoreService {
-  constructor(@Inject(UserTransactionsStoreToken) private readonly store: UserTransactionsStore) {}
+  constructor(private readonly store: UserTransactionsStore) {}
 
   readonly showSettled$ = this.store.pipe(select(state => state.showSettled));
 

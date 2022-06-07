@@ -1,10 +1,10 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { filterNil } from '@ngneat/elf';
 import { addEntities, getAllEntities, selectEntity, setEntities } from '@ngneat/elf-entities';
 import { Observable } from 'rxjs';
 import { arrayUtil } from 'st-utils';
 
-import { UtilitiesStore, UtilitiesStoreToken } from './utilities.store';
+import { UtilitiesStore } from './utilities.store';
 import { Utility } from './utility';
 
 function getLeft(index: number): string {
@@ -13,14 +13,14 @@ function getLeft(index: number): string {
 
 @Injectable({ providedIn: 'root' })
 export class UtilitiesService {
-  constructor(@Inject(UtilitiesStoreToken) private readonly _store: UtilitiesStore) {}
+  constructor(private readonly store: UtilitiesStore) {}
 
   private _uniqueId = 0;
 
   add(): [number, Observable<Utility>] {
     const id = this._uniqueId++;
-    const utilities = this._store.query(getAllEntities());
-    this._store.update(
+    const utilities = this.store.query(getAllEntities());
+    this.store.update(
       addEntities({
         id,
         style: {
@@ -30,13 +30,13 @@ export class UtilitiesService {
         },
       })
     );
-    const utility$ = this._store.pipe(selectEntity(id), filterNil());
+    const utility$ = this.store.pipe(selectEntity(id), filterNil());
     return [id, utility$];
   }
 
   remove(id: number): this {
-    const utilities = this._store.query(getAllEntities());
-    this._store.update(
+    const utilities = this.store.query(getAllEntities());
+    this.store.update(
       setEntities(
         arrayUtil(utilities)
           .remove(id)

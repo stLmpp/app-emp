@@ -13,13 +13,20 @@ import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from 'ngx-currency';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TransactionAddStoreProviders } from './transaction/transaction-add/transaction-add.store';
+import { TransactionEditStoreProviders } from './transaction/transaction-edit/transaction-edit.store';
+import { TransactionStoreProviders } from './transaction/transaction.store';
+import { UserTransactionsStoreProviders } from './transaction/user-transactions/user-transactions.store';
 
 import { ApiInterceptor } from '@core/interceptor/api.interceptor';
 import { DateInterceptor } from '@core/interceptor/date.interceptor';
 import { LocaleMonthsProvider } from '@core/locale-months.token';
 import { NAVIGATOR } from '@core/navigator.token';
 import { WINDOW, WINDOW_PROVIDERS } from '@core/window.service';
+import { GoBackButtonStoreProviders } from '@shared/components/go-back-button/go-back-button.store';
 import { NavbarComponent } from '@shared/components/navbar/navbar.component';
+import { UtilitiesStoreProviders } from '@shared/components/utilities/utilities.store';
+import { StoreModule } from '@shared/store/store.module';
 
 registerLocaleData(localePt);
 
@@ -46,6 +53,14 @@ function currencyMaskConfigFactory(): CurrencyMaskConfig {
     BrowserAnimationsModule,
     NavbarComponent,
     MatDateFnsModule,
+    StoreModule.forRoot([
+      TransactionEditStoreProviders,
+      TransactionAddStoreProviders,
+      UserTransactionsStoreProviders,
+      TransactionStoreProviders,
+      GoBackButtonStoreProviders,
+      UtilitiesStoreProviders,
+    ]),
   ],
   providers: [
     ...WINDOW_PROVIDERS,

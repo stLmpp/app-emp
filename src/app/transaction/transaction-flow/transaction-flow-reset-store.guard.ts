@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { isNotNil } from 'st-utils';
 
-import { TransactionFlowPort } from '../transaction-flow.port';
+import { TransactionFlowPort } from './transaction-flow.port';
 
 import { RouteParamEnum } from '@model/route-param.enum';
 

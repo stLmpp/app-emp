@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
 
-import { TransactionFlowPort } from '../../transaction-flow.port';
+import { TransactionFlowPort } from '../transaction-flow.port';
 
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { BaseComponent } from '@shared/components/base-component';
+import { distinctUntilObjectChanged } from '@shared/utils/distinct-until-object-changed';
+import { includeKeys } from '@shared/utils/include-keys';
 
 interface Form {
   name: FormControl<string>;
@@ -34,16 +35,15 @@ export class TransactionFlowNameAndDescriptionComponent extends BaseComponent im
   readonly transactionCreateDto = TransactionCreateDto;
 
   private _getForm(): FormGroup<Form> {
-    const { name, description } = this.transactionFlowPort.getDto();
     return this.formBuilder.group<Form>({
-      name: this.formBuilder.control(name, {
+      name: this.formBuilder.control('', {
         validators: [
           Validators.required,
           Validators.minLength(TransactionCreateDto.nameMinLength),
           Validators.maxLength(TransactionCreateDto.nameMaxLength),
         ],
       }),
-      description: this.formBuilder.control<string | null | undefined>(description, {
+      description: this.formBuilder.control<string | null | undefined>(null, {
         validators: [Validators.maxLength(TransactionCreateDto.descriptionMaxLength)],
       }),
     });
@@ -57,13 +57,15 @@ export class TransactionFlowNameAndDescriptionComponent extends BaseComponent im
   }
 
   ngOnInit(): void {
-    this.form.valueChanges
-      .pipe(
-        this.untilDestroy(),
-        map(() => this.form.getRawValue())
-      )
-      .subscribe(state => {
-        this.transactionFlowPort.setNameAndDescription(state);
+    this.transactionFlowPort
+      .selectDto()
+      .pipe(this.untilDestroy(), includeKeys(['name', 'description']), distinctUntilObjectChanged())
+      .subscribe(values => {
+        this.form.patchValue(values);
       });
+  }
+
+  save(): void {
+    this.transactionFlowPort.setNameAndDescription(this.form.getRawValue());
   }
 }

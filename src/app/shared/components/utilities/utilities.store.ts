@@ -1,8 +1,10 @@
-import { InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createStore } from '@ngneat/elf';
 import { withEntities } from '@ngneat/elf-entities';
 
 import { Utility } from './utility';
+
+import { createStoreProviders } from '@shared/store/create-store-providers';
 
 const store = createStore(
   {
@@ -11,8 +13,11 @@ const store = createStore(
   withEntities<Utility>()
 );
 
-export type UtilitiesStore = typeof store;
-export const UtilitiesStoreToken = new InjectionToken<UtilitiesStore>(store.name, {
-  providedIn: 'root',
-  factory: () => store,
-});
+const [UtilitiesStoreProviders, BaseClass, useFactory] = createStoreProviders(store);
+
+@Injectable()
+export class UtilitiesStore extends BaseClass {}
+
+UtilitiesStoreProviders.push({ provide: UtilitiesStore, useFactory });
+
+export { UtilitiesStoreProviders };

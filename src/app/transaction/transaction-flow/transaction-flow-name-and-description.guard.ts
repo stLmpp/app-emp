@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { TransactionFlowPort } from '../transaction-flow.port';
+import { TransactionFlowPort } from './transaction-flow.port';
 
 import { RouteParamEnum } from '@model/route-param.enum';
 

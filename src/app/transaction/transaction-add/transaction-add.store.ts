@@ -1,9 +1,9 @@
-import { InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
 
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { TransactionType } from '@model/transaction-type';
-import { LocalStorageStateStorage } from '@shared/store/local-storage-state-storage';
+import { createStoreProviders } from '@shared/store/create-store-providers';
 
 export interface TransactionAddState {
   dto: TransactionCreateDto;
@@ -25,7 +25,7 @@ const store = createStore(
   })
 );
 
-LocalStorageStateStorage.persistStore(store, {
+const [TransactionAddStoreProviders, BaseClass, useFactory] = createStoreProviders(store, {
   specialKeys: [
     {
       type: 'date',
@@ -34,8 +34,10 @@ LocalStorageStateStorage.persistStore(store, {
     },
   ],
 });
-export type TransactionAddStore = typeof store;
-export const TransactionAddStoreToken = new InjectionToken<typeof store>(store.name, {
-  providedIn: 'root',
-  factory: () => store,
-});
+
+@Injectable()
+export class TransactionAddStore extends BaseClass {}
+
+TransactionAddStoreProviders.push({ provide: TransactionAddStore, useFactory });
+
+export { TransactionAddStoreProviders };

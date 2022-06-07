@@ -1,7 +1,8 @@
-import { InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
 
 import { TransactionWithItems } from '@model/transaction-with-items';
+import { createStoreProviders } from '@shared/store/create-store-providers';
 import { LocalStorageStateStorage } from '@shared/store/local-storage-state-storage';
 
 export interface TransactionWithItemsState extends TransactionWithItems {
@@ -26,8 +27,13 @@ LocalStorageStateStorage.persistStore(store, {
   includeKeys: ['opened'],
 });
 
-export type TransactionStore = typeof store;
-export const TransactionStoreToken = new InjectionToken<TransactionStore>(store.name, {
-  providedIn: 'root',
-  factory: () => store,
+const [TransactionStoreProviders, BaseClass, useFactory] = createStoreProviders(store, {
+  includeKeys: ['opened'],
 });
+
+@Injectable()
+export class TransactionStore extends BaseClass {}
+
+TransactionStoreProviders.push({ provide: TransactionStore, useFactory });
+
+export { TransactionStoreProviders };

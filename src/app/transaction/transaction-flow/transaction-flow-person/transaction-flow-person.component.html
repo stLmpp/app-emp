@@ -41,6 +41,14 @@
 
   <app-button-actions validationOnEnter>
     <a mat-raised-button [routerLink]="['../name-and-description']">Back</a>
-    <a mat-raised-button color="primary" [routerLink]="['../', 'date-and-total']" [disabled]="form.invalid">Next</a>
+    <a
+      mat-raised-button
+      color="primary"
+      [routerLink]="['../', 'date-and-total']"
+      [disabled]="form.invalid"
+      (click)="save()"
+    >
+      Next
+    </a>
   </app-button-actions>
 </form>

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { orderBy } from 'st-utils';
 
-import { TransactionStore, TransactionStoreToken, TransactionWithItemsState } from './transaction.store';
+import { TransactionStore, TransactionWithItemsState } from './transaction.store';
 
 import { LocaleMonthsToken } from '@core/locale-months.token';
 import { TransactionItem } from '@model/transaction-item';
@@ -38,7 +38,7 @@ export interface TransactionWithItemsGroupedByYear extends Omit<TransactionWithI
 @Injectable({ providedIn: 'root' })
 export class TransactionStoreService {
   constructor(
-    @Inject(TransactionStoreToken) private readonly store: TransactionStore,
+    private readonly store: TransactionStore,
     @Inject(LOCALE_ID) private readonly localeId: string,
     @Inject(LocaleMonthsToken) private readonly months: string[]
   ) {}
@@ -84,6 +84,10 @@ export class TransactionStoreService {
 
   set(transactionWithItems: TransactionWithItems): void {
     this.store.update(setProps(transactionWithItems));
+  }
+
+  update(partial: Partial<TransactionWithItems>): void {
+    this.store.update(setProps(partial));
   }
 
   setOpened(id: string): void {

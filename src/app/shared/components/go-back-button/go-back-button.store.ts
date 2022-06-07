@@ -1,5 +1,7 @@
-import { InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
+
+import { createStoreProviders } from '@shared/store/create-store-providers';
 
 export interface GoBackButtonState {
   buttons: Set<number>;
@@ -14,8 +16,11 @@ const store = createStore(
   })
 );
 
-export type GoBackButtonStore = typeof store;
-export const GoBackButtonStoreToken = new InjectionToken<GoBackButtonStore>(store.name, {
-  providedIn: 'root',
-  factory: () => store,
-});
+const [GoBackButtonStoreProviders, BaseClass, useFactory] = createStoreProviders(store);
+
+@Injectable()
+export class GoBackButtonStore extends BaseClass {}
+
+GoBackButtonStoreProviders.push({ provide: GoBackButtonStore, useFactory });
+
+export { GoBackButtonStoreProviders };

@@ -1,9 +1,9 @@
-import { InjectionToken } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
 import { withEntities } from '@ngneat/elf-entities';
 
 import { TransactionCard } from '@model/transaction-card';
-import { LocalStorageStateStorage } from '@shared/store/local-storage-state-storage';
+import { createStoreProviders } from '@shared/store/create-store-providers';
 
 export interface UserTransactionsState {
   showSettled: boolean;
@@ -23,7 +23,7 @@ const store = createStore(
   withEntities<TransactionCard, 'idTransaction'>({ idKey: 'idTransaction' })
 );
 
-LocalStorageStateStorage.persistStore(store, {
+const [UserTransactionsStoreProviders, BaseClass, useFactory] = createStoreProviders(store, {
   ignoreKeys: ['ids', 'entities'],
   specialKeys: [
     {
@@ -33,8 +33,9 @@ LocalStorageStateStorage.persistStore(store, {
   ],
 });
 
-export type UserTransactionsStore = typeof store;
-export const UserTransactionsStoreToken = new InjectionToken<UserTransactionsStore>(store.name, {
-  providedIn: 'root',
-  factory: () => store,
-});
+@Injectable()
+export class UserTransactionsStore extends BaseClass {}
+
+UserTransactionsStoreProviders.push({ provide: UserTransactionsStore, useFactory });
+
+export { UserTransactionsStoreProviders };

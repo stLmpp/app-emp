@@ -1,16 +1,10 @@
 <h3>{{ messages.summaryTitle }}</h3>
 
 <div class="container">
-  <div class="title">Name</div>
-  <div class="value">{{ dto.name }}</div>
-  <div class="title">Description</div>
-  <div class="value">{{ dto.description || '-' }}</div>
-  <div class="title">Person</div>
-  <div class="value">{{ dto.personName }}</div>
-  <div class="title">Date</div>
-  <div class="value">{{ dto.date | dateBr }}</div>
-  <div class="title">Total</div>
-  <div class="value">{{ dto.total | currency: 'R$' }}</div>
+  <ng-container *ngFor="let item of summary$ | async; trackBy: trackBySummary">
+    <div class="title">{{ item.title }}</div>
+    <div class="value">{{ item.value }}</div>
+  </ng-container>
 </div>
 
 <app-button-actions>

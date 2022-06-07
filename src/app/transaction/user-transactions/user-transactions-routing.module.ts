@@ -23,10 +23,6 @@ const routes: Routes = [
     loadChildren: () => import('../transaction-add/transaction-add.module').then(m => m.TransactionAddModule),
   },
   {
-    path: 'edit',
-    loadChildren: () => import('../transaction-edit/transaction-edit.module').then(m => m.TransactionEditModule),
-  },
-  {
     path: `:${RouteParamEnum.idTransaction}`,
     loadChildren: () => import('../transaction.module').then(m => m.TransactionModule),
   },

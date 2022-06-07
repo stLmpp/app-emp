@@ -2,12 +2,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrencyMaskConfig } from 'ngx-currency/src/currency-mask.config';
-import { map } from 'rxjs';
 
-import { TransactionFlowPort } from '../../transaction-flow.port';
+import { TransactionFlowPort } from '../transaction-flow.port';
 
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { BaseComponent } from '@shared/components/base-component';
+import { distinctUntilObjectChanged } from '@shared/utils/distinct-until-object-changed';
+import { includeKeys } from '@shared/utils/include-keys';
 
 interface Form {
   date: FormControl<Date>;
@@ -38,10 +39,9 @@ export class TransactionFlowDateAndTotalComponent extends BaseComponent implemen
   };
 
   private _getForm(): FormGroup<Form> {
-    const { date, total } = this.transactionFlowPort.getDto();
     return this.formBuilder.group({
-      date: this.formBuilder.control(date, { validators: [Validators.required] }),
-      total: this.formBuilder.control(total, {
+      date: this.formBuilder.control(new Date(), { validators: [Validators.required] }),
+      total: this.formBuilder.control(0, {
         validators: [
           Validators.required,
           Validators.min(TransactionCreateDto.totalMin),
@@ -59,13 +59,15 @@ export class TransactionFlowDateAndTotalComponent extends BaseComponent implemen
   }
 
   ngOnInit(): void {
-    this.form.valueChanges
-      .pipe(
-        this.untilDestroy(),
-        map(() => this.form.getRawValue())
-      )
-      .subscribe(state => {
-        this.transactionFlowPort.setDateAndTotal(state);
+    this.transactionFlowPort
+      .selectDto()
+      .pipe(this.untilDestroy(), includeKeys(['date', 'total']), distinctUntilObjectChanged())
+      .subscribe(values => {
+        this.form.patchValue(values);
       });
+  }
+
+  save(): void {
+    this.transactionFlowPort.setDateAndTotal(this.form.getRawValue());
   }
 }

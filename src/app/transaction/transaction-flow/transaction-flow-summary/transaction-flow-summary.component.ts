@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { trackByFactory } from '@stlmpp/utils';
 import { finalize } from 'rxjs';
 
-import { TransactionFlowPort } from '../../transaction-flow.port';
 import { TransactionService } from '../../transaction.service';
+import { TransactionFlowPort, TransactionFlowSummaryItem } from '../transaction-flow.port';
 
 @Component({
   selector: 'app-transaction-flow-summary',
@@ -22,15 +23,16 @@ export class TransactionFlowSummaryComponent {
     private readonly matSnackBar: MatSnackBar
   ) {}
 
-  readonly dto = this.transactionFlowPort.getDto();
+  readonly summary$ = this.transactionFlowPort.selectSummary();
   readonly messages = this.transactionFlowPort.messages;
+  readonly trackBySummary = trackByFactory<TransactionFlowSummaryItem>('key');
 
   loading = false;
 
   create(): void {
     this.loading = true;
-    this.transactionService
-      .create(this.transactionFlowPort.getIdUser()!, this.dto)
+    this.transactionFlowPort
+      .save(this.transactionFlowPort.getIdUser()!, this.transactionFlowPort.getDto())
       .pipe(
         finalize(() => {
           this.loading = false;

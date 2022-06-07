@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { TransactionCard } from '@model/transaction-card';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
+import { TransactionUpdateDto } from '@model/transaction-update.dto';
 import { TransactionWithItems } from '@model/transaction-with-items';
 import { CacheService } from '@shared/cache/cache.service';
 
@@ -31,6 +32,15 @@ export class TransactionService {
 
   delete(idUser: string, idTransaction: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.path(idUser)}/${idTransaction}`).pipe(
+      this._cache.burstMultiple([
+        [idUser, idTransaction],
+        [idUser, 'cards'],
+      ])
+    );
+  }
+
+  update(idUser: string, idTransaction: string, dto: TransactionUpdateDto): Observable<TransactionCard> {
+    return this.httpClient.patch<TransactionCard>(`${this.path(idUser)}/${idTransaction}`, dto).pipe(
       this._cache.burstMultiple([
         [idUser, idTransaction],
         [idUser, 'cards'],

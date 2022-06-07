@@ -6,8 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgxCurrencyModule } from 'ngx-currency';
 
 import { TransactionFlowDateAndTotalTitleResolver } from './transaction-flow-date-and-total-title.resolver';
@@ -26,6 +28,7 @@ import { TransactionFlowSummaryComponent } from './transaction-flow-summary/tran
 import { TransactionFlowComponent } from './transaction-flow.component';
 
 import { GoBackButtonComponent } from '@shared/components/go-back-button/go-back-button.component';
+import { UtilityDirective } from '@shared/components/utilities/utility.directive';
 import { AutoFocusDirective } from '@shared/directives/auto-focus.directive';
 import { ButtonActionsDirective } from '@shared/directives/button-actions.directive';
 import { MaskDirective } from '@shared/directives/mask.directive';
@@ -56,6 +59,9 @@ import { DateBrPipe } from '@shared/pipes/date-br-pipe/date-br.pipe';
     DateBrPipe,
     MatSnackBarModule,
     AutoFocusDirective,
+    MatIconModule,
+    UtilityDirective,
+    MatTooltipModule,
   ],
   providers: [
     TransactionFlowResetStoreGuard,

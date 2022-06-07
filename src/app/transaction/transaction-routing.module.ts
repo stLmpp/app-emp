@@ -6,8 +6,6 @@ import { TransactionStoreService } from './transaction-store.service';
 import { TransactionWithItemsResolver } from './transaction-with-items.resolver';
 import { TransactionComponent } from './transaction.component';
 
-import { RouteDataEnum } from '@model/route-data.enum';
-
 @Injectable({ providedIn: 'root' })
 export class TransactionTitleResolver implements Resolve<string> {
   constructor(private readonly transactionStoreService: TransactionStoreService) {}
@@ -20,14 +18,16 @@ export class TransactionTitleResolver implements Resolve<string> {
 const routes: Routes = [
   {
     path: '',
-    resolve: {
-      [RouteDataEnum.transactionWithItems]: TransactionWithItemsResolver,
-    },
+    resolve: [TransactionWithItemsResolver],
     children: [
       {
         path: '',
         component: TransactionComponent,
         title: TransactionTitleResolver,
+      },
+      {
+        path: 'edit',
+        loadChildren: () => import('./transaction-edit/transaction-edit.module').then(m => m.TransactionEditModule),
       },
     ],
   },

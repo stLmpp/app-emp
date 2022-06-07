@@ -1,8 +1,10 @@
+import { formatCurrency } from '@angular/common';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { TransactionCard } from '@model/transaction-card';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
+import { formatDateBr } from '@shared/pipes/date-br-pipe/date-br.pipe';
 
 export interface TransactionFlowMessages {
   title: string;
@@ -14,12 +16,20 @@ export interface TransactionFlowMessages {
   personPageTitle: string;
   dateAndTotalPageTitle: string;
   summaryPageTitle: string;
+  backButtonTooltip: string;
 }
 
-// TODO add edit adapter
+export interface TransactionFlowSummaryItem {
+  key: keyof TransactionCreateDto;
+  value?: string | null;
+  title: string;
+}
 
 export abstract class TransactionFlowPort {
+  protected constructor(private readonly locale: string) {}
+
   abstract readonly messages: TransactionFlowMessages;
+  readonly showResetButton: boolean = false;
 
   isNameAndDescriptionValid(): boolean {
     const { name } = this.getDto();
@@ -45,6 +55,18 @@ export abstract class TransactionFlowPort {
     return this.isPersonValid() && total >= TransactionCreateDto.totalMin && total <= TransactionCreateDto.totalMax;
   }
 
+  selectSummary(): Observable<TransactionFlowSummaryItem[]> {
+    return this.selectDto().pipe(
+      map(({ name, description, personName, date, total }) => [
+        { key: 'name', title: 'Name', value: name },
+        { key: 'description', title: 'Description', value: description },
+        { key: 'personName', title: 'Person', value: personName },
+        { key: 'date', title: 'Date', value: formatDateBr(date, this.locale) },
+        { key: 'total', title: 'Total', value: formatCurrency(total, this.locale, 'R$') },
+      ])
+    );
+  }
+
   abstract getDto(): TransactionCreateDto;
   abstract setNameAndDescription(dto: Pick<TransactionCreateDto, 'name' | 'description'>): void;
   abstract setPerson(dto: Pick<TransactionCreateDto, 'personName' | 'idPerson'>): void;
@@ -54,4 +76,5 @@ export abstract class TransactionFlowPort {
   abstract save(idUser: string, dto: TransactionCreateDto): Observable<TransactionCard>;
   abstract reset(): void;
   abstract getMiddlePath(route: ActivatedRouteSnapshot): string[];
+  abstract selectDto(): Observable<TransactionCreateDto>;
 }

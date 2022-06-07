@@ -12,15 +12,17 @@ import {
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { debounceTime, filter, map, Observable, switchMap, tap } from 'rxjs';
+import { debounceTime, filter, Observable, switchMap, tap } from 'rxjs';
 import { isNotNil } from 'st-utils';
 
 import { PersonService } from '../../../person/person.service';
-import { TransactionFlowPort } from '../../transaction-flow.port';
+import { TransactionFlowPort } from '../transaction-flow.port';
 
 import { Person } from '@model/person';
 import { TransactionCreateDto } from '@model/transaction-create.dto';
 import { BaseComponent } from '@shared/components/base-component';
+import { distinctUntilObjectChanged } from '@shared/utils/distinct-until-object-changed';
+import { includeKeys } from '@shared/utils/include-keys';
 import { trackById } from '@shared/utils/track-by';
 
 interface Form {
@@ -87,13 +89,12 @@ export class TransactionFlowPersonComponent extends BaseComponent implements OnI
   }
 
   private _getForm(): FormGroup<Form> {
-    const { idPerson, personName } = this.transactionFlowPort.getDto();
     return this.formBuilder.group<Form>(
       {
-        idPerson: this.formBuilder.control(idPerson, {
+        idPerson: this.formBuilder.control(null, {
           validators: [Validators.maxLength(TransactionCreateDto.idPersonMaxLength)],
         }),
-        personName: this.formBuilder.control(personName, {
+        personName: this.formBuilder.control(null, {
           validators: [
             Validators.minLength(TransactionCreateDto.personNameMinLength),
             Validators.maxLength(TransactionCreateDto.personNameMaxLength),
@@ -128,13 +129,15 @@ export class TransactionFlowPersonComponent extends BaseComponent implements OnI
   }
 
   ngOnInit(): void {
-    this.form.valueChanges
-      .pipe(
-        this.untilDestroy(),
-        map(() => this.form.getRawValue())
-      )
-      .subscribe(state => {
-        this.transactionFlowPort.setPerson(state);
+    this.transactionFlowPort
+      .selectDto()
+      .pipe(this.untilDestroy(), includeKeys(['idPerson', 'personName']), distinctUntilObjectChanged())
+      .subscribe(values => {
+        this.form.patchValue(values);
       });
+  }
+
+  save(): void {
+    this.transactionFlowPort.setPerson(this.form.getRawValue());
   }
 }

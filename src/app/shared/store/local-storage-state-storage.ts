@@ -140,7 +140,7 @@ export class LocalStorageStateStorage<T extends Record<string, unknown>> impleme
 
   static persistStore<S extends Store>(
     store: S,
-    options: LocalStorageStateStorageConfig<S['state']>
+    options: LocalStorageStateStorageConfig<S['state']> = {}
   ): ReturnType<typeof persistState> {
     return persistState(store, {
       storage: new LocalStorageStateStorage(options),
